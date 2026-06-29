@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import clsx from 'clsx';
 import ImageWithFallback from '@/components/ui/ImageWithFallback';
 import PriceDisplay from '@/components/ui/PriceDisplay';
 import Badge from '@/components/ui/Badge';
@@ -25,9 +26,10 @@ interface Product {
 interface ProductCardProps {
   product: Product;
   badge?: 'new' | 'hot' | 'sale' | 'bestseller' | null;
+  variant?: 'default' | 'featured';
 }
 
-export default function ProductCard({ product, badge }: ProductCardProps) {
+export default function ProductCard({ product, badge, variant = 'default' }: ProductCardProps) {
   const { addItem } = useCart();
   const { addToast } = useToast();
 
@@ -67,41 +69,63 @@ export default function ProductCard({ product, badge }: ProductCardProps) {
     }
   };
 
+  const isFeatured = variant === 'featured';
+
   return (
     <Link
       href={`/products/${product.slug}`}
-      className="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+      className={clsx(
+        'group block bg-white overflow-hidden',
+        'card-lift ring-1 ring-[var(--color-border)]/30',
+        isFeatured
+          ? 'rounded-2xl md:col-span-2'
+          : 'rounded-2xl'
+      )}
     >
-      <div className="relative aspect-square overflow-hidden bg-gray-100">
+      <div className={clsx('relative overflow-hidden bg-gray-100', isFeatured ? 'aspect-[16/9]' : 'aspect-square')}>
         <ImageWithFallback
           src={imageUrl}
           alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-[var(--ease-out-expo)]"
           wrapperClassName="w-full h-full"
         />
+        {/* Hover gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         {displayBadge && (
-          <div className="absolute top-2 left-2">
+          <div className="absolute top-3 left-3">
             <Badge variant={displayBadge}>{badgeLabels[displayBadge]}</Badge>
           </div>
         )}
-        {/* Quick add button */}
+        {/* Quick add button - glass morphism */}
         <button
+          type="button"
           onClick={handleAddToCart}
-          className="absolute bottom-2 right-2 w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-[var(--color-accent)] hover:text-white translate-y-2 group-hover:translate-y-0"
-          aria-label="Add to cart"
+          className="absolute bottom-3 right-3 w-10 h-10 glass rounded-full flex items-center justify-center
+                     scale-75 opacity-0 group-hover:scale-100 group-hover:opacity-100
+                     transition-all duration-300 ease-[var(--ease-out-back)]
+                     hover:bg-[var(--color-accent)] hover:text-white hover:border-[var(--color-accent)]
+                     active:scale-90 shadow-lg"
+          aria-label="加入购物车"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
           </svg>
         </button>
       </div>
-      <div className="p-3 md:p-4">
-        <h3 className="text-sm md:text-base font-medium text-[var(--color-text)] line-clamp-2 mb-1.5 group-hover:text-[var(--color-accent)] transition-colors min-h-[2.5rem]">
+      <div className={clsx('p-4', isFeatured && 'md:p-6')}>
+        <h3 className={clsx(
+          'font-medium text-[var(--color-text)] line-clamp-2 mb-2 group-hover:text-[var(--color-accent)] transition-colors',
+          isFeatured ? 'text-lg md:text-xl min-h-[3.5rem]' : 'text-sm md:text-base min-h-[2.5rem]'
+        )}>
           {product.name}
         </h3>
-        <PriceDisplay price={product.price} originalPrice={product.original_price} size="sm" />
-        <p className="text-xs text-[var(--color-text-light)] mt-1">
-          {product.sales_count} 已售
+        <PriceDisplay
+          price={product.price}
+          originalPrice={product.original_price}
+          size={isFeatured ? 'md' : 'sm'}
+        />
+        <p className="text-xs text-[var(--color-text-light)] mt-2">
+          {product.sales_count.toLocaleString()} 已售
         </p>
       </div>
     </Link>

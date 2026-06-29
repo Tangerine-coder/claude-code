@@ -12,16 +12,21 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: 'bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-dark)] active:scale-[0.98]',
-  secondary: 'bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-light)] active:scale-[0.98]',
-  outline: 'border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white',
-  ghost: 'text-[var(--color-text-light)] hover:text-[var(--color-text)] hover:bg-gray-100',
-  danger: 'bg-[var(--color-danger)] text-white hover:bg-red-700 active:scale-[0.98]',
+  primary:
+    'bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-dark)] hover:shadow-[var(--shadow-accent)] hover:brightness-105 active:scale-[0.97] shadow-sm',
+  secondary:
+    'bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-light)] hover:shadow-lg active:scale-[0.97] shadow-sm',
+  outline:
+    'border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white hover:shadow-md active:scale-[0.97]',
+  ghost:
+    'text-[var(--color-text-light)] hover:text-[var(--color-text)] hover:bg-gray-100 active:scale-[0.97]',
+  danger:
+    'bg-[var(--color-danger)] text-white hover:bg-red-700 hover:shadow-lg active:scale-[0.97] shadow-sm',
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'px-3 py-1.5 text-sm rounded-md',
-  md: 'px-5 py-2.5 text-sm rounded-lg',
+  sm: 'px-3 py-1.5 text-sm rounded-lg',
+  md: 'px-5 py-2.5 text-sm rounded-xl',
   lg: 'px-8 py-3.5 text-base rounded-xl',
 };
 
@@ -38,8 +43,9 @@ export default function Button({
   return (
     <button
       className={clsx(
-        'inline-flex items-center justify-center gap-2 font-semibold transition-all duration-200 select-none',
-        'disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
+        'inline-flex items-center justify-center gap-2 font-semibold select-none',
+        'transition-all duration-[var(--duration-normal)] ease-[var(--ease-out-expo)]',
+        'disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none',
         variantClasses[variant],
         sizeClasses[size],
         className

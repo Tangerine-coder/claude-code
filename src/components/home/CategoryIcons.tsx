@@ -36,10 +36,10 @@ export default function CategoryIcons() {
           <Link
             key={cat.id}
             href={`/categories/${cat.slug}`}
-            className="group flex flex-col items-center p-4 md:p-6 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
+            className="group flex flex-col items-center p-4 md:p-6 bg-white rounded-2xl shadow-sm card-lift"
           >
-            <div className="w-14 h-14 md:w-20 md:h-20 rounded-2xl bg-[var(--color-bg)] overflow-hidden mb-3 group-hover:ring-2 ring-[var(--color-accent)] transition-all">
-              <img src={cat.image} alt={cat.name} className="w-full h-full object-cover" />
+            <div className="w-14 h-14 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-[var(--color-bg)] to-white overflow-hidden mb-3 group-hover:ring-4 ring-[var(--color-accent)]/20 transition-all duration-500">
+              <img src={cat.image} alt={cat.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
             </div>
             <span className="text-sm md:text-base font-semibold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
               {cat.name}

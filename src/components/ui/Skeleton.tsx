@@ -8,7 +8,8 @@ interface SkeletonProps {
 }
 
 export default function Skeleton({ variant = 'text', width, height, className }: SkeletonProps) {
-  const base = 'animate-pulse bg-gray-200 rounded';
+  // Premium shimmer: gradient sweep instead of basic pulse
+  const base = 'bg-gradient-to-r from-gray-100 via-gray-50 to-gray-100 bg-[length:200%_100%] animate-[shimmer_2s_ease-in-out_infinite] rounded';
 
   if (variant === 'circle') {
     return <div className={clsx(base, 'rounded-full', className)} style={{ width: width || '40px', height: height || '40px' }} />;
@@ -20,7 +21,7 @@ export default function Skeleton({ variant = 'text', width, height, className }:
 
   if (variant === 'card') {
     return (
-      <div className={clsx('bg-white rounded-xl overflow-hidden shadow-sm', className)}>
+      <div className={clsx('bg-white rounded-2xl overflow-hidden shadow-sm', className)}>
         <div className={clsx(base, 'aspect-square w-full rounded-none')} />
         <div className="p-4 space-y-2">
           <div className={clsx(base, 'h-4 w-3/4')} />

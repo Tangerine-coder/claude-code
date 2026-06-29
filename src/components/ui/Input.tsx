@@ -25,18 +25,20 @@ export default function Input({ label, error, icon, className, id, ...props }: I
         <input
           id={inputId}
           className={clsx(
-            'w-full px-4 py-2.5 text-sm border border-[var(--color-border)] rounded-lg',
-            'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-transparent',
-            'transition-all duration-200 placeholder:text-[var(--color-text-lighter)]',
-            'bg-white text-[var(--color-text)]',
+            'w-full px-4 py-3 text-sm border border-[var(--color-border)] rounded-xl bg-white',
+            'text-[var(--color-text)] placeholder:text-[var(--color-text-lighter)]',
+            'hover:border-[var(--color-text-lighter)]',
+            'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)]',
+            'focus:shadow-[inset_0_1px_3px_rgba(0,0,0,0.04)]',
+            'transition-all duration-[var(--duration-normal)]',
             icon && 'pl-10',
-            error && 'border-[var(--color-danger)] focus:ring-[var(--color-danger)]',
+            error && 'border-[var(--color-danger)] focus:ring-[var(--color-danger)]/30 focus:border-[var(--color-danger)]',
             className
           )}
           {...props}
         />
       </div>
-      {error && <p className="mt-1 text-xs text-[var(--color-danger)]">{error}</p>}
+      {error && <p className="mt-1.5 text-xs text-[var(--color-danger)]">{error}</p>}
     </div>
   );
 }
@@ -64,9 +66,10 @@ export function Select({
       <select
         id={selectId}
         className={clsx(
-          'w-full px-4 py-2.5 text-sm border border-[var(--color-border)] rounded-lg bg-white',
-          'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-transparent',
-          'transition-all duration-200',
+          'w-full px-4 py-3 text-sm border border-[var(--color-border)] rounded-xl bg-white',
+          'hover:border-[var(--color-text-lighter)]',
+          'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)]',
+          'transition-all duration-[var(--duration-normal)]',
           error && 'border-[var(--color-danger)]',
           className
         )}
@@ -76,7 +79,7 @@ export function Select({
           <option key={opt.value} value={opt.value}>{opt.label}</option>
         ))}
       </select>
-      {error && <p className="mt-1 text-xs text-[var(--color-danger)]">{error}</p>}
+      {error && <p className="mt-1.5 text-xs text-[var(--color-danger)]">{error}</p>}
     </div>
   );
 }
@@ -99,15 +102,16 @@ export function Textarea({
       <textarea
         id={textareaId}
         className={clsx(
-          'w-full px-4 py-2.5 text-sm border border-[var(--color-border)] rounded-lg',
-          'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-transparent',
-          'transition-all duration-200 resize-y min-h-[100px]',
+          'w-full px-4 py-3 text-sm border border-[var(--color-border)] rounded-xl bg-white',
+          'hover:border-[var(--color-text-lighter)]',
+          'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)]',
+          'transition-all duration-[var(--duration-normal)] resize-y min-h-[100px]',
           error && 'border-[var(--color-danger)]',
           className
         )}
         {...props}
       />
-      {error && <p className="mt-1 text-xs text-[var(--color-danger)]">{error}</p>}
+      {error && <p className="mt-1.5 text-xs text-[var(--color-danger)]">{error}</p>}
     </div>
   );
 }

@@ -68,13 +68,13 @@ export default function Header() {
   return (
     <>
       {/* Top announcement bar */}
-      <div className="bg-[var(--color-primary)] text-white text-xs text-center py-1.5 px-4 font-medium">
+      <div className="gradient-primary text-white text-xs text-center py-1.5 px-4 font-medium tracking-wider">
         🎉 全场商品免费！立即抢购
       </div>
 
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 bg-white ${
-          isScrolled ? 'shadow-md' : 'shadow-sm'
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          isScrolled ? 'backdrop-blur-xl bg-white/90 shadow-lg' : 'bg-white shadow-sm'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4">

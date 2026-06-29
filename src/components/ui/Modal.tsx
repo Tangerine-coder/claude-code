@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 
 interface ModalProps {
@@ -39,29 +40,53 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md', s
     return () => window.removeEventListener('keydown', handleEsc);
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
-
   return (
-    <div
-      ref={overlayRef}
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
-      onClick={(e) => { if (e.target === overlayRef.current) onClose(); }}
-    >
-      <div className={clsx('w-full bg-white rounded-2xl shadow-2xl overflow-hidden', sizeClasses[size])}>
-        {(title || showClose) && (
-          <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-border)]">
-            {title && <h2 className="text-lg font-bold text-[var(--color-text)]">{title}</h2>}
-            {showClose && (
-              <button onClick={onClose} className="text-[var(--color-text-light)] hover:text-[var(--color-text)] transition-colors p-1 rounded-lg hover:bg-gray-100">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          ref={overlayRef}
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          onClick={(e) => { if (e.target === overlayRef.current) onClose(); }}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-md" />
+          {/* Panel */}
+          <motion.div
+            className={clsx(
+              'relative w-full bg-white rounded-2xl shadow-2xl overflow-hidden',
+              'ring-1 ring-white/20',
+              sizeClasses[size]
             )}
-          </div>
-        )}
-        <div className="p-6">{children}</div>
-      </div>
-    </div>
+            initial={{ opacity: 0, scale: 0.95, y: 8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 8 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {(title || showClose) && (
+              <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-border)]">
+                {title && <h2 className="text-lg font-bold text-[var(--color-text)]">{title}</h2>}
+                {showClose && (
+                  <button
+                    type="button"
+                    aria-label="关闭"
+                    onClick={onClose}
+                    className="text-[var(--color-text-light)] hover:text-[var(--color-text)] transition-colors p-1.5 rounded-lg hover:bg-gray-100 active:scale-90"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+            )}
+            <div className="p-6 max-h-[80vh] overflow-y-auto">{children}</div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
