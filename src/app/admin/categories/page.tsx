@@ -184,7 +184,7 @@ export default function AdminCategoriesPage() {
           <Skeleton variant="rect" width="200px" height="36px" />
           <Skeleton variant="rect" width="120px" height="36px" />
         </div>
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+        <div className="glass-surface rounded-xl shadow-sm overflow-hidden">
           <div className="p-6 space-y-3">
             {Array.from({ length: 6 }, (_, i) => (
               <Skeleton key={i} variant="rect" height="48px" />
@@ -215,7 +215,7 @@ export default function AdminCategoriesPage() {
           onAction={openAddModal}
         />
       ) : (
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+        <div className="glass-surface rounded-xl shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>

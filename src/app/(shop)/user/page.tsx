@@ -86,13 +86,13 @@ export default function UserProfilePage() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-white rounded-xl border border-[var(--color-border)] p-5">
+            <div key={i} className="glass-surface rounded-xl border border-[var(--color-border)] p-5">
               <Skeleton variant="rect" height="24px" width="80px" />
               <Skeleton variant="text" width="40px" className="mt-3" />
             </div>
           ))}
         </div>
-        <div className="bg-white rounded-xl border border-[var(--color-border)] p-6">
+        <div className="glass-surface rounded-xl border border-[var(--color-border)] p-6">
           <Skeleton variant="text" width="160px" />
           {[1, 2, 3].map((i) => (
             <div key={i} className="mt-4 py-4 border-b border-[var(--color-border)]">
@@ -117,7 +117,7 @@ export default function UserProfilePage() {
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl border border-[var(--color-border)] p-5 hover:shadow-md transition-shadow">
+        <div className="glass-surface rounded-xl border border-[var(--color-border)] p-5 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-[var(--color-text-light)]">总订单</p>
@@ -128,7 +128,7 @@ export default function UserProfilePage() {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-[var(--color-border)] p-5 hover:shadow-md transition-shadow">
+        <div className="glass-surface rounded-xl border border-[var(--color-border)] p-5 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-[var(--color-text-light)]">收藏商品</p>
@@ -139,7 +139,7 @@ export default function UserProfilePage() {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-[var(--color-border)] p-5 hover:shadow-md transition-shadow">
+        <div className="glass-surface rounded-xl border border-[var(--color-border)] p-5 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-[var(--color-text-light)]">收货地址</p>
@@ -153,7 +153,7 @@ export default function UserProfilePage() {
       </div>
 
       {/* Recent Orders */}
-      <div className="bg-white rounded-xl border border-[var(--color-border)] overflow-hidden">
+      <div className="glass-surface rounded-xl border border-[var(--color-border)] overflow-hidden">
         <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-border)]">
           <h2 className="font-semibold text-[var(--color-text)]">最近订单</h2>
           <Link href="/user/orders" className="text-sm text-[var(--color-accent)] hover:underline flex items-center gap-1">

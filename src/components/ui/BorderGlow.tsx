@@ -77,7 +77,7 @@ export default function BorderGlow({
   className = '',
   edgeSensitivity = 30,
   glowColor = '18 100 60',
-  backgroundColor = '#FFFFFF',
+  backgroundColor = 'rgba(255,255,255,0.65)',
   borderRadius = 24,
   glowRadius = 40,
   glowIntensity = 1.5,

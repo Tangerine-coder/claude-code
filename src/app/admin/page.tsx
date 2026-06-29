@@ -42,7 +42,7 @@ const statusBadge: Record<string, { label: string; variant: 'default' | 'new' | 
 
 function StatCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="bg-white rounded-xl border border-[var(--color-border)] p-5 flex items-center gap-4">
+    <div className="glass-surface rounded-xl border border-[var(--color-border)] p-5 flex items-center gap-4">
       <div className="w-12 h-12 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)] flex-shrink-0">
         {icon}
       </div>
@@ -94,7 +94,7 @@ export default function AdminDashboardPage() {
         <h1 className="text-2xl font-bold text-[var(--color-text)]">控制台</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="bg-white rounded-xl border border-[var(--color-border)] p-5 animate-pulse">
+            <div key={i} className="glass-surface rounded-xl border border-[var(--color-border)] p-5 animate-pulse">
               <div className="w-12 h-12 rounded-xl bg-gray-200 mb-3" />
               <div className="h-3 bg-gray-200 rounded w-2/3 mb-2" />
               <div className="h-6 bg-gray-200 rounded w-1/2" />
@@ -171,7 +171,7 @@ export default function AdminDashboardPage() {
       {/* Content grids */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Orders */}
-        <div className="lg:col-span-2 bg-white rounded-xl border border-[var(--color-border)]">
+        <div className="lg:col-span-2 glass-surface rounded-xl border border-[var(--color-border)]">
           <div className="px-5 py-4 border-b border-[var(--color-border)]">
             <h2 className="font-semibold text-[var(--color-text)]">最近订单</h2>
           </div>
@@ -214,7 +214,7 @@ export default function AdminDashboardPage() {
         {/* Side panels */}
         <div className="space-y-6">
           {/* Top Products */}
-          <div className="bg-white rounded-xl border border-[var(--color-border)]">
+          <div className="glass-surface rounded-xl border border-[var(--color-border)]">
             <div className="px-5 py-4 border-b border-[var(--color-border)]">
               <h2 className="font-semibold text-[var(--color-text)]">热销商品排行</h2>
             </div>
@@ -236,7 +236,7 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Low Stock Alerts */}
-          <div className="bg-white rounded-xl border border-[var(--color-border)]">
+          <div className="glass-surface rounded-xl border border-[var(--color-border)]">
             <div className="px-5 py-4 border-b border-[var(--color-border)]">
               <h2 className="font-semibold text-[var(--color-text)]">库存预警</h2>
             </div>

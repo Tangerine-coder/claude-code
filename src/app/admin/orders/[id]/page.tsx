@@ -153,7 +153,7 @@ export default function AdminOrderDetailPage() {
     return (
       <div className="p-6 space-y-6">
         <Skeleton variant="rect" width="300px" height="32px" />
-        <div className="bg-white rounded-xl shadow-sm p-6 space-y-4">
+        <div className="glass-surface rounded-xl shadow-sm p-6 space-y-4">
           <Skeleton variant="rect" height="24px" />
           <Skeleton variant="rect" height="24px" />
           <Skeleton variant="rect" height="200px" />
@@ -196,7 +196,7 @@ export default function AdminOrderDetailPage() {
       </div>
 
       {/* Order Header */}
-      <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+      <div className="glass-surface rounded-xl shadow-sm p-6 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h1 className="text-xl font-bold text-[var(--color-text)]">订单 {order.order_no}</h1>
@@ -240,7 +240,7 @@ export default function AdminOrderDetailPage() {
         {/* Items & Summary */}
         <div className="lg:col-span-2 space-y-6">
           {/* Order Items */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+          <div className="glass-surface rounded-xl shadow-sm overflow-hidden">
             <div className="px-6 py-4 border-b border-[var(--color-border)]">
               <h2 className="font-bold text-[var(--color-text)]">商品清单</h2>
             </div>
@@ -293,7 +293,7 @@ export default function AdminOrderDetailPage() {
         {/* Sidebar: Customer Info, Shipping Address & Totals */}
         <div className="space-y-6">
           {/* Customer Info */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="glass-surface rounded-xl shadow-sm p-6">
             <h2 className="font-bold text-[var(--color-text)] mb-3">客户信息</h2>
             {order.customer_name ? (
               <div className="text-sm text-[var(--color-text-light)] space-y-1">
@@ -308,7 +308,7 @@ export default function AdminOrderDetailPage() {
 
           {/* Shipping Address */}
           {shippingAddress && (
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="glass-surface rounded-xl shadow-sm p-6">
               <h2 className="font-bold text-[var(--color-text)] mb-3">收货信息</h2>
               <div className="text-sm text-[var(--color-text-light)] space-y-1">
                 <p className="font-medium text-[var(--color-text)]">{shippingAddress.receiver_name}</p>
@@ -323,7 +323,7 @@ export default function AdminOrderDetailPage() {
           )}
 
           {/* Order Totals */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="glass-surface rounded-xl shadow-sm p-6">
             <h2 className="font-bold text-[var(--color-text)] mb-3">费用明细</h2>
             <dl className="space-y-2 text-sm">
               <div className="flex justify-between">
@@ -354,7 +354,7 @@ export default function AdminOrderDetailPage() {
           </div>
 
           {/* Payment Info */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="glass-surface rounded-xl shadow-sm p-6">
             <h2 className="font-bold text-[var(--color-text)] mb-3">支付信息</h2>
             <dl className="space-y-2 text-sm">
               <div className="flex justify-between">

@@ -102,7 +102,7 @@ export default function SettingsPage() {
       <h1 className="text-2xl font-bold text-[var(--color-text)]">账户设置</h1>
 
       {/* Profile Section */}
-      <div className="bg-white rounded-xl border border-[var(--color-border)] p-6">
+      <div className="glass-surface rounded-xl border border-[var(--color-border)] p-6">
         <div className="flex items-center gap-3 mb-6">
           <FiUser className="w-5 h-5 text-[var(--color-accent)]" />
           <h2 className="text-lg font-semibold text-[var(--color-text)]">修改资料</h2>
@@ -130,7 +130,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Password Section */}
-      <div className="bg-white rounded-xl border border-[var(--color-border)] p-6">
+      <div className="glass-surface rounded-xl border border-[var(--color-border)] p-6">
         <div className="flex items-center gap-3 mb-6">
           <FiLock className="w-5 h-5 text-[var(--color-accent)]" />
           <h2 className="text-lg font-semibold text-[var(--color-text)]">修改密码</h2>

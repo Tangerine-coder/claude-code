@@ -158,7 +158,7 @@ export default function AddressesPage() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[1, 2].map((i) => (
-            <div key={i} className="bg-white rounded-xl border border-[var(--color-border)] p-5 space-y-2">
+            <div key={i} className="glass-surface rounded-xl border border-[var(--color-border)] p-5 space-y-2">
               <Skeleton variant="text" width="60%" />
               <Skeleton variant="text" width="80%" />
               <Skeleton variant="text" width="40%" />
@@ -189,7 +189,7 @@ export default function AddressesPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {addresses.map((addr) => (
-            <div key={addr.id} className="bg-white rounded-xl border border-[var(--color-border)] p-5 hover:shadow-md transition-shadow">
+            <div key={addr.id} className="glass-surface rounded-xl border border-[var(--color-border)] p-5 hover:shadow-md transition-shadow">
               <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <h3 className="font-semibold text-[var(--color-text)]">{addr.receiver_name}</h3>

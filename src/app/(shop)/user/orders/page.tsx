@@ -91,7 +91,7 @@ export default function OrdersPage() {
           ))}
         </div>
         {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-white rounded-xl border border-[var(--color-border)] p-5">
+          <div key={i} className="glass-surface rounded-xl border border-[var(--color-border)] p-5">
             <div className="flex justify-between">
               <div>
                 <Skeleton variant="text" width="160px" />
@@ -142,7 +142,7 @@ export default function OrdersPage() {
             <Link
               key={order.id}
               href={`/user/orders/${order.id}`}
-              className="block bg-white rounded-xl border border-[var(--color-border)] p-5 hover:shadow-md transition-all duration-200 hover:border-[var(--color-accent)]"
+              className="block glass-surface rounded-xl border border-[var(--color-border)] p-5 hover:shadow-md transition-all duration-200 hover:border-[var(--color-accent)]"
             >
               <div className="flex items-start justify-between">
                 <div>

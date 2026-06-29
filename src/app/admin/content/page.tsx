@@ -287,7 +287,7 @@ export default function AdminContentPage() {
         </div>
 
         {bannersLoading ? (
-          <div className="bg-white rounded-xl shadow-sm p-6 space-y-3">
+          <div className="glass-surface rounded-xl shadow-sm p-6 space-y-3">
             {Array.from({ length: 3 }, (_, i) => (
               <Skeleton key={i} variant="rect" height="64px" />
             ))}
@@ -300,7 +300,7 @@ export default function AdminContentPage() {
             onAction={openBannerAdd}
           />
         ) : (
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+          <div className="glass-surface rounded-xl shadow-sm overflow-hidden">
             <table className="w-full">
               <thead>
                 <tr className="border-b bg-gray-50">
@@ -441,7 +441,7 @@ export default function AdminContentPage() {
         </div>
 
         {announcementsLoading ? (
-          <div className="bg-white rounded-xl shadow-sm p-6 space-y-3">
+          <div className="glass-surface rounded-xl shadow-sm p-6 space-y-3">
             {Array.from({ length: 3 }, (_, i) => (
               <Skeleton key={i} variant="rect" height="56px" />
             ))}
@@ -454,7 +454,7 @@ export default function AdminContentPage() {
             onAction={openAnnouncementAdd}
           />
         ) : (
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+          <div className="glass-surface rounded-xl shadow-sm overflow-hidden">
             <table className="w-full">
               <thead>
                 <tr className="border-b bg-gray-50">

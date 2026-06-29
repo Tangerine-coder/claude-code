@@ -57,8 +57,8 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md', s
           {/* Panel */}
           <motion.div
             className={clsx(
-              'relative w-full bg-white rounded-2xl shadow-2xl overflow-hidden',
-              'ring-1 ring-white/20',
+              'relative w-full glass-surface rounded-2xl shadow-2xl overflow-hidden',
+              'ring-1 ring-white/30',
               sizeClasses[size]
             )}
             initial={{ opacity: 0, scale: 0.95, y: 8 }}

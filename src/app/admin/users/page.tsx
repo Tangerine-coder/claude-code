@@ -85,7 +85,7 @@ export default function AdminUsersPage() {
     return (
       <div className="p-6 space-y-4">
         <Skeleton variant="rect" width="200px" height="32px" />
-        <div className="bg-white rounded-xl shadow-sm p-6 space-y-3">
+        <div className="glass-surface rounded-xl shadow-sm p-6 space-y-3">
           {Array.from({ length: 6 }, (_, i) => (
             <Skeleton key={i} variant="rect" height="52px" />
           ))}
@@ -104,7 +104,7 @@ export default function AdminUsersPage() {
       {users.length === 0 ? (
         <EmptyState title="暂无用户" description="用户账户将在这里显示。" />
       ) : (
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+        <div className="glass-surface rounded-xl shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>

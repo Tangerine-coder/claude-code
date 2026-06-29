@@ -241,7 +241,7 @@ export default function ProductForm({ initialData, isEdit = false }: ProductForm
       )}
 
       {/* Basic info */}
-      <div className="bg-white rounded-xl border border-[var(--color-border)] p-5 space-y-4">
+      <div className="glass-surface rounded-xl border border-[var(--color-border)] p-5 space-y-4">
         <h2 className="font-semibold text-[var(--color-text)]">基本信息</h2>
 
         <Input
@@ -261,7 +261,7 @@ export default function ProductForm({ initialData, isEdit = false }: ProductForm
       </div>
 
       {/* Pricing & Inventory */}
-      <div className="bg-white rounded-xl border border-[var(--color-border)] p-5 space-y-4">
+      <div className="glass-surface rounded-xl border border-[var(--color-border)] p-5 space-y-4">
         <h2 className="font-semibold text-[var(--color-text)]">价格与库存</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Input
@@ -304,7 +304,7 @@ export default function ProductForm({ initialData, isEdit = false }: ProductForm
       </div>
 
       {/* Category & Brand */}
-      <div className="bg-white rounded-xl border border-[var(--color-border)] p-5 space-y-4">
+      <div className="glass-surface rounded-xl border border-[var(--color-border)] p-5 space-y-4">
         <h2 className="font-semibold text-[var(--color-text)]">分类与品牌</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Select
@@ -326,7 +326,7 @@ export default function ProductForm({ initialData, isEdit = false }: ProductForm
       </div>
 
       {/* Images */}
-      <div className="bg-white rounded-xl border border-[var(--color-border)] p-5 space-y-4">
+      <div className="glass-surface rounded-xl border border-[var(--color-border)] p-5 space-y-4">
         <h2 className="font-semibold text-[var(--color-text)]">商品图片</h2>
         <Input
           label="商品图片（多个URL用逗号分隔）"
@@ -351,7 +351,7 @@ export default function ProductForm({ initialData, isEdit = false }: ProductForm
       </div>
 
       {/* Specifications */}
-      <div className="bg-white rounded-xl border border-[var(--color-border)] p-5 space-y-4">
+      <div className="glass-surface rounded-xl border border-[var(--color-border)] p-5 space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold text-[var(--color-text)]">商品参数</h2>
           <Button type="button" variant="outline" size="sm" onClick={addSpecRow} icon={
@@ -386,7 +386,7 @@ export default function ProductForm({ initialData, isEdit = false }: ProductForm
       </div>
 
       {/* Tags & Badges */}
-      <div className="bg-white rounded-xl border border-[var(--color-border)] p-5 space-y-4">
+      <div className="glass-surface rounded-xl border border-[var(--color-border)] p-5 space-y-4">
         <h2 className="font-semibold text-[var(--color-text)]">标签与标记</h2>
         <Input
           label="标签（逗号分隔）"
@@ -426,7 +426,7 @@ export default function ProductForm({ initialData, isEdit = false }: ProductForm
       </div>
 
       {/* Status & Submit */}
-      <div className="bg-white rounded-xl border border-[var(--color-border)] p-5 space-y-4">
+      <div className="glass-surface rounded-xl border border-[var(--color-border)] p-5 space-y-4">
         <h2 className="font-semibold text-[var(--color-text)]">发布状态</h2>
         <Select
           label="状态"

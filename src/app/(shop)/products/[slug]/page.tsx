@@ -448,7 +448,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 {product.reviews && product.reviews.length > 0 ? (
                   <div className="space-y-4">
                     {product.reviews.map((review) => (
-                      <div key={review.id} className="bg-white rounded-xl p-5 shadow-sm">
+                      <div key={review.id} className="glass-surface rounded-xl p-5 shadow-sm">
                         <div className="flex items-center gap-3 mb-3">
                           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] flex items-center justify-center text-sm font-bold text-white shadow-sm">
                             {(review.username || 'A').charAt(0).toUpperCase()}

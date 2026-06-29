@@ -74,7 +74,7 @@ export default function Header() {
 
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'backdrop-blur-xl bg-white/90 shadow-lg' : 'bg-white shadow-sm'
+          isScrolled ? 'glass shadow-lg' : 'glass-surface-light shadow-sm'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4">
@@ -109,7 +109,7 @@ export default function Header() {
                   </Link>
                   {/* Mega dropdown */}
                   {megaMenuOpen === cat.slug && cat.children && cat.children.length > 0 && (
-                    <div className="absolute top-full left-0 mt-1 bg-white rounded-xl shadow-xl border border-[var(--color-border)] p-4 min-w-[220px] z-50">
+                    <div className="absolute top-full left-0 mt-1 glass-surface rounded-xl shadow-xl border border-[var(--color-border)] p-4 min-w-[220px] z-50">
                       <div className="space-y-1">
                         <Link
                           href={`/categories/${cat.slug}`}
@@ -151,7 +151,7 @@ export default function Header() {
                     <span className="text-sm font-medium hidden lg:inline">{user.username}</span>
                   </button>
                   {userMenuOpen && (
-                    <div className="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-xl border border-[var(--color-border)] py-2 z-50">
+                    <div className="absolute right-0 top-full mt-1 w-48 glass-surface rounded-xl shadow-xl border border-[var(--color-border)] py-2 z-50">
                       <div className="px-4 py-2 border-b border-[var(--color-border)]">
                         <p className="text-sm font-semibold text-[var(--color-text)]">{user.username}</p>
                         <p className="text-xs text-[var(--color-text-light)]">{user.email}</p>

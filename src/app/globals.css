@@ -159,6 +159,28 @@
   animation: scale-in var(--duration-normal) var(--ease-out-expo) both;
 }
 
+/* Glass surface utility for cards/panels */
+.glass-surface {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.glass-surface-light {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.glass-surface-dark {
+  background: rgba(10, 38, 71, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 /* ══════════════════════════════════════════════
    Base Styles
    ══════════════════════════════════════════════ */
@@ -168,7 +190,17 @@
 }
 
 body {
-  background: var(--color-bg);
+  background:
+    /* subtle grid pattern */
+    linear-gradient(rgba(10, 38, 71, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 38, 71, 0.02) 1px, transparent 1px),
+    /* soft radial glow at top-right */
+    radial-gradient(ellipse 80% 60% at 80% 0%, rgba(255, 107, 53, 0.06), transparent),
+    /* soft radial glow at bottom-left */
+    radial-gradient(ellipse 60% 70% at 20% 100%, rgba(10, 38, 71, 0.04), transparent),
+    var(--color-bg);
+  background-size: 40px 40px, 40px 40px, 100% 100%, 100% 100%, 100% 100%;
+  min-height: 100vh;
   color: var(--color-text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;

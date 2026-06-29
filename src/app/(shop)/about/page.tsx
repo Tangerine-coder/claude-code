@@ -54,7 +54,7 @@ export default function AboutPage() {
       <section className="max-w-7xl mx-auto px-4 -mt-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {stats.map((stat) => (
-            <div key={stat.label} className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] p-6 text-center">
+            <div key={stat.label} className="glass-surface rounded-xl shadow-sm border border-[var(--color-border)] p-6 text-center">
               <p className="text-2xl md:text-3xl font-bold text-[var(--color-accent)]">{stat.value}</p>
               <p className="text-sm text-[var(--color-text-light)] mt-1">{stat.label}</p>
             </div>

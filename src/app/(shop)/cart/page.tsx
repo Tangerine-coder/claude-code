@@ -89,7 +89,7 @@ export default function CartPage() {
             return (
               <div
                 key={item.id}
-                className="flex gap-4 p-4 bg-white rounded-xl border border-[var(--color-border)] hover:shadow-sm transition-shadow"
+                className="flex gap-4 p-4 glass-surface rounded-xl border border-[var(--color-border)] hover:shadow-sm transition-shadow"
               >
                 {/* Product Image */}
                 <Link
@@ -166,7 +166,7 @@ export default function CartPage() {
         <div className="lg:col-span-1">
           <div className="sticky top-24 space-y-5">
             {/* Cart Summary Card */}
-            <div className="bg-white rounded-xl border border-[var(--color-border)] p-5 space-y-4">
+            <div className="glass-surface rounded-xl border border-[var(--color-border)] p-5 space-y-4">
               <h3 className="text-lg font-bold text-[var(--color-text)]">购物车汇总</h3>
 
               <div className="space-y-3">
@@ -198,7 +198,7 @@ export default function CartPage() {
             </div>
 
             {/* Coupon Code (visual only) */}
-            <div className="bg-white rounded-xl border border-[var(--color-border)] p-5">
+            <div className="glass-surface rounded-xl border border-[var(--color-border)] p-5">
               <div className="flex items-center gap-2 mb-3">
                 <FiTag className="w-4 h-4 text-[var(--color-accent)]" />
                 <h4 className="text-sm font-semibold text-[var(--color-text)]">优惠码</h4>

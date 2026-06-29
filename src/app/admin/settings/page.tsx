@@ -98,7 +98,7 @@ export default function AdminSettingsPage() {
     return (
       <div className="p-6 space-y-4 max-w-2xl">
         <Skeleton variant="rect" width="200px" height="32px" />
-        <div className="bg-white rounded-xl shadow-sm p-6 space-y-4">
+        <div className="glass-surface rounded-xl shadow-sm p-6 space-y-4">
           {Array.from({ length: 6 }, (_, i) => (
             <Skeleton key={i} variant="rect" height="56px" />
           ))}
@@ -112,7 +112,7 @@ export default function AdminSettingsPage() {
       <h1 className="text-2xl font-bold text-[var(--color-text)] mb-6">系统设置</h1>
 
       <form onSubmit={handleSubmit}>
-        <div className="bg-white rounded-xl shadow-sm p-6 space-y-5">
+        <div className="glass-surface rounded-xl shadow-sm p-6 space-y-5">
           <Input
             label="网站名称"
             value={form.site_name}

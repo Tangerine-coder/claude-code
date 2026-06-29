@@ -373,7 +373,7 @@ function CategoryPageContent() {
             {loading ? (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 md:gap-5">
                 {Array.from({ length: 6 }, (_, i) => (
-                  <div key={i} className="bg-white rounded-xl overflow-hidden shadow-sm animate-pulse">
+                  <div key={i} className="glass-surface rounded-xl overflow-hidden shadow-sm animate-pulse">
                     <div className="aspect-square bg-gray-200" />
                     <div className="p-3 space-y-2">
                       <div className="h-4 bg-gray-200 rounded w-3/4" />

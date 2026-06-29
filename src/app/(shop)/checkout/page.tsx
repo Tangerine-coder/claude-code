@@ -233,7 +233,7 @@ export default function CheckoutPage() {
         {/* Left: Main Content */}
         <div className="lg:col-span-2 space-y-6">
           {/* Section A: Shipping Address */}
-          <section className="bg-white rounded-xl border border-[var(--color-border)] p-5 sm:p-6">
+          <section className="glass-surface rounded-xl border border-[var(--color-border)] p-5 sm:p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold text-[var(--color-text)]">收货地址</h2>
               <button
@@ -322,7 +322,7 @@ export default function CheckoutPage() {
           </section>
 
           {/* Section B: Order Items */}
-          <section className="bg-white rounded-xl border border-[var(--color-border)] p-5 sm:p-6">
+          <section className="glass-surface rounded-xl border border-[var(--color-border)] p-5 sm:p-6">
             <h2 className="text-lg font-bold text-[var(--color-text)] mb-4">
               商品清单 ({itemCount})
             </h2>
@@ -372,7 +372,7 @@ export default function CheckoutPage() {
           </section>
 
           {/* Section C: Payment Method */}
-          <section className="bg-white rounded-xl border border-[var(--color-border)] p-5 sm:p-6">
+          <section className="glass-surface rounded-xl border border-[var(--color-border)] p-5 sm:p-6">
             <h2 className="text-lg font-bold text-[var(--color-text)] mb-4">支付方式</h2>
             <div className="space-y-3">
               <label
@@ -426,7 +426,7 @@ export default function CheckoutPage() {
 
         {/* Right: Order Summary Sidebar */}
         <div className="lg:col-span-1">
-          <div className="sticky top-24 bg-white rounded-xl border border-[var(--color-border)] p-5 sm:p-6 space-y-5">
+          <div className="sticky top-24 glass-surface rounded-xl border border-[var(--color-border)] p-5 sm:p-6 space-y-5">
             <h2 className="text-lg font-bold text-[var(--color-text)]">订单汇总</h2>
 
             <div className="space-y-3">

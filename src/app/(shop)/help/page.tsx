@@ -218,7 +218,7 @@ export default function HelpPage() {
           filteredSections.map((section) => {
             const isExpanded = expandedSections[section.id];
             return (
-              <div key={section.id} className="bg-white rounded-xl border border-[var(--color-border)] overflow-hidden">
+              <div key={section.id} className="glass-surface rounded-xl border border-[var(--color-border)] overflow-hidden">
                 <button
                   onClick={() => toggleSection(section.id)}
                   className="w-full flex items-center gap-3 px-6 py-4 hover:bg-gray-50 transition-colors"

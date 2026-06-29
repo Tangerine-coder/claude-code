@@ -150,7 +150,7 @@ export default function AdminProductsPage() {
     return (
       <div className="space-y-4">
         <h1 className="text-2xl font-bold text-[var(--color-text)]">商品管理</h1>
-        <div className="bg-white rounded-xl border border-[var(--color-border)] p-8 text-center">
+        <div className="glass-surface rounded-xl border border-[var(--color-border)] p-8 text-center">
           <div className="animate-spin w-8 h-8 border-4 border-[var(--color-primary)] border-t-transparent rounded-full mx-auto" />
           <p className="text-sm text-[var(--color-text-light)] mt-3">正在加载商品...</p>
         </div>
@@ -183,7 +183,7 @@ export default function AdminProductsPage() {
       </div>
 
       {/* Filters & Bulk actions */}
-      <div className="bg-white rounded-xl border border-[var(--color-border)] p-3 sm:p-4">
+      <div className="glass-surface rounded-xl border border-[var(--color-border)] p-3 sm:p-4">
         <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
           <div className="flex-1">
             <input
@@ -217,7 +217,7 @@ export default function AdminProductsPage() {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl border border-[var(--color-border)] overflow-hidden">
+      <div className="glass-surface rounded-xl border border-[var(--color-border)] overflow-hidden">
         {filteredProducts.length === 0 ? (
           <div className="p-8 text-center text-[var(--color-text-light)]">
             {search || statusFilter !== 'all'

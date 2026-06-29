@@ -131,7 +131,7 @@ export default function OrderDetailPage() {
           <Skeleton variant="text" width="200px" />
           <Skeleton variant="rect" width="100px" height="28px" />
         </div>
-        <div className="bg-white rounded-xl border border-[var(--color-border)] p-6">
+        <div className="glass-surface rounded-xl border border-[var(--color-border)] p-6">
           <Skeleton variant="text" width="150px" />
           <div className="mt-4 flex gap-8">
             {[1, 2, 3].map((i) => (
@@ -140,7 +140,7 @@ export default function OrderDetailPage() {
           </div>
         </div>
         {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-white rounded-xl border border-[var(--color-border)] p-5 flex gap-4">
+          <div key={i} className="glass-surface rounded-xl border border-[var(--color-border)] p-5 flex gap-4">
             <Skeleton variant="rect" width="80px" height="80px" />
             <div className="flex-1 space-y-2">
               <Skeleton variant="text" width="70%" />
@@ -189,7 +189,7 @@ export default function OrderDetailPage() {
       </div>
 
       {/* Status Timeline */}
-      <div className="bg-white rounded-xl border border-[var(--color-border)] p-6">
+      <div className="glass-surface rounded-xl border border-[var(--color-border)] p-6">
         <h3 className="font-semibold text-[var(--color-text)] mb-4">订单状态</h3>
         <div className="flex items-center gap-0">
           {/* Pending step */}
@@ -242,7 +242,7 @@ export default function OrderDetailPage() {
       </div>
 
       {/* Items */}
-      <div className="bg-white rounded-xl border border-[var(--color-border)] overflow-hidden">
+      <div className="glass-surface rounded-xl border border-[var(--color-border)] overflow-hidden">
         <div className="px-6 py-4 border-b border-[var(--color-border)]">
           <h3 className="font-semibold text-[var(--color-text)]">商品信息（共{order.items.length}件）</h3>
         </div>
@@ -276,7 +276,7 @@ export default function OrderDetailPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Shipping Address */}
-        <div className="bg-white rounded-xl border border-[var(--color-border)] p-6">
+        <div className="glass-surface rounded-xl border border-[var(--color-border)] p-6">
           <h3 className="font-semibold text-[var(--color-text)] mb-3">收货地址</h3>
           {shipping ? (
             <div className="text-sm text-[var(--color-text-light)] space-y-1">
@@ -291,7 +291,7 @@ export default function OrderDetailPage() {
         </div>
 
         {/* Payment Info */}
-        <div className="bg-white rounded-xl border border-[var(--color-border)] p-6">
+        <div className="glass-surface rounded-xl border border-[var(--color-border)] p-6">
           <h3 className="font-semibold text-[var(--color-text)] mb-3">支付方式</h3>
           <div className="text-sm text-[var(--color-text-light)] space-y-2">
             <div className="flex justify-between">
@@ -309,7 +309,7 @@ export default function OrderDetailPage() {
       </div>
 
       {/* Order Totals */}
-      <div className="bg-white rounded-xl border border-[var(--color-border)] p-6">
+      <div className="glass-surface rounded-xl border border-[var(--color-border)] p-6">
         <h3 className="font-semibold text-[var(--color-text)] mb-3">费用明细</h3>
         <div className="space-y-3 text-sm">
           <div className="flex justify-between text-[var(--color-text-light)]">

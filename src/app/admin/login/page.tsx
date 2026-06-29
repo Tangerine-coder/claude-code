@@ -68,7 +68,7 @@ export default function AdminLoginPage() {
           <p className="text-sm text-[var(--color-text-light)] mt-1">登录以管理您的商城</p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-[var(--color-border)] p-6">
+        <div className="glass-surface rounded-2xl shadow-sm border border-[var(--color-border)] p-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
               <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700">

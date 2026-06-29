@@ -112,7 +112,7 @@ function AdminOrdersPageInner() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 mb-6 flex-wrap bg-white rounded-lg p-1 shadow-sm border border-[var(--color-border)]">
+      <div className="flex gap-1 mb-6 flex-wrap glass-surface rounded-lg p-1 shadow-sm border border-[var(--color-border)]">
         {TABS.map((tab) => (
           <button
             key={tab.value}
@@ -129,7 +129,7 @@ function AdminOrdersPageInner() {
       </div>
 
       {loading ? (
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+        <div className="glass-surface rounded-xl shadow-sm overflow-hidden">
           <div className="p-6 space-y-3">
             {Array.from({ length: 8 }, (_, i) => (
               <Skeleton key={i} variant="rect" height="56px" />
@@ -140,7 +140,7 @@ function AdminOrdersPageInner() {
         <EmptyState title="未找到订单" description="没有匹配此筛选条件的订单。" />
       ) : (
         <>
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+          <div className="glass-surface rounded-xl shadow-sm overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>

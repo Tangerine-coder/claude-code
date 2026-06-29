@@ -80,7 +80,7 @@ export default function SearchInput() {
 
       {/* Suggestions dropdown */}
       {isOpen && suggestions.length > 0 && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-xl border border-[var(--color-border)] overflow-hidden z-50">
+        <div className="absolute top-full left-0 right-0 mt-1 glass-surface rounded-xl shadow-xl border border-[var(--color-border)] overflow-hidden z-50">
           {suggestions.map((item) => (
             <Link
               key={item.id}
