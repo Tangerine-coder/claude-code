@@ -108,6 +108,10 @@ export default function AddressesPage() {
       setFormError('请填写所有必填字段');
       return;
     }
+    if (!/^1\d{10}$/.test(form.phone)) {
+      setFormError('手机号必须为11位数字');
+      return;
+    }
 
     setSubmitting(true);
     try {
@@ -248,7 +252,9 @@ export default function AddressesPage() {
               required
             />
             <Input
-              label="手机号 *"
+              label="手机号 *（11位手机号）"
+              type="tel"
+              maxLength={11}
               value={form.phone}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
               required

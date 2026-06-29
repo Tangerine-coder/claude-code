@@ -139,7 +139,7 @@ export async function POST(request: NextRequest) {
 
     db.prepare(
       `INSERT INTO orders (id, order_no, user_id, status, total_amount, shipping_fee, payment_method, shipping_address, remark)
-       VALUES (?, ?, ?, 'pending_payment', ?, ?, ?, ?, ?)`
+       VALUES (?, ?, ?, 'paid', ?, ?, ?, ?, ?)`
     ).run(orderId, orderNo, auth.userId, totalAmount + shippingFee, shippingFee, payment_method || '', shippingAddress, remark || '');
 
     // Insert order items

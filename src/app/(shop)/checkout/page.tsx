@@ -105,6 +105,10 @@ export default function CheckoutPage() {
       setAddressFormError('请填写所有必填字段');
       return;
     }
+    if (!/^1\d{10}$/.test(addressForm.phone)) {
+      setAddressFormError('手机号必须为11位数字');
+      return;
+    }
 
     try {
       setAddressFormSubmitting(true);
@@ -512,7 +516,9 @@ export default function CheckoutPage() {
               onChange={(e) => setAddressForm({ ...addressForm, receiver_name: e.target.value })}
             />
             <Input
-              label="电话 *"
+              label="电话 *（11位手机号）"
+              type="tel"
+              maxLength={11}
               placeholder="13800138000"
               value={addressForm.phone}
               onChange={(e) => setAddressForm({ ...addressForm, phone: e.target.value })}
