@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
+import BorderGlow from '@/components/ui/BorderGlow';
 import { FiUser, FiMail, FiLock } from 'react-icons/fi';
 
 export default function RegisterPage() {
@@ -67,45 +68,54 @@ export default function RegisterPage() {
             <h2 className="text-xl font-bold text-[var(--color-text)]">海南等下雪</h2>
           </div>
 
-          <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl p-8 border-t-4 border-t-[var(--color-accent)]">
-            <div className="text-center mb-7">
-              <h2 className="text-2xl font-bold text-[var(--color-text)]">创建账号</h2>
-              <p className="text-sm text-[var(--color-text-light)] mt-1">立即加入</p>
-            </div>
-
-            {error && (
-              <div className="mb-6 p-3.5 bg-red-50/80 backdrop-blur-sm border border-red-200/50 rounded-xl text-sm text-red-600 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
-                {error}
+          <BorderGlow
+            backgroundColor="rgba(255,255,255,0.95)"
+            borderRadius={24}
+            glowColor="18 100 60"
+            colors={['#0A2647', '#FF6B35', '#144272']}
+            edgeSensitivity={25}
+            glowIntensity={2}
+          >
+            <div className="p-8 border-t-4 border-t-[var(--color-accent)]">
+              <div className="text-center mb-7">
+                <h2 className="text-2xl font-bold text-[var(--color-text)]">创建账号</h2>
+                <p className="text-sm text-[var(--color-text-light)] mt-1">立即加入</p>
               </div>
-            )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <Input label="用户名" type="text" placeholder="请设置用户名" value={username}
-                onChange={(e) => setUsername(e.target.value)} icon={<FiUser />} required />
-              <Input label="邮箱" type="email" placeholder="请输入邮箱地址" value={email}
-                onChange={(e) => setEmail(e.target.value)} icon={<FiMail />} required />
-              <Input label="密码" type="password" placeholder="至少6位字符" value={password}
-                onChange={(e) => setPassword(e.target.value)} icon={<FiLock />} required />
-              <Input label="确认密码" type="password" placeholder="请再次输入密码" value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)} icon={<FiLock />} required />
-              <Button type="submit" variant="primary" size="lg" loading={loading}
-                className="w-full py-4 shadow-[var(--shadow-accent)] hover:shadow-xl">
-                注册
-              </Button>
-            </form>
+              {error && (
+                <div className="mb-6 p-3.5 bg-red-50/80 backdrop-blur-sm border border-red-200/50 rounded-xl text-sm text-red-600 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                  {error}
+                </div>
+              )}
 
-            <p className="text-center text-sm text-[var(--color-text-light)] mt-6">
-              已有账号？{' '}
-              <Link href="/login"
-                className="text-[var(--color-accent)] font-semibold
-                           bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent)]
-                           bg-[length:0%_1px] bg-no-repeat bg-bottom hover:bg-[length:100%_1px]
-                           transition-all duration-300 pb-0.5">
-                立即登录
-              </Link>
-            </p>
-          </div>
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <Input label="用户名" type="text" placeholder="请设置用户名" value={username}
+                  onChange={(e) => setUsername(e.target.value)} icon={<FiUser />} required />
+                <Input label="邮箱" type="email" placeholder="请输入邮箱地址" value={email}
+                  onChange={(e) => setEmail(e.target.value)} icon={<FiMail />} required />
+                <Input label="密码" type="password" placeholder="至少6位字符" value={password}
+                  onChange={(e) => setPassword(e.target.value)} icon={<FiLock />} required />
+                <Input label="确认密码" type="password" placeholder="请再次输入密码" value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)} icon={<FiLock />} required />
+                <Button type="submit" variant="primary" size="lg" loading={loading}
+                  className="w-full py-4 shadow-[var(--shadow-accent)] hover:shadow-xl">
+                  注册
+                </Button>
+              </form>
+
+              <p className="text-center text-sm text-[var(--color-text-light)] mt-6">
+                已有账号？{' '}
+                <Link href="/login"
+                  className="text-[var(--color-accent)] font-semibold
+                             bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent)]
+                             bg-[length:0%_1px] bg-no-repeat bg-bottom hover:bg-[length:100%_1px]
+                             transition-all duration-300 pb-0.5">
+                  立即登录
+                </Link>
+              </p>
+            </div>
+          </BorderGlow>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
+import BorderGlow from '@/components/ui/BorderGlow';
 import ImageWithFallback from '@/components/ui/ImageWithFallback';
 import PriceDisplay from '@/components/ui/PriceDisplay';
 import Badge from '@/components/ui/Badge';
@@ -72,62 +73,67 @@ export default function ProductCard({ product, badge, variant = 'default' }: Pro
   const isFeatured = variant === 'featured';
 
   return (
-    <Link
-      href={`/products/${product.slug}`}
-      className={clsx(
-        'group block bg-white overflow-hidden',
-        'card-lift ring-1 ring-[var(--color-border)]/30',
-        isFeatured
-          ? 'rounded-2xl md:col-span-2'
-          : 'rounded-2xl'
-      )}
+    <BorderGlow
+      backgroundColor="#FFFFFF"
+      borderRadius={20}
+      glowColor="18 100 60"
+      colors={['#0A2647', '#FF6B35', '#144272']}
+      edgeSensitivity={28}
+      glowIntensity={1.8}
+      glowRadius={36}
+      className={isFeatured ? 'md:col-span-2' : ''}
     >
-      <div className={clsx('relative overflow-hidden bg-gray-100', isFeatured ? 'aspect-[16/9]' : 'aspect-square')}>
-        <ImageWithFallback
-          src={imageUrl}
-          alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-[var(--ease-out-expo)]"
-          wrapperClassName="w-full h-full"
-        />
-        {/* Hover gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        {displayBadge && (
-          <div className="absolute top-3 left-3">
-            <Badge variant={displayBadge}>{badgeLabels[displayBadge]}</Badge>
-          </div>
-        )}
-        {/* Quick add button - glass morphism */}
-        <button
-          type="button"
-          onClick={handleAddToCart}
-          className="absolute bottom-3 right-3 w-10 h-10 glass rounded-full flex items-center justify-center
-                     scale-75 opacity-0 group-hover:scale-100 group-hover:opacity-100
-                     transition-all duration-300 ease-[var(--ease-out-back)]
-                     hover:bg-[var(--color-accent)] hover:text-white hover:border-[var(--color-accent)]
-                     active:scale-90 shadow-lg"
-          aria-label="加入购物车"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-          </svg>
-        </button>
-      </div>
-      <div className={clsx('p-4', isFeatured && 'md:p-6')}>
-        <h3 className={clsx(
-          'font-medium text-[var(--color-text)] line-clamp-2 mb-2 group-hover:text-[var(--color-accent)] transition-colors',
-          isFeatured ? 'text-lg md:text-xl min-h-[3.5rem]' : 'text-sm md:text-base min-h-[2.5rem]'
-        )}>
-          {product.name}
-        </h3>
-        <PriceDisplay
-          price={product.price}
-          originalPrice={product.original_price}
-          size={isFeatured ? 'md' : 'sm'}
-        />
-        <p className="text-xs text-[var(--color-text-light)] mt-2">
-          {product.sales_count.toLocaleString()} 已售
-        </p>
-      </div>
-    </Link>
+      <Link
+        href={`/products/${product.slug}`}
+        className="group block h-full"
+      >
+        <div className={clsx('relative overflow-hidden bg-gray-100', isFeatured ? 'aspect-[16/9]' : 'aspect-square')}>
+          <ImageWithFallback
+            src={imageUrl}
+            alt={product.name}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-[var(--ease-out-expo)]"
+            wrapperClassName="w-full h-full"
+          />
+          {/* Hover gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          {displayBadge && (
+            <div className="absolute top-3 left-3">
+              <Badge variant={displayBadge}>{badgeLabels[displayBadge]}</Badge>
+            </div>
+          )}
+          {/* Quick add button - glass morphism */}
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            className="absolute bottom-3 right-3 w-10 h-10 glass rounded-full flex items-center justify-center
+                       scale-75 opacity-0 group-hover:scale-100 group-hover:opacity-100
+                       transition-all duration-300 ease-[var(--ease-out-back)]
+                       hover:bg-[var(--color-accent)] hover:text-white hover:border-[var(--color-accent)]
+                       active:scale-90 shadow-lg"
+            aria-label="加入购物车"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+          </button>
+        </div>
+        <div className={clsx('p-4', isFeatured && 'md:p-6')}>
+          <h3 className={clsx(
+            'font-medium text-[var(--color-text)] line-clamp-2 mb-2 group-hover:text-[var(--color-accent)] transition-colors',
+            isFeatured ? 'text-lg md:text-xl min-h-[3.5rem]' : 'text-sm md:text-base min-h-[2.5rem]'
+          )}>
+            {product.name}
+          </h3>
+          <PriceDisplay
+            price={product.price}
+            originalPrice={product.original_price}
+            size={isFeatured ? 'md' : 'sm'}
+          />
+          <p className="text-xs text-[var(--color-text-light)] mt-2">
+            {product.sales_count.toLocaleString()} 已售
+          </p>
+        </div>
+      </Link>
+    </BorderGlow>
   );
 }
