@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { CartProvider } from '@/contexts/CartContext';
 import { ToastProvider } from '@/contexts/ToastContext';
+import BackgroundEffect from '@/components/layout/BackgroundEffect';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -17,14 +18,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased">
-        <ToastProvider>
-          <AuthProvider>
-            <CartProvider>
-              {children}
-            </CartProvider>
-          </AuthProvider>
-        </ToastProvider>
+      <body className="relative min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased">
+        <BackgroundEffect />
+        <div className="relative z-10">
+          <ToastProvider>
+            <AuthProvider>
+              <CartProvider>
+                {children}
+              </CartProvider>
+            </AuthProvider>
+          </ToastProvider>
+        </div>
       </body>
     </html>
   );
