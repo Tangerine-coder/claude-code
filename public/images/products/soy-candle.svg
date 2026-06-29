@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFBF5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFFBF5;stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)" rx="12"/>
+  
+      <rect x="180" y="150" width="240" height="270" rx="8" fill="#F5E6C8" stroke="#E0D0B0" stroke-width="2"/>
+      <rect x="150" y="132" width="300" height="36" rx="2" fill="#8B6B4A"/>
+      <line x1="300" y1="132" x2="300" y2="90" stroke="#8B6B4A" stroke-width="2"/>
+      <ellipse cx="300" cy="72" rx="24" ry="30" fill="#FFB84D" opacity="0.8"/>
+  <text x="300" y="575" text-anchor="middle" fill="#999" font-size="12" font-family="sans-serif">装饰</text>
+</svg>

@@ -1,0 +1,109 @@
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import ImageWithFallback from '@/components/ui/ImageWithFallback';
+import PriceDisplay from '@/components/ui/PriceDisplay';
+import Badge from '@/components/ui/Badge';
+import { useCart } from '@/contexts/CartContext';
+import { useToast } from '@/contexts/ToastContext';
+
+interface Product {
+  id: string;
+  name: string;
+  slug: string;
+  price: number;
+  original_price: number | null;
+  images: string;
+  sales_count: number;
+  is_new: number;
+  is_featured: number;
+  is_recommended: number;
+  stock: number;
+}
+
+interface ProductCardProps {
+  product: Product;
+  badge?: 'new' | 'hot' | 'sale' | 'bestseller' | null;
+}
+
+export default function ProductCard({ product, badge }: ProductCardProps) {
+  const { addItem } = useCart();
+  const { addToast } = useToast();
+
+  const imageUrl = (() => {
+    try {
+      const imgs = JSON.parse(product.images);
+      return imgs[0] || '/images/placeholder.svg';
+    } catch {
+      return '/images/placeholder.svg';
+    }
+  })();
+
+  const getBadge = () => {
+    if (badge) return badge;
+    if (product.is_new) return 'new';
+    if (product.original_price && product.original_price > product.price) return 'sale';
+    if (product.sales_count > 1000) return 'bestseller';
+    return null;
+  };
+
+  const displayBadge = getBadge();
+  const badgeLabels: Record<string, string> = {
+    new: '新品',
+    hot: '热销',
+    sale: '促销',
+    bestseller: '畅销',
+  };
+
+  const handleAddToCart = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      await addItem(product.id, product.name, imageUrl, product.price);
+      addToast('已加入购物车！', 'success');
+    } catch {
+      addToast('加入购物车失败', 'error');
+    }
+  };
+
+  return (
+    <Link
+      href={`/products/${product.slug}`}
+      className="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+    >
+      <div className="relative aspect-square overflow-hidden bg-gray-100">
+        <ImageWithFallback
+          src={imageUrl}
+          alt={product.name}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          wrapperClassName="w-full h-full"
+        />
+        {displayBadge && (
+          <div className="absolute top-2 left-2">
+            <Badge variant={displayBadge}>{badgeLabels[displayBadge]}</Badge>
+          </div>
+        )}
+        {/* Quick add button */}
+        <button
+          onClick={handleAddToCart}
+          className="absolute bottom-2 right-2 w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-[var(--color-accent)] hover:text-white translate-y-2 group-hover:translate-y-0"
+          aria-label="Add to cart"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          </svg>
+        </button>
+      </div>
+      <div className="p-3 md:p-4">
+        <h3 className="text-sm md:text-base font-medium text-[var(--color-text)] line-clamp-2 mb-1.5 group-hover:text-[var(--color-accent)] transition-colors min-h-[2.5rem]">
+          {product.name}
+        </h3>
+        <PriceDisplay price={product.price} originalPrice={product.original_price} size="sm" />
+        <p className="text-xs text-[var(--color-text-light)] mt-1">
+          {product.sales_count} 已售
+        </p>
+      </div>
+    </Link>
+  );
+}

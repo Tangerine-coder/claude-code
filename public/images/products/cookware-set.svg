@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F8F6F4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F8F6F4;stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)" rx="12"/>
+  
+      <ellipse cx="300" cy="180" rx="180" ry="72" fill="#E0E0E8" stroke="#C8C8D0" stroke-width="2"/>
+      <rect x="120" y="150" width="360" height="60" rx="2" fill="#D0D0D8"/>
+      <rect x="210" y="60" width="48" height="108" rx="2" fill="#C0C0C8"/>
+      <rect x="341.99999999999994" y="60" width="48" height="108" rx="2" fill="#C0C0C8"/>
+      <ellipse cx="300" cy="300" rx="150" ry="60" fill="#E8E8F0" stroke="#D0D0D8" stroke-width="1.5"/>
+      <rect x="150" y="270" width="300" height="48" rx="2" fill="#D8D8E0"/>
+      <ellipse cx="300" cy="432" rx="120" ry="48" fill="#F0F0F5" stroke="#D8D8E0" stroke-width="1.5"/>
+      <rect x="180" y="408.00000000000006" width="240" height="36" rx="2" fill="#E0E0E8"/>
+  <text x="300" y="575" text-anchor="middle" fill="#999" font-size="12" font-family="sans-serif">厨房用品</text>
+</svg>

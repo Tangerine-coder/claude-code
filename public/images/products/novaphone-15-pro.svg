@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A1A2E;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1A1A2E;stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)" rx="12"/>
+  
+      <rect x="192" y="30" width="216" height="540" rx="18" fill="#2C2C44" stroke="#4A4A6A" stroke-width="3"/>
+      <rect x="216" y="60" width="168.00000000000003" height="468" rx="4" fill="#1A1A3E"/>
+      <circle cx="300" cy="108" r="3" fill="#333"/>
+      <rect x="252" y="491.99999999999994" width="96" height="2" rx="1" fill="#4A4A6A"/>
+      <circle cx="252" cy="72" r="5" fill="#1A1A3E" stroke="#555" stroke-width="1"/>
+      <circle cx="252" cy="72" r="2.5" fill="#335"/>
+  <text x="300" y="575" text-anchor="middle" fill="#999" font-size="12" font-family="sans-serif">智能手机</text>
+</svg>

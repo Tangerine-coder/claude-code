@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5F0EC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F5F0EC;stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)" rx="12"/>
+  
+      <path d="M 150 60 L 450 60 L 510 540 L 90 540 Z" fill="#3A3A3A" stroke="#2A2A2A" stroke-width="2"/>
+      <line x1="300" y1="60" x2="300" y2="270" stroke="#2A2A2A" stroke-width="1.5"/>
+  <text x="300" y="575" text-anchor="middle" fill="#999" font-size="12" font-family="sans-serif">女装</text>
+</svg>

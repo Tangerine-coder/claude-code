@@ -1,0 +1,38 @@
+{
+  "name": "nova-mart",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.11.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.42.0",
+    "jsonwebtoken": "^9.0.3",
+    "next": "^16.2.9",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-hot-toast": "^2.6.0",
+    "react-icons": "^5.6.0",
+    "slugify": "^1.6.6",
+    "swiper": "^14.0.0",
+    "uuid": "^14.0.1",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.1",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^22.0.0",
+    "@types/react": "19.2.17",
+    "tailwindcss": "^4.3.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0"
+  }
+}

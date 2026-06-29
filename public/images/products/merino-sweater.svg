@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F2EFEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F2EFEB;stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)" rx="12"/>
+  
+      <path d="M 120 90 L 300 48 L 480 90 L 510 420 L 90 420 Z" fill="#2C4050" stroke="#1A2A38" stroke-width="2"/>
+      <path d="M 210 48 L 300 12 L 390 48" fill="none" stroke="#3D5670" stroke-width="3"/>
+  <text x="300" y="575" text-anchor="middle" fill="#999" font-size="12" font-family="sans-serif">男装</text>
+</svg>
