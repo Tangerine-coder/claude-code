@@ -1,6 +1,12 @@
 'use client';
 
-import Lightfall from '@/components/ui/Lightfall';
+import dynamic from 'next/dynamic';
+
+// ogl uses WebGL — must disable SSR to avoid server-side crash
+const Lightfall = dynamic(() => import('@/components/ui/Lightfall'), {
+  ssr: false,
+  loading: () => null,
+});
 
 export default function BackgroundEffect() {
   return (
