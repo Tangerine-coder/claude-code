@@ -423,39 +423,41 @@ export function seedDatabase(db: Database.Database) {
 }
 
 // Allow running standalone: npx tsx src/lib/seed.ts
-if (require.main === module) {
-  const Database = require('better-sqlite3');
-  const path = require('path');
-  const fs = require('fs');
+// Use process.argv check instead of require.main (Next.js production compatible)
+if (process.argv[1]?.includes('seed')) {
+  import('better-sqlite3').then(({ default: Database }) => {
+    const path = require('path');
+    const fs = require('fs');
 
-  const DB_PATH = path.join(process.cwd(), 'data', 'ecommerce.db');
-  if (!fs.existsSync(path.dirname(DB_PATH))) {
-    fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
-  }
+    const DB_PATH = path.join(process.cwd(), 'data', 'ecommerce.db');
+    if (!fs.existsSync(path.dirname(DB_PATH))) {
+      fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
+    }
 
-  const db = new Database(DB_PATH);
-  db.pragma('journal_mode = WAL');
-  db.pragma('foreign_keys = ON');
+    const db = new Database(DB_PATH);
+    db.pragma('journal_mode = WAL');
+    db.pragma('foreign_keys = ON');
 
-  const schemaPath = path.join(process.cwd(), 'db', 'schema.sql');
-  const schema = fs.readFileSync(schemaPath, 'utf-8');
-  db.exec('DROP TABLE IF EXISTS cart_items');
-  db.exec('DROP TABLE IF EXISTS browse_history');
-  db.exec('DROP TABLE IF EXISTS favorites');
-  db.exec('DROP TABLE IF EXISTS reviews');
-  db.exec('DROP TABLE IF EXISTS order_items');
-  db.exec('DROP TABLE IF EXISTS orders');
-  db.exec('DROP TABLE IF EXISTS product_skus');
-  db.exec('DROP TABLE IF EXISTS products');
-  db.exec('DROP TABLE IF EXISTS addresses');
-  db.exec('DROP TABLE IF EXISTS announcements');
-  db.exec('DROP TABLE IF EXISTS banners');
-  db.exec('DROP TABLE IF EXISTS site_settings');
-  db.exec('DROP TABLE IF EXISTS categories');
-  db.exec('DROP TABLE IF EXISTS users');
-  db.exec(schema);
+    const schemaPath = path.join(process.cwd(), 'db', 'schema.sql');
+    const schema = fs.readFileSync(schemaPath, 'utf-8');
+    db.exec('DROP TABLE IF EXISTS cart_items');
+    db.exec('DROP TABLE IF EXISTS browse_history');
+    db.exec('DROP TABLE IF EXISTS favorites');
+    db.exec('DROP TABLE IF EXISTS reviews');
+    db.exec('DROP TABLE IF EXISTS order_items');
+    db.exec('DROP TABLE IF EXISTS orders');
+    db.exec('DROP TABLE IF EXISTS product_skus');
+    db.exec('DROP TABLE IF EXISTS products');
+    db.exec('DROP TABLE IF EXISTS addresses');
+    db.exec('DROP TABLE IF EXISTS announcements');
+    db.exec('DROP TABLE IF EXISTS banners');
+    db.exec('DROP TABLE IF EXISTS site_settings');
+    db.exec('DROP TABLE IF EXISTS categories');
+    db.exec('DROP TABLE IF EXISTS users');
+    db.exec(schema);
 
-  seedDatabase(db);
-  console.log('Database seeded successfully!');
-  db.close();
+    seedDatabase(db);
+    console.log('Database seeded successfully!');
+    db.close();
+  });
 }

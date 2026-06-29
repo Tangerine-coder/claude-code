@@ -14,6 +14,7 @@ if (!fs.existsSync(dataDir)) {
 const globalForDb = globalThis as unknown as {
   _db: Database.Database | undefined;
   _migrated: boolean | undefined;
+  _seeding: Promise<void> | undefined;
 };
 
 function getDb(): Database.Database {
@@ -38,9 +39,13 @@ function getDb(): Database.Database {
     ).get() as { c: number };
     if (count.c === 0) {
       console.log('[DB] Seeding database...');
-      const { seedDatabase } = require('./seed');
-      seedDatabase(globalForDb._db);
-      console.log('[DB] Database seeded successfully!');
+      // Use dynamic import for Next.js production compatibility
+      globalForDb._seeding = import('./seed').then(({ seedDatabase }) => {
+        seedDatabase(globalForDb._db!);
+        console.log('[DB] Database seeded successfully!');
+      }).catch((err) => {
+        console.error('[DB] Seed failed:', err);
+      });
     }
   }
 
