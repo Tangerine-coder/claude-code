@@ -3,7 +3,10 @@ import path from 'path';
 import fs from 'fs';
 import { seedDatabase } from './seed';
 
-const DB_PATH = path.join(process.cwd(), 'data', 'ecommerce.db');
+// Support Render persistent disk: set DB_PATH env var to e.g. /var/data/ecommerce.db
+const DB_PATH = process.env.DB_PATH || path.join(process.cwd(), 'data', 'ecommerce.db');
+
+console.log('[DB] Database path:', DB_PATH);
 
 // Ensure data directory exists
 const dataDir = path.dirname(DB_PATH);

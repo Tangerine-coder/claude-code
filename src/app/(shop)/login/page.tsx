@@ -20,6 +20,7 @@ function LoginPageContent() {
   const [loading, setLoading] = useState(false);
 
   const redirectTo = searchParams?.get('redirect') || '/';
+  const justRegistered = searchParams?.get('registered') === 'true';
 
   React.useEffect(() => {
     if (user) router.push('/');
@@ -82,9 +83,15 @@ function LoginPageContent() {
                 <p className="text-sm text-[var(--color-text-light)] mt-1">登录您的账号</p>
               </div>
 
+              {justRegistered && (
+                <div className="mb-6 p-3.5 bg-green-50/80 backdrop-blur-sm border border-green-200/50 rounded-xl text-sm text-green-600 flex items-center gap-2">
+                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                  注册成功！请登录您的账号。
+                </div>
+              )}
               {error && (
                 <div className="mb-6 p-3.5 bg-red-50/80 backdrop-blur-sm border border-red-200/50 rounded-xl text-sm text-red-600 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                   {error}
                 </div>
               )}

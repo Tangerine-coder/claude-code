@@ -33,7 +33,7 @@ export default function RegisterPage() {
     setLoading(true);
     try {
       await register(username, email, password);
-      router.push('/');
+      router.push('/login?registered=true');
     } catch (err: any) {
       setError(err.message || '注册失败');
     } finally {

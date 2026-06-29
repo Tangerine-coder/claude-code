@@ -60,12 +60,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const res = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
       body: JSON.stringify({ username, email, password }),
     });
     const data = await res.json();
     if (!data.success) throw new Error(data.message || '注册失败，请稍后再试');
-    setUser(data.data);
+    // 注册成功后不自动登录，跳转到登录页面
   };
 
   return (
