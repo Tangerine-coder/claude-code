@@ -1,6 +1,7 @@
 import Database from 'better-sqlite3';
 import path from 'path';
 import fs from 'fs';
+import { seedDatabase } from './seed';
 
 const DB_PATH = path.join(process.cwd(), 'data', 'ecommerce.db');
 
@@ -14,7 +15,6 @@ if (!fs.existsSync(dataDir)) {
 const globalForDb = globalThis as unknown as {
   _db: Database.Database | undefined;
   _migrated: boolean | undefined;
-  _seeding: Promise<void> | undefined;
 };
 
 function getDb(): Database.Database {
@@ -33,19 +33,14 @@ function getDb(): Database.Database {
     }
     globalForDb._migrated = true;
 
-    // Auto-seed if products table is empty
+    // Auto-seed if products table is empty (synchronous, runs immediately)
     const count = globalForDb._db.prepare(
       'SELECT COUNT(*) as c FROM products'
     ).get() as { c: number };
     if (count.c === 0) {
       console.log('[DB] Seeding database...');
-      // Use dynamic import for Next.js production compatibility
-      globalForDb._seeding = import('./seed').then(({ seedDatabase }) => {
-        seedDatabase(globalForDb._db!);
-        console.log('[DB] Database seeded successfully!');
-      }).catch((err) => {
-        console.error('[DB] Seed failed:', err);
-      });
+      seedDatabase(globalForDb._db);
+      console.log('[DB] Database seeded successfully!');
     }
   }
 
