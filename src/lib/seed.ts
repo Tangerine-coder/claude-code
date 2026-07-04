@@ -64,7 +64,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '经典版型纯棉牛津纺衬衫', slug: 'classic-fit-cotton-oxford-shirt',
       desc: '<p>经典永不过时的必备单品，采用100%有机棉精制而成。这款牛津纺衬衫配有纽扣领、胸袋和宽松经典版型，无论是塞进裤腰还是随意穿着都同样出色。</p><p>无论是休闲周五还是周末出游，都是理想之选。</p>',
       price: 0, originalPrice: null, stock: 150, catId: catMens, brand: '诺瓦精选',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=640&h=640&fit=crop']),
+      images: JSON.stringify(['https://images.unsplash.com/photo-1598032895397-b9472444bf93?w=640&h=640&fit=crop']),
       specs: JSON.stringify([{ name: '材质', value: '100% 有机棉' }, { name: '版型', value: '经典版型' }, { name: '领型', value: '纽扣领' }, { name: '洗涤', value: '可机洗' }]),
       tags: '新品,有机,畅销', featured: 1, isNew: 1, recommended: 1, sales: 2340
     },
@@ -72,7 +72,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '修身弹力斜纹裤', slug: 'slim-fit-stretch-chinos',
       desc: '<p>现代修身版型斜纹裤，含2%弹力纤维，全天舒适自如。中腰设计与锥形裤腿，打造利落轮廓。</p>',
       price: 0, originalPrice: null, stock: 200, catId: catMens, brand: '诺瓦精选',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=640&h=640&fit=crop']),
+      images: JSON.stringify(['https://images.unsplash.com/photo-1584865288642-42078afe6942?w=640&h=640&fit=crop']),
       specs: JSON.stringify([{ name: '材质', value: '98% 棉, 2% 弹力纤维' }, { name: '版型', value: '修身版型' }, { name: '腰型', value: '中腰' }]),
       tags: '畅销', featured: 0, isNew: 0, recommended: 1, sales: 1890
     },
@@ -80,7 +80,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '美利奴羊毛V领毛衣', slug: 'merino-wool-v-neck-sweater',
       desc: '<p>奢华柔软的美利奴羊毛毛衣，经典V领设计。具有温度调节功能，天然抗异味。</p>',
       price: 0, originalPrice: null, stock: 80, catId: catMens, brand: '纯羊毛',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=640&h=640&fit=crop']),
+      images: JSON.stringify(['https://images.unsplash.com/photo-1536992266094-82847e1fd431?w=640&h=640&fit=crop']),
       specs: JSON.stringify([{ name: '材质', value: '100% 美利奴羊毛' }, { name: '厚度', value: '中等针数' }, { name: '领型', value: 'V领' }]),
       tags: '高端', featured: 1, isNew: 0, recommended: 0, sales: 567
     },
@@ -90,7 +90,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '碎花印花中长连衣裙', slug: 'floral-print-midi-dress',
       desc: '<p>惊艳的中长连衣裙，采用手绘风格碎花印花轻质雪纺面料。围裹式廓形适合各种体型，配有可调节腰部系带。</p>',
       price: 0, originalPrice: null, stock: 120, catId: catWomens, brand: '花开物语',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=640&h=640&fit=crop']),
+      images: JSON.stringify(['https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=640&h=640&fit=crop']),
       specs: JSON.stringify([{ name: '材质', value: '雪纺' }, { name: '长度', value: '中长款' }, { name: '款式', value: '围裹式连衣裙' }, { name: '季节', value: '春夏' }]),
       tags: '新品,春季', featured: 1, isNew: 1, recommended: 1, sales: 1456
     },
@@ -98,7 +98,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '高腰阔腿裤', slug: 'high-waist-wide-leg-trousers',
       desc: '<p>精致的高腰阔腿裤，采用垂感极佳的绉纱面料，抗皱不褪色，展现优雅气质。</p>',
       price: 0, originalPrice: null, stock: 95, catId: catWomens, brand: '诺瓦精选',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=640&h=640&fit=crop']),
+      images: JSON.stringify(['https://images.unsplash.com/photo-1745834311248-f19d424c5398?w=640&h=640&fit=crop']),
       specs: JSON.stringify([{ name: '材质', value: '涤纶绉纱' }, { name: '腰型', value: '高腰' }, { name: '裤型', value: '阔腿' }]),
       tags: '通勤,经典', featured: 0, isNew: 0, recommended: 1, sales: 890
     },
@@ -106,7 +106,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '羊绒混纺开衫', slug: 'cashmere-blend-cardigan',
       desc: '<p>用这款羊绒混纺开衫将自己包裹在奢华之中。配有珍珠母贝纽扣和罗纹袖口，是完美的叠穿单品。</p>',
       price: 0, originalPrice: null, stock: 45, catId: catWomens, brand: '纯羊毛',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=640&h=640&fit=crop']),
+      images: JSON.stringify(['https://images.unsplash.com/photo-1687275168013-dcc11d9c74ab?w=640&h=640&fit=crop']),
       specs: JSON.stringify([{ name: '材质', value: '70% 羊毛, 30% 羊绒' }, { name: '闭合方式', value: '前开扣' }, { name: '洗涤', value: '仅限干洗' }]),
       tags: '高端,冬季', featured: 1, isNew: 0, recommended: 0, sales: 342
     },
@@ -124,7 +124,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '儿童牛仔背带裤', slug: 'kids-denim-overalls',
       desc: '<p>专为好动儿童设计的耐用可爱牛仔背带裤。配有可调节肩带，适应孩子的成长，膝盖部位加固处理，更加耐穿。</p>',
       price: 0, originalPrice: null, stock: 140, catId: catKids, brand: '小诺瓦',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=640&h=640&fit=crop']),
+      images: JSON.stringify(['https://images.unsplash.com/photo-1541015492536-31d513c59861?w=640&h=640&fit=crop']),
       specs: JSON.stringify([{ name: '材质', value: '棉质牛仔布' }, { name: '闭合方式', value: '纽扣肩带' }, { name: '口袋', value: '5 个口袋' }]),
       tags: '', featured: 0, isNew: 0, recommended: 0, sales: 678
     },
@@ -204,7 +204,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '极简升降桌', slug: 'minimalist-standing-desk',
       desc: '<p>用这款电动升降桌升级你的工作空间。72cm至120cm平滑高度调节，记忆预设，宽敞竹制桌面。附带线缆管理托盘。</p>',
       price: 0, originalPrice: null, stock: 40, catId: catFurniture, brand: '港湾家居',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=640&h=640&fit=crop']),
+      images: JSON.stringify(['https://images.unsplash.com/photo-1622126807280-9b5b32b28e77?w=640&h=640&fit=crop']),
       specs: JSON.stringify([{ name: '材质', value: '竹面 + 钢架' }, { name: '高度范围', value: '72-120 cm' }, { name: '电机', value: '双电机' }, { name: '承重', value: '80 kg' }]),
       tags: '新品,办公', featured: 0, isNew: 1, recommended: 1, sales: 890
     },
@@ -230,7 +230,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '香薰大豆蜡烛套装', slug: 'scented-soy-candle-collection',
       desc: '<p>手工浇注100%大豆蜡蜡烛，装在精美的琥珀色玻璃罐中。三种标志性香型可选：香草檀香、清新亚麻和薰衣草桉树。燃烧时间约60小时。</p>',
       price: 0, originalPrice: null, stock: 300, catId: catDecor, brand: '匠心集',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1560343090-f0409e92791a?w=640&h=640&fit=crop']),
+      images: JSON.stringify(['https://images.unsplash.com/photo-1608263153703-caa6b0fd7bc7?w=640&h=640&fit=crop']),
       specs: JSON.stringify([{ name: '蜡质', value: '100% 大豆蜡' }, { name: '燃烧时间', value: '约60小时' }, { name: '重量', value: '280g' }, { name: '容器', value: '琥珀色玻璃罐' }]),
       tags: '畅销,礼品', featured: 1, isNew: 0, recommended: 1, sales: 6700
     },
@@ -268,7 +268,54 @@ export function seedDatabase(db: Database.Database) {
       specs: JSON.stringify([{ name: '容量', value: '12杯' }, { name: '连接方式', value: 'WiFi + App 控制' }, { name: '研磨器', value: '内置锥形研磨器' }, { name: '冲泡类型', value: '滴滤 + 单杯' }]),
       tags: '新品,智能', featured: 1, isNew: 1, recommended: 1, sales: 2100
     },
-  ];
+  
+    // ========== New Products ==========
+    // Men's - Lightweight Jacket
+    {
+      id: uuid(), name: '轻薄休闲夹克', slug: 'lightweight-casual-jacket',
+      desc: '<p>时尚百搭的轻薄休闲夹克，采用高品质防水面料，内衬透气网布。经典立领设计，轻盈便携，适合春秋季节日常穿搭。</p>',
+      price: 0, originalPrice: null, stock: 120, catId: catMens, brand: '诺瓦精选',
+      images: JSON.stringify(['https://images.unsplash.com/photo-1557418669-db3f781a58c0?w=640&h=640&fit=crop']),
+      specs: JSON.stringify([{ name: '材质', value: '防水尼龙' }, { name: '里衬', value: '透气网布' }, { name: '闭合方式', value: '拉链+按扣' }]),
+      tags: '新品,春季', featured: 1, isNew: 1, recommended: 1, sales: 890
+    },
+    // Women's - Silk Blouse
+    {
+      id: uuid(), name: '真丝系带衬衫', slug: 'silk-wrap-blouse',
+      desc: '<p>优雅的真丝系带衬衫，采用100%桑蚕丝面料，质感柔滑垂顺。前襟系带设计，修饰颈部和肩部线条，是通勤与约会的完美选择。</p>',
+      price: 0, originalPrice: null, stock: 85, catId: catWomens, brand: '花开物语',
+      images: JSON.stringify(['https://images.unsplash.com/photo-1608234807905-4466023792f5?w=640&h=640&fit=crop']),
+      specs: JSON.stringify([{ name: '材质', value: '100% 桑蚕丝' }, { name: '款式', value: '系带衬衫' }, { name: '袖长', value: '长袖' }]),
+      tags: '新品,高端', featured: 1, isNew: 1, recommended: 1, sales: 670
+    },
+    // Electronics - Smart Watch
+    {
+      id: uuid(), name: 'NovaWatch Pro 智能手表', slug: 'novawatch-pro-smart-watch',
+      desc: '<p>NovaWatch Pro 搭载先进的健康监测系统，支持心电、血氧、睡眠分析等功能。1.9英寸AMOLED屏幕，钛合金表壳，续航长达14天。</p>',
+      price: 0, originalPrice: null, stock: 200, catId: catPhones, brand: '诺瓦科技',
+      images: JSON.stringify(['https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=640&h=640&fit=crop']),
+      specs: JSON.stringify([{ name: '屏幕', value: '1.9英寸 AMOLED' }, { name: '续航', value: '最长14天' }, { name: '防水', value: '5ATM' }, { name: '传感器', value: '心电+血氧+加速度计' }]),
+      tags: '热销,新品', featured: 1, isNew: 1, recommended: 1, sales: 3200
+    },
+    // Home Decor - Ceramic Vase
+    {
+      id: uuid(), name: '北欧风陶瓷花瓶', slug: 'nordic-ceramic-vase',
+      desc: '<p>简约北欧风陶瓷花瓶，哑光釉面质感，手工制作每一件都独一无二。适合摆放干花、鲜切花或单独作为装饰摆件，为家居增添自然气息。</p>',
+      price: 0, originalPrice: null, stock: 300, catId: catDecor, brand: '港湾家居',
+      images: JSON.stringify(['https://images.unsplash.com/photo-1604762525953-2c80447cc4a6?w=640&h=640&fit=crop']),
+      specs: JSON.stringify([{ name: '材质', value: '哑光陶瓷' }, { name: '高度', value: '25cm' }, { name: '颜色', value: '米白色' }, { name: '适用', value: '干花/鲜花/摆件' }]),
+      tags: '新品', featured: 1, isNew: 1, recommended: 0, sales: 1560
+    },
+    // Home Decor - Floor Lamp
+    {
+      id: uuid(), name: '北欧风落地灯', slug: 'nordic-floor-lamp',
+      desc: '<p>极简北欧风落地灯，金属灯杆配亚麻灯罩，暖色光线营造温馨氛围。三档调光设计，适合客厅、书房和卧室角落。</p>',
+      price: 0, originalPrice: null, stock: 60, catId: catDecor, brand: '港湾家居',
+      images: JSON.stringify(['https://images.unsplash.com/photo-1616118132567-bb93c5741365?w=640&h=640&fit=crop']),
+      specs: JSON.stringify([{ name: '材质', value: '金属+亚麻灯罩' }, { name: '高度', value: '150cm' }, { name: '光源', value: 'E27 三档调光' }, { name: '颜色', value: '哑光黑' }]),
+      tags: '新品', featured: 0, isNew: 1, recommended: 0, sales: 430
+    },
+];
 
   for (const p of products) {
     insertProduct.run(p.id, p.name, p.slug, p.desc, p.price, p.originalPrice, p.stock, p.catId, p.brand, p.images, p.specs, p.tags, p.featured, p.isNew, p.recommended, p.sales);
@@ -388,7 +435,7 @@ export function seedDatabase(db: Database.Database) {
     { rating: 5, content: '笔记本太强了！续航简直离谱，我可以连续用两个工作日不用充电。', images: '[]' },
     { rating: 3, content: '手机挺好的，但是物流比预期慢了不少。产品本身倒是没问题。', images: '[]' },
     { rating: 5, content: '蜡烛扩香效果惊人，整个客厅都香了。一定会回购！', images: '[]' },
-    { rating: 4, content: '衬衫不错，但版型偏大了一点，建议买小一号。', images: JSON.stringify(['https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=400&fit=crop']) },
+    { rating: 4, content: '衬衫不错，但版型偏大了一点，建议买小一号。', images: JSON.stringify(['https://images.unsplash.com/photo-1598032895397-b9472444bf93?w=400&h=400&fit=crop']) },
     { rating: 5, content: '音质简直难以置信。声音清澈透亮，降噪也是一流水平。', images: '[]' },
     { rating: 5, content: '送礼首选！蜡烛套装包装精美，朋友特别喜欢。', images: '[]' },
   ];
