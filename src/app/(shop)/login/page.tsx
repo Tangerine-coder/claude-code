@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
+import Captcha from '@/components/ui/Captcha';
 import BorderGlow from '@/components/ui/BorderGlow';
 import { FiMail, FiLock } from 'react-icons/fi';
 
@@ -16,6 +17,8 @@ function LoginPageContent() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [captcha, setCaptcha] = useState('');
+  const [captchaError, setCaptchaError] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -29,13 +32,20 @@ function LoginPageContent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setCaptchaError('');
     if (!email || !password) { setError('请填写所有字段'); return; }
+    if (!captcha) { setCaptchaError('请输入验证码'); return; }
     setLoading(true);
     try {
-      await login(email, password);
+      await login(email, password, captcha);
       router.push(redirectTo);
     } catch (err: any) {
-      setError(err.message || '登录失败，请检查邮箱和密码');
+      if (err.message && err.message.includes('验证码')) {
+        setCaptchaError(err.message);
+        setCaptcha('');
+      } else {
+        setError(err.message || '登录失败，请检查邮箱和密码');
+      }
     } finally {
       setLoading(false);
     }
@@ -112,6 +122,7 @@ function LoginPageContent() {
                     </Link>
                   </div>
                 </div>
+                <Captcha value={captcha} onChange={setCaptcha} error={captchaError} />
                 <Button type="submit" variant="primary" size="lg" loading={loading}
                   className="w-full py-4 shadow-[var(--shadow-accent)] hover:shadow-xl">
                   登录

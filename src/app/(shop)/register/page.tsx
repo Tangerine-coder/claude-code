@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
+import Captcha from '@/components/ui/Captcha';
 import BorderGlow from '@/components/ui/BorderGlow';
 import { FiUser, FiMail, FiLock } from 'react-icons/fi';
 
@@ -17,6 +18,8 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [captcha, setCaptcha] = useState('');
+  const [captchaError, setCaptchaError] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -27,15 +30,22 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setCaptchaError('');
     if (!username || !email || !password || !confirmPassword) { setError('请填写所有字段'); return; }
     if (password.length < 6) { setError('密码至少6位'); return; }
     if (password !== confirmPassword) { setError('两次密码不一致'); return; }
+    if (!captcha) { setCaptchaError('请输入验证码'); return; }
     setLoading(true);
     try {
-      await register(username, email, password);
+      await register(username, email, password, captcha);
       router.push('/login?registered=true');
     } catch (err: any) {
-      setError(err.message || '注册失败');
+      if (err.message && err.message.includes('验证码')) {
+        setCaptchaError(err.message);
+        setCaptcha('');
+      } else {
+        setError(err.message || '注册失败');
+      }
     } finally {
       setLoading(false);
     }
@@ -98,6 +108,7 @@ export default function RegisterPage() {
                   onChange={(e) => setPassword(e.target.value)} icon={<FiLock />} required />
                 <Input label="确认密码" type="password" placeholder="请再次输入密码" value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)} icon={<FiLock />} required />
+                <Captcha value={captcha} onChange={setCaptcha} error={captchaError} />
                 <Button type="submit" variant="primary" size="lg" loading={loading}
                   className="w-full py-4 shadow-[var(--shadow-accent)] hover:shadow-xl">
                   注册

@@ -4,10 +4,16 @@ import bcrypt from 'bcryptjs';
 import { v4 as uuid } from 'uuid';
 import getDb from '@/lib/db';
 import { signToken } from '@/lib/auth';
+import { verifyCaptcha } from '@/lib/captcha';
 
 export async function POST(request: NextRequest) {
   try {
-    const { username, email, password } = await request.json();
+    const { username, email, password, captcha } = await request.json();
+    // Verify captcha
+    const captchaToken = request.cookies.get('captcha_token')?.value;
+    if (!captcha || !captchaToken || !verifyCaptcha(captchaToken, captcha)) {
+      return Response.json({ success: false, message: '验证码错误' }, { status: 400 });
+    }
     if (!username || !email || !password) {
       return Response.json({ success: false, message: 'All fields are required' }, { status: 400 });
     }

@@ -3,10 +3,16 @@ import { cookies } from 'next/headers';
 import bcrypt from 'bcryptjs';
 import getDb from '@/lib/db';
 import { signToken } from '@/lib/auth';
+import { verifyCaptcha } from '@/lib/captcha';
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password } = await request.json();
+    const { email, password, captcha } = await request.json();
+    // Verify captcha
+    const captchaToken = request.cookies.get('captcha_token')?.value;
+    if (!captcha || !captchaToken || !verifyCaptcha(captchaToken, captcha)) {
+      return Response.json({ success: false, message: '验证码错误' }, { status: 400 });
+    }
     if (!email || !password) {
       return Response.json({ success: false, message: 'Email and password are required' }, { status: 400 });
     }

@@ -6,9 +6,9 @@ import type { UserPublic } from '@/types';
 interface AuthContextType {
   user: UserPublic | null;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<UserPublic>;
+  login: (email: string, password: string, captcha?: string) => Promise<UserPublic>;
   logout: () => Promise<void>;
-  register: (username: string, email: string, password: string) => Promise<void>;
+  register: (username: string, email: string, password: string, captcha?: string) => Promise<void>;
   refreshUser: () => Promise<void>;
 }
 
@@ -38,12 +38,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     refreshUser();
   }, [refreshUser]);
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string, captcha?: string) => {
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, captcha }),
     });
     const data = await res.json();
     if (!data.success) throw new Error(data.message || '登录失败，请检查账号和密码');
@@ -56,11 +56,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(null);
   };
 
-  const register = async (username: string, email: string, password: string) => {
+  const register = async (username: string, email: string, password: string, captcha?: string) => {
     const res = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, email, password }),
+      body: JSON.stringify({ username, email, password, captcha }),
     });
     const data = await res.json();
     if (!data.success) throw new Error(data.message || '注册失败，请稍后再试');
