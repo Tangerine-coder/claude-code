@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React, { useState, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import Captcha from '@/components/ui/Captcha';
+import Captcha, { CaptchaHandle } from '@/components/ui/Captcha';
 import BorderGlow from '@/components/ui/BorderGlow';
 import { FiMail, FiLock } from 'react-icons/fi';
 
@@ -21,6 +21,7 @@ function LoginPageContent() {
   const [captchaError, setCaptchaError] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const captchaRef = useRef<CaptchaHandle>(null);
 
   const redirectTo = searchParams?.get('redirect') || '/';
   const justRegistered = searchParams?.get('registered') === 'true';
@@ -42,10 +43,12 @@ function LoginPageContent() {
     } catch (err: any) {
       if (err.message && err.message.includes('验证码')) {
         setCaptchaError(err.message);
-        setCaptcha('');
       } else {
         setError(err.message || '登录失败，请检查邮箱和密码');
       }
+      // 每输错一次，验证码自动更新
+      setCaptcha('');
+      captchaRef.current?.refresh();
     } finally {
       setLoading(false);
     }
@@ -122,7 +125,7 @@ function LoginPageContent() {
                     </Link>
                   </div>
                 </div>
-                <Captcha value={captcha} onChange={setCaptcha} error={captchaError} />
+                <Captcha ref={captchaRef} value={captcha} onChange={setCaptcha} error={captchaError} />
                 <Button type="submit" variant="primary" size="lg" loading={loading}
                   className="w-full py-4 shadow-[var(--shadow-accent)] hover:shadow-xl">
                   登录

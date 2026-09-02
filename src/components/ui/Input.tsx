@@ -1,5 +1,8 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import clsx from 'clsx';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -7,7 +10,9 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode;
 }
 
-export default function Input({ label, error, icon, className, id, ...props }: InputProps) {
+export default function Input({ label, error, icon, className, id, type, ...props }: InputProps) {
+  const [showPassword, setShowPassword] = useState(false);
+  const isPassword = type === 'password';
   const inputId = id || label?.toLowerCase().replace(/\s+/g, '-');
   return (
     <div className="w-full">
@@ -24,6 +29,7 @@ export default function Input({ label, error, icon, className, id, ...props }: I
         )}
         <input
           id={inputId}
+          type={isPassword && showPassword ? 'text' : type}
           className={clsx(
             'w-full px-4 py-3 text-sm border border-[var(--color-border)] rounded-xl bg-white',
             'text-[var(--color-text)] placeholder:text-[var(--color-text-lighter)]',
@@ -32,11 +38,23 @@ export default function Input({ label, error, icon, className, id, ...props }: I
             'focus:shadow-[inset_0_1px_3px_rgba(0,0,0,0.04)]',
             'transition-all duration-[var(--duration-normal)]',
             icon && 'pl-10',
+            isPassword && 'pr-11',
             error && 'border-[var(--color-danger)] focus:ring-[var(--color-danger)]/30 focus:border-[var(--color-danger)]',
             className
           )}
           {...props}
         />
+        {isPassword && (
+          <button
+            type="button"
+            onClick={() => setShowPassword((s) => !s)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-light)] hover:text-[var(--color-accent)] transition-colors p-1"
+            title={showPassword ? '隐藏密码' : '显示密码'}
+            tabIndex={-1}
+          >
+            {showPassword ? <FiEyeOff className="w-4.5 h-4.5" /> : <FiEye className="w-4.5 h-4.5" />}
+          </button>
+        )}
       </div>
       {error && <p className="mt-1.5 text-xs text-[var(--color-danger)]">{error}</p>}
     </div>

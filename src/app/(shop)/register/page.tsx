@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import Captcha from '@/components/ui/Captcha';
+import Captcha, { CaptchaHandle } from '@/components/ui/Captcha';
 import BorderGlow from '@/components/ui/BorderGlow';
 import { FiUser, FiMail, FiLock } from 'react-icons/fi';
 
@@ -22,6 +22,7 @@ export default function RegisterPage() {
   const [captchaError, setCaptchaError] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const captchaRef = useRef<CaptchaHandle>(null);
 
   React.useEffect(() => {
     if (user) router.push('/');
@@ -42,10 +43,12 @@ export default function RegisterPage() {
     } catch (err: any) {
       if (err.message && err.message.includes('验证码')) {
         setCaptchaError(err.message);
-        setCaptcha('');
       } else {
         setError(err.message || '注册失败');
       }
+      // 每输错一次，验证码自动更新
+      setCaptcha('');
+      captchaRef.current?.refresh();
     } finally {
       setLoading(false);
     }
@@ -108,7 +111,7 @@ export default function RegisterPage() {
                   onChange={(e) => setPassword(e.target.value)} icon={<FiLock />} required />
                 <Input label="确认密码" type="password" placeholder="请再次输入密码" value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)} icon={<FiLock />} required />
-                <Captcha value={captcha} onChange={setCaptcha} error={captchaError} />
+                <Captcha ref={captchaRef} value={captcha} onChange={setCaptcha} error={captchaError} />
                 <Button type="submit" variant="primary" size="lg" loading={loading}
                   className="w-full py-4 shadow-[var(--shadow-accent)] hover:shadow-xl">
                   注册

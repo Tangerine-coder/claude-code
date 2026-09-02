@@ -1,7 +1,11 @@
 'use client';
 
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef, useEffect, useImperativeHandle, forwardRef } from 'react';
 import { FiRefreshCw } from 'react-icons/fi';
+
+export interface CaptchaHandle {
+  refresh: () => void;
+}
 
 interface CaptchaProps {
   value: string;
@@ -9,7 +13,10 @@ interface CaptchaProps {
   error?: string;
 }
 
-export default function Captcha({ value, onChange, error }: CaptchaProps) {
+const Captcha = forwardRef<CaptchaHandle, CaptchaProps>(function Captcha(
+  { value, onChange, error },
+  ref
+) {
   const [imgSrc, setImgSrc] = useState('');
   const [loading, setLoading] = useState(false);
   const [key, setKey] = useState(0);
@@ -19,9 +26,12 @@ export default function Captcha({ value, onChange, error }: CaptchaProps) {
     setLoading(true);
     // Append timestamp to prevent caching
     setImgSrc(`/api/captcha?t=${Date.now()}`);
-    setKey(k => k + 1);
+    setKey((k) => k + 1);
     onChange('');
   }, [onChange]);
+
+  // Expose refresh to parent (e.g. refresh after failed login/register)
+  useImperativeHandle(ref, () => ({ refresh }), [refresh]);
 
   useEffect(() => {
     refresh();
@@ -75,12 +85,12 @@ export default function Captcha({ value, onChange, error }: CaptchaProps) {
           <FiRefreshCw className="w-4 h-4 text-[var(--color-text-light)]" />
         </button>
       </div>
-      {error && (
-        <p className="text-xs text-red-500 mt-1">{error}</p>
-      )}
+      {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
       <p className="text-xs text-[var(--color-text-light)] mt-1">
         点击图片或刷新按钮可更换验证码
       </p>
     </div>
   );
-}
+});
+
+export default Captcha;
