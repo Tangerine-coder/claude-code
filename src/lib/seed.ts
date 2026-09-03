@@ -182,14 +182,6 @@ export function seedDatabase(db: Database.Database) {
       specs: JSON.stringify([{ name: '类型', value: '头戴式' }, { name: '驱动单元', value: '40mm 定制' }, { name: '续航', value: '40小时' }, { name: '连接方式', value: '蓝牙5.3 + 3.5mm' }]),
       tags: '高端', featured: 1, isNew: 0, recommended: 0, sales: 2300
     },
-    {
-      id: uuid(), name: '便携蓝牙音箱', slug: 'portable-bluetooth-speaker',
-      desc: '<p>小巧身材，强劲音量。这款便携音箱提供360°环绕立体声，低音深沉饱满。IP67级防水防尘，20小时续航。任何冒险旅程的完美伴侣。</p>',
-      price: 0, originalPrice: null, stock: 160, catId: catAudio, brand: '声波',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1605464315542-bda3e2f4e605?w=640&h=640&fit=crop']),
-      specs: JSON.stringify([{ name: '音效', value: '360° 立体声' }, { name: '续航', value: '20小时' }, { name: '防水', value: 'IP67' }, { name: '重量', value: '540g' }]),
-      tags: '', featured: 0, isNew: 0, recommended: 1, sales: 4500
-    },
 
     // Home - Furniture
     {
@@ -243,30 +235,6 @@ export function seedDatabase(db: Database.Database) {
       images: JSON.stringify(['https://images.unsplash.com/photo-1593618998160-e34014e67546?w=640&h=640&fit=crop']),
       specs: JSON.stringify([{ name: '材质', value: '德国不锈钢' }, { name: '件数', value: '8件套' }, { name: '手柄', value: '人体工学彩木' }, { name: '刀架', value: '金合欢木' }]),
       tags: '高端', featured: 0, isNew: 0, recommended: 1, sales: 890
-    },
-    {
-      id: uuid(), name: '铸铁珐琅锅 6QT', slug: 'cast-iron-dutch-oven-6qt',
-      desc: '<p>可以传承几代人的厨房利器。预开锅铸铁搭配珐琅涂层，非常适合慢炖、红烧、烤面包和煲汤。不锈钢珠自循环凝水锅盖。</p>',
-      price: 0, originalPrice: null, stock: 70, catId: catKitchen, brand: '厨艺家',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=640&h=640&fit=crop']),
-      specs: JSON.stringify([{ name: '材质', value: '珐琅铸铁' }, { name: '容量', value: '6 QT (5.7L)' }, { name: '烤箱适用', value: '最高260°C' }, { name: '重量', value: '5.4 kg' }]),
-      tags: '畅销', featured: 1, isNew: 0, recommended: 1, sales: 3400
-    },
-    {
-      id: uuid(), name: '不锈钢锅具套装', slug: 'stainless-steel-cookware-set',
-      desc: '<p>10件套优质不锈钢锅具，三层复合结构实现均匀加热。包含煎锅、汤锅、炖锅和炒锅。可进烤箱、可洗碗机清洗。兼容电磁炉。</p>',
-      price: 0, originalPrice: null, stock: 45, catId: catKitchen, brand: '厨艺家',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=640&h=640&fit=crop']),
-      specs: JSON.stringify([{ name: '材质', value: '三层复合不锈钢' }, { name: '件数', value: '10件套' }, { name: '兼容性', value: '所有灶具 含电磁炉' }, { name: '洗碗机', value: '适用' }]),
-      tags: '新品', featured: 0, isNew: 1, recommended: 0, sales: 567
-    },
-    {
-      id: uuid(), name: '智能咖啡机', slug: 'smart-coffee-maker',
-      desc: '<p>支持WiFi连接的咖啡机，可通过手机远程操控。定时冲泡、调节浓度，咖啡煮好后自动通知。内置研磨器，保证最新鲜的口感。</p>',
-      price: 0, originalPrice: null, stock: 90, catId: catKitchen, brand: '诺瓦科技',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1559496417-e7f25cb247f3?w=640&h=640&fit=crop']),
-      specs: JSON.stringify([{ name: '容量', value: '12杯' }, { name: '连接方式', value: 'WiFi + App 控制' }, { name: '研磨器', value: '内置锥形研磨器' }, { name: '冲泡类型', value: '滴滤 + 单杯' }]),
-      tags: '新品,智能', featured: 1, isNew: 1, recommended: 1, sales: 2100
     },
   
     // ========== New Products ==========
@@ -417,14 +385,14 @@ export function seedDatabase(db: Database.Database) {
   insertOrderItem.run(uuid(), order2Id, products[0].id, products[0].name, JSON.parse(products[0].images)[0], JSON.stringify({ '颜色': '白色', '尺码': 'M' }), 0, 1, 0);
 
   insertOrder.run(order3Id, orderNo3, userId, 'pending_payment', 0, 0, 0, '', addressSnapshot, '', null, null, null);
-  insertOrderItem.run(uuid(), order3Id, products[21].id, products[21].name, JSON.parse(products[21].images)[0], '{}', 0, 1, 0);
+  insertOrderItem.run(uuid(), order3Id, products[19].id, products[19].name, JSON.parse(products[19].images)[0], '{}', 0, 1, 0);
 
   // ========== Reviews ==========
   const insertReview = db.prepare(
     `INSERT INTO reviews (id, product_id, user_id, order_id, rating, content, images, is_approved) VALUES (?, ?, ?, ?, ?, ?, ?, 1)`
   );
 
-  const reviewProducts = [products[8], products[9], products[11], products[19], products[0], products[12]];
+  const reviewProducts = [products[8], products[9], products[11], products[18], products[0], products[12]];
   const reviewData = [
     { rating: 5, content: '太喜欢这款手机了！拍照效果惊艳，电池续航一整天没问题。今年买得最值的一件东西。', images: '[]' },
     { rating: 5, content: '性价比超高。运行流畅，屏幕显示出色。强烈推荐！', images: '[]' },
@@ -450,7 +418,7 @@ export function seedDatabase(db: Database.Database) {
     `INSERT OR IGNORE INTO favorites (id, user_id, product_id) VALUES (?, ?, ?)`
   );
 
-  const favProductIds = [products[8].id, products[12].id, products[19].id, products[0].id, products[21].id];
+  const favProductIds = [products[8].id, products[12].id, products[18].id, products[0].id, products[19].id];
   for (const pid of favProductIds) {
     insertFavorite.run(uuid(), userId, pid);
   }
