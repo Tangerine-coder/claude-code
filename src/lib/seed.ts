@@ -64,7 +64,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '经典版型纯棉牛津纺衬衫', slug: 'classic-fit-cotton-oxford-shirt',
       desc: '<p>经典永不过时的必备单品，采用100%有机棉精制而成。这款牛津纺衬衫配有纽扣领、胸袋和宽松经典版型，无论是塞进裤腰还是随意穿着都同样出色。</p><p>无论是休闲周五还是周末出游，都是理想之选。</p>',
       price: 0, originalPrice: null, stock: 150, catId: catMens, brand: '诺瓦精选',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1598032895397-b9472444bf93?w=640&h=640&fit=crop']),
+            images: JSON.stringify(['/images/products/classic-fit-cotton-oxford-shirt.jpg']),
       specs: JSON.stringify([{ name: '材质', value: '100% 有机棉' }, { name: '版型', value: '经典版型' }, { name: '领型', value: '纽扣领' }, { name: '洗涤', value: '可机洗' }]),
       tags: '新品,有机,畅销', featured: 1, isNew: 1, recommended: 1, sales: 2340
     },
@@ -72,7 +72,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '修身弹力斜纹裤', slug: 'slim-fit-stretch-chinos',
       desc: '<p>现代修身版型斜纹裤，含2%弹力纤维，全天舒适自如。中腰设计与锥形裤腿，打造利落轮廓。</p>',
       price: 0, originalPrice: null, stock: 200, catId: catMens, brand: '诺瓦精选',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1584865288642-42078afe6942?w=640&h=640&fit=crop']),
+            images: JSON.stringify(['/images/products/slim-fit-stretch-chinos.jpg']),
       specs: JSON.stringify([{ name: '材质', value: '98% 棉, 2% 弹力纤维' }, { name: '版型', value: '修身版型' }, { name: '腰型', value: '中腰' }]),
       tags: '畅销', featured: 0, isNew: 0, recommended: 1, sales: 1890
     },
@@ -80,7 +80,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '美利奴羊毛V领毛衣', slug: 'merino-wool-v-neck-sweater',
       desc: '<p>奢华柔软的美利奴羊毛毛衣，经典V领设计。具有温度调节功能，天然抗异味。</p>',
       price: 0, originalPrice: null, stock: 80, catId: catMens, brand: '纯羊毛',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1536992266094-82847e1fd431?w=640&h=640&fit=crop']),
+            images: JSON.stringify(['/images/products/merino-wool-v-neck-sweater.jpg']),
       specs: JSON.stringify([{ name: '材质', value: '100% 美利奴羊毛' }, { name: '厚度', value: '中等针数' }, { name: '领型', value: 'V领' }]),
       tags: '高端', featured: 1, isNew: 0, recommended: 0, sales: 567
     },
@@ -90,7 +90,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '碎花印花中长连衣裙', slug: 'floral-print-midi-dress',
       desc: '<p>惊艳的中长连衣裙，采用手绘风格碎花印花轻质雪纺面料。围裹式廓形适合各种体型，配有可调节腰部系带。</p>',
       price: 0, originalPrice: null, stock: 120, catId: catWomens, brand: '花开物语',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=640&h=640&fit=crop']),
+            images: JSON.stringify(['/images/products/floral-print-midi-dress.jpg']),
       specs: JSON.stringify([{ name: '材质', value: '雪纺' }, { name: '长度', value: '中长款' }, { name: '款式', value: '围裹式连衣裙' }, { name: '季节', value: '春夏' }]),
       tags: '新品,春季', featured: 1, isNew: 1, recommended: 1, sales: 1456
     },
@@ -98,7 +98,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '高腰阔腿裤', slug: 'high-waist-wide-leg-trousers',
       desc: '<p>精致的高腰阔腿裤，采用垂感极佳的绉纱面料，抗皱不褪色，展现优雅气质。</p>',
       price: 0, originalPrice: null, stock: 95, catId: catWomens, brand: '诺瓦精选',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1745834311248-f19d424c5398?w=640&h=640&fit=crop']),
+            images: JSON.stringify(['/images/products/high-waist-wide-leg-trousers.jpg']),
       specs: JSON.stringify([{ name: '材质', value: '涤纶绉纱' }, { name: '腰型', value: '高腰' }, { name: '裤型', value: '阔腿' }]),
       tags: '通勤,经典', featured: 0, isNew: 0, recommended: 1, sales: 890
     },
@@ -106,7 +106,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '羊绒混纺开衫', slug: 'cashmere-blend-cardigan',
       desc: '<p>用这款羊绒混纺开衫将自己包裹在奢华之中。配有珍珠母贝纽扣和罗纹袖口，是完美的叠穿单品。</p>',
       price: 0, originalPrice: null, stock: 45, catId: catWomens, brand: '纯羊毛',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1687275168013-dcc11d9c74ab?w=640&h=640&fit=crop']),
+            images: JSON.stringify(['/images/products/cashmere-blend-cardigan.jpg']),
       specs: JSON.stringify([{ name: '材质', value: '70% 羊毛, 30% 羊绒' }, { name: '闭合方式', value: '前开扣' }, { name: '洗涤', value: '仅限干洗' }]),
       tags: '高端,冬季', featured: 1, isNew: 0, recommended: 0, sales: 342
     },
@@ -116,7 +116,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '有机棉儿童睡衣套装', slug: 'organic-cotton-pj-set',
       desc: '<p>可爱两件套睡衣，采用GOTS认证有机棉制成。超级柔软、透气，不含任何有害化学物质。即使是敏感肌肤的宝宝也能安心穿着。</p>',
       price: 0, originalPrice: null, stock: 180, catId: catKids, brand: '小诺瓦',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=640&h=640&fit=crop']),
+            images: JSON.stringify(['/images/products/organic-cotton-pj-set.jpg']),
       specs: JSON.stringify([{ name: '材质', value: 'GOTS 有机棉' }, { name: '套装', value: '上衣 + 裤子' }, { name: '适用年龄', value: '2-8 岁' }]),
       tags: '有机,新品', featured: 0, isNew: 1, recommended: 1, sales: 2100
     },
@@ -134,7 +134,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: 'NovaPhone 15 Pro - 256GB', slug: 'novaphone-15-pro-256gb',
       desc: '<p>NovaPhone 15 Pro 配备惊艳的6.7英寸OLED显示屏、A18 Pro芯片以及4800万像素主摄的专业级相机系统。全天候续航与钛金属机身设计。</p>',
       price: 0, originalPrice: null, stock: 50, catId: catPhones, brand: '诺瓦科技',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=640&h=640&fit=crop']),
+            images: JSON.stringify(['/images/products/novaphone-15-pro-256gb.jpg']),
       specs: JSON.stringify([{ name: '屏幕', value: '6.7英寸 OLED 120Hz' }, { name: '芯片', value: 'A18 Pro' }, { name: '摄像头', value: '4800万 + 1200万 + 1200万像素' }, { name: '存储', value: '256GB' }, { name: '电池', value: '4500mAh' }]),
       tags: '热销,高端', featured: 1, isNew: 1, recommended: 1, sales: 5600
     },
@@ -142,7 +142,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: 'NovaPhone 15 - 128GB', slug: 'novaphone-15-128gb',
       desc: '<p>NovaPhone 15 以亲民价格带来旗舰级性能。配备6.1英寸Super Retina显示屏、A17芯片和先进的双摄系统。</p>',
       price: 0, originalPrice: null, stock: 75, catId: catPhones, brand: '诺瓦科技',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1580910051074-3eb694886505?w=640&h=640&fit=crop']),
+            images: JSON.stringify(['/images/products/novaphone-15-128gb.jpg']),
       specs: JSON.stringify([{ name: '屏幕', value: '6.1英寸 Super Retina' }, { name: '芯片', value: 'A17' }, { name: '摄像头', value: '4800万 + 1200万像素' }, { name: '存储', value: '128GB' }]),
       tags: '热销', featured: 1, isNew: 1, recommended: 1, sales: 7800
     },
@@ -152,7 +152,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: 'NovaBook Pro 16英寸笔记本电脑', slug: 'novabook-pro-16-laptop',
       desc: '<p>强劲性能与便携兼具，NovaBook Pro 搭载 M4 Pro 芯片，配备惊艳的16英寸 Liquid Retina XDR 显示屏，续航长达22小时。创意专业人士的理想之选。</p>',
       price: 0, originalPrice: null, stock: 30, catId: catLaptops, brand: '诺瓦科技',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=640&h=640&fit=crop']),
+            images: JSON.stringify(['/images/products/novabook-pro-16-laptop.jpg']),
       specs: JSON.stringify([{ name: '屏幕', value: '16英寸 Liquid Retina XDR' }, { name: '芯片', value: 'M4 Pro' }, { name: '内存', value: '18GB' }, { name: '存储', value: '512GB 固态硬盘' }, { name: '续航', value: '最长22小时' }]),
       tags: '高端,热销', featured: 1, isNew: 1, recommended: 1, sales: 3400
     },
@@ -170,7 +170,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: 'NovaPods Pro 无线耳机', slug: 'novapods-pro-wireless-earbuds',
       desc: '<p>沉浸式音效体验，配备主动降噪功能。支持自适应均衡、空间音频，配合MagSafe充电盒可实现最长30小时的总聆听时间。</p>',
       price: 0, originalPrice: null, stock: 200, catId: catAudio, brand: '诺瓦科技',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=640&h=640&fit=crop']),
+            images: JSON.stringify(['/images/products/novapods-pro-wireless-earbuds.jpg']),
       specs: JSON.stringify([{ name: '类型', value: '真无线' }, { name: '降噪', value: '主动降噪' }, { name: '续航', value: '总计30小时' }, { name: '防水等级', value: 'IPX4' }]),
       tags: '热销,畅销', featured: 1, isNew: 0, recommended: 1, sales: 12300
     },
@@ -204,7 +204,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '极简升降桌', slug: 'minimalist-standing-desk',
       desc: '<p>用这款电动升降桌升级你的工作空间。72cm至120cm平滑高度调节，记忆预设，宽敞竹制桌面。附带线缆管理托盘。</p>',
       price: 0, originalPrice: null, stock: 40, catId: catFurniture, brand: '港湾家居',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1622126807280-9b5b32b28e77?w=640&h=640&fit=crop']),
+            images: JSON.stringify(['/images/products/minimalist-standing-desk.jpg']),
       specs: JSON.stringify([{ name: '材质', value: '竹面 + 钢架' }, { name: '高度范围', value: '72-120 cm' }, { name: '电机', value: '双电机' }, { name: '承重', value: '80 kg' }]),
       tags: '新品,办公', featured: 0, isNew: 1, recommended: 1, sales: 890
     },
@@ -222,7 +222,7 @@ export function seedDatabase(db: Database.Database) {
       id: uuid(), name: '手工编织挂毯', slug: 'handwoven-macrame-wall-hanging',
       desc: '<p>由资深匠人手工编织的挂毯，采用100%天然棉绳制成。每一件都由技艺精湛的匠人手工打结，独一无二。为任何房间增添温暖与质感。</p>',
       price: 0, originalPrice: null, stock: 100, catId: catDecor, brand: '匠心集',
-      images: JSON.stringify(['https://images.unsplash.com/photo-1560343090-f0409e92791a?w=640&h=640&fit=crop']),
+            images: JSON.stringify(['/images/products/handwoven-macrame-wall-hanging.jpg']),
       specs: JSON.stringify([{ name: '材质', value: '100% 棉绳' }, { name: '尺寸', value: '80 × 60 cm' }, { name: '风格', value: '波西米亚风' }, { name: '安装件', value: '木质挂杆' }]),
       tags: '新品,手工', featured: 0, isNew: 1, recommended: 1, sales: 1230
     },
