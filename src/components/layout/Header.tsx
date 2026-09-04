@@ -69,7 +69,7 @@ export default function Header() {
     <>
       {/* Top announcement bar */}
       <div className="gradient-primary text-white text-xs text-center py-1.5 px-4 font-medium tracking-wider">
-        🎉 全场商品免费！立即抢购
+        🎉 全场低至 5 折起 · 满 $99 享免邮
       </div>
 
       <header
