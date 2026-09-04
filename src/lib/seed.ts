@@ -236,7 +236,7 @@ export function seedDatabase(db: Database.Database) {
       specs: JSON.stringify([{ name: '材质', value: '德国不锈钢' }, { name: '件数', value: '8件套' }, { name: '手柄', value: '人体工学彩木' }, { name: '刀架', value: '金合欢木' }]),
       tags: '高端', featured: 0, isNew: 0, recommended: 1, sales: 890
     },
-  
+
     // ========== New Products ==========
     // Men's - Lightweight Jacket
     {

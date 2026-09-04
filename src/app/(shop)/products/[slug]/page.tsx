@@ -234,10 +234,23 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
   }
 
   // ----- Specs parsing -----
-  const specs: Record<string, string> = (() => {
-    try { return JSON.parse(product.specs); } catch { return {}; }
+  // specs may be stored as array [{name,value}] (seed) or object {key:value}; support both
+  const specEntries: [string, string][] = (() => {
+    try {
+      const parsed = JSON.parse(product.specs);
+      if (Array.isArray(parsed)) {
+        return parsed
+          .filter((s: any) => s && s.name)
+          .map((s: any) => [String(s.name), String(s.value ?? '')]);
+      }
+      if (parsed && typeof parsed === 'object') {
+        return Object.entries(parsed).map(([k, v]) => [String(k), String(v)]);
+      }
+      return [];
+    } catch {
+      return [];
+    }
   })();
-  const specEntries = Object.entries(specs);
 
   // ----- Main render -----
   return (
