@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import Button from '@/components/ui/Button';
@@ -8,6 +8,17 @@ import Button from '@/components/ui/Button';
 function SuccessContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get('orderId');
+  const [orderNo, setOrderNo] = useState('');
+
+  useEffect(() => {
+    if (!orderId) return;
+    fetch(`/api/orders/${orderId}`)
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.success && d.data) setOrderNo(d.data.order_no || '');
+      })
+      .catch(() => {});
+  }, [orderId]);
 
   return (
     <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
@@ -36,12 +47,20 @@ function SuccessContent() {
         感谢您的购买，我们会尽快为您发货
       </p>
 
-      {orderId && (
+      {(orderId && orderNo) ? (
+        <Link href={`/user/orders/${orderId}`} className="block">
+          <div className="bg-gray-50 hover:bg-[var(--color-accent)]/10 border border-[var(--color-border)]/60 rounded-xl px-6 py-3 mb-8 inline-flex items-center gap-3 transition-colors group">
+            <span className="text-xs text-[var(--color-text-light)]">订单编号：</span>
+            <span className="text-sm font-mono font-bold text-[var(--color-text)]">{orderNo}</span>
+            <span className="text-[var(--color-accent)] font-medium text-sm group-hover:underline">查看订单 →</span>
+          </div>
+        </Link>
+      ) : orderId ? (
         <div className="bg-gray-50 rounded-xl px-6 py-3 mb-8 inline-block">
           <span className="text-xs text-[var(--color-text-light)] mr-2">订单编号：</span>
           <span className="text-sm font-mono font-bold text-[var(--color-text)]">{orderId}</span>
         </div>
-      )}
+      ) : null}
 
       <div className="flex flex-col sm:flex-row gap-3">
         {orderId && (

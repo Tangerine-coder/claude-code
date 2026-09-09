@@ -17,17 +17,23 @@ export async function GET(request: NextRequest) {
       const limit = Math.min(parseInt(searchParams.get('limit') || '20'), 100);
       const offset = (page - 1) * limit;
 
+      const userId = searchParams.get('user_id');
       let sql = 'SELECT o.*, u.username as customer_name, u.email as customer_email FROM orders o LEFT JOIN users u ON o.user_id = u.id';
       let countSql = 'SELECT COUNT(*) as total FROM orders o';
       const bindings: any[] = [];
       const countBindings: any[] = [];
 
-      if (status) {
-        sql += ' WHERE o.status = ?';
-        countSql += ' WHERE o.status = ?';
-        bindings.push(status);
-        countBindings.push(status);
+      const where: string[] = [];
+      if (status) where.push('o.status = ?');
+      if (userId) where.push('o.user_id = ?');
+      if (where.length > 0) {
+        const clause = ' WHERE ' + where.join(' AND ');
+        sql += clause;
+        countSql += clause;
       }
+      // bindings must match where order (status then userId)
+      if (status) { bindings.push(status); countBindings.push(status); }
+      if (userId) { bindings.push(userId); countBindings.push(userId); }
 
       sql += ' ORDER BY o.created_at DESC LIMIT ? OFFSET ?';
       bindings.push(limit, offset);
