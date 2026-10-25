@@ -1,8 +1,27 @@
+import crypto from 'crypto';
 import { NextRequest } from 'next/server';
 import jwt from 'jsonwebtoken';
 import type { AuthPayload } from '@/types';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'nova-mart-dev-secret-change-in-production';
+const DEV_ONLY_SECRET = 'nova-mart-dev-secret-change-in-production';
+
+function resolveJwtSecret(): string {
+  const fromEnv = process.env.JWT_SECRET;
+  if (fromEnv && fromEnv.length >= 16) return fromEnv;
+
+  // 开发环境才允许用固定值，方便本地反复登录
+  if (process.env.NODE_ENV !== 'production') return DEV_ONLY_SECRET;
+
+  // 生产环境没有配置 JWT_SECRET 时，绝不再回落到仓库里写死的默认值：
+  // 那个值是公开的，任何人都能据此伪造 admin token。
+  // 改为每次进程启动生成随机密钥 —— 重启后旧登录态失效，但无法被伪造。
+  console.warn(
+    '[auth] 未配置 JWT_SECRET，已生成随机密钥（重启后登录态会失效）。请尽快在部署环境设置 JWT_SECRET。'
+  );
+  return crypto.randomBytes(32).toString('hex');
+}
+
+export const JWT_SECRET = resolveJwtSecret();
 const JWT_EXPIRY = '7d';
 
 export function signToken(payload: AuthPayload): string {

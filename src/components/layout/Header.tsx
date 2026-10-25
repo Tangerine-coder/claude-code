@@ -69,7 +69,7 @@ export default function Header() {
     <>
       {/* Top announcement bar */}
       <div className="gradient-primary text-white text-xs text-center py-1.5 px-4 font-medium tracking-wider">
-        🎉 全场低至 5 折起 · 满 $99 享免邮
+        🎉 全场低至 5 折起 · 满 ¥99 免邮
       </div>
 
       <header
@@ -185,8 +185,8 @@ export default function Header() {
                   )}
                 </div>
               ) : (
-                /* Login/Register buttons - not logged in */
-                <div className="flex items-center gap-2">
+                /* Login/Register buttons - not logged in（小屏收进侧边菜单，避免顶栏挤爆） */
+                <div className="hidden sm:flex items-center gap-2">
                   <Link href="/login" className="px-3 py-2 text-sm font-medium text-[var(--color-primary)] hover:text-[var(--color-accent)] border border-[var(--color-primary)] hover:border-[var(--color-accent)] rounded-lg transition-colors whitespace-nowrap">
                     登录
                   </Link>

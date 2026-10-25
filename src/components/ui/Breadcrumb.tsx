@@ -11,8 +11,8 @@ interface BreadcrumbProps {
 
 export default function Breadcrumb({ items }: BreadcrumbProps) {
   return (
-    <nav className="flex items-center gap-1.5 text-sm text-[var(--color-text-light)] mb-4" aria-label="Breadcrumb">
-      <Link href="/" className="hover:text-[var(--color-accent)] transition-colors">Home</Link>
+    <nav className="flex items-center gap-1.5 text-sm text-[var(--color-text-light)] mb-4" aria-label="面包屑导航">
+      <Link href="/" className="hover:text-[var(--color-accent)] transition-colors">首页</Link>
       {items.map((item, i) => (
         <span key={i} className="flex items-center gap-1.5">
           <svg className="w-3 h-3 text-[var(--color-text-lighter)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">

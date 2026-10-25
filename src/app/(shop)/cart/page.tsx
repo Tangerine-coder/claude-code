@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useCart } from '@/contexts/CartContext';
 import QuantityInput from '@/components/ui/QuantityInput';
 import EmptyState from '@/components/ui/EmptyState';
-import { formatPrice } from '@/lib/utils';
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE, formatPrice } from '@/lib/utils';
 import { FiTrash2, FiArrowLeft, FiTag } from 'react-icons/fi';
 
 function parseSpecInfo(specInfo: string): string {
@@ -24,7 +24,7 @@ function parseSpecInfo(specInfo: string): string {
 export default function CartPage() {
   const { items, itemCount, subtotal, updateQuantity, removeItem, clearCart, isLoading } = useCart();
 
-  const shipping = subtotal >= 50 ? 0 : 5.99;
+  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
   const estimatedTotal = subtotal + shipping;
 
   if (isLoading) {

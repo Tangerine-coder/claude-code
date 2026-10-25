@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
 import QuantityInput from '@/components/ui/QuantityInput';
 import EmptyState from '@/components/ui/EmptyState';
-import { formatPrice } from '@/lib/utils';
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE, formatPrice } from '@/lib/utils';
 import { FiX, FiTrash2 } from 'react-icons/fi';
 
 interface CartDrawerProps {
@@ -27,7 +27,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
   if (!isOpen) return null;
 
-  const shipping = subtotal === 0 ? 0 : (subtotal >= 50 ? 0 : 5.99);
+  const shipping = subtotal === 0 ? 0 : (subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE);
   const total = subtotal + shipping;
 
   return (

@@ -11,7 +11,7 @@ import Input from '@/components/ui/Input';
 import { Select, Textarea } from '@/components/ui/Input';
 import Modal from '@/components/ui/Modal';
 import PriceDisplay from '@/components/ui/PriceDisplay';
-import { formatPrice } from '@/lib/utils';
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE, formatPrice } from '@/lib/utils';
 import { getRegionLabels } from '@/lib/regions';
 import AddressSelector from '@/components/ui/AddressSelector';
 import type { Address, ApiResponse } from '@/types';
@@ -65,7 +65,7 @@ export default function CheckoutPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
-  const shipping = subtotal >= 50 ? 0 : 5.99;
+  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
   const total = subtotal + shipping;
 
   // Fetch addresses

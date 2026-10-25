@@ -15,7 +15,7 @@ export function seedDatabase(db: Database.Database) {
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`
   );
 
-  insertUser.run(adminId, 'admin', 'admin@novamart.com', bcrypt.hashSync('xiao123', salt), '13800000000', '', 'admin', 'active');
+  insertUser.run(adminId, 'admin', 'admin@novamart.com', bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'xiao123', salt), '13800000000', '', 'admin', 'active');
   insertUser.run(userId, '张三', 'user@example.com', bcrypt.hashSync('user123', salt), '13800138001', '', 'customer', 'active');
 
   // ========== Categories ==========
@@ -326,14 +326,14 @@ export function seedDatabase(db: Database.Database) {
   insertBanner.run(uuid(), '夏日大促火热进行中', '精选商品低至5折，限时抢购，手慢无！', 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1200&h=500&fit=crop', '/categories/clothing', 1);
   insertBanner.run(uuid(), '数码新品驾到', '探索诺瓦科技最新力作，享独家首发特惠。', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=500&fit=crop', '/categories/electronics', 2);
   insertBanner.run(uuid(), '家居焕新季', '精选家居好物，打造理想生活空间。30%起让利。', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&h=500&fit=crop', '/categories/home-living', 3);
-  insertBanner.run(uuid(), '周末免邮狂欢', '全场满$50包邮，马上开抢！', 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=500&fit=crop', '/categories/electronics', 4);
+  insertBanner.run(uuid(), '周末免邮狂欢', '全场满 ¥99 免邮，马上开抢！', 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=500&fit=crop', '/categories/electronics', 4);
 
   // ========== Announcements ==========
   const insertAnnouncement = db.prepare(
     `INSERT INTO announcements (id, content, link_url, is_active) VALUES (?, ?, ?, 1)`
   );
 
-  insertAnnouncement.run(uuid(), '🚚 全场满 $99 享免邮配送', '/help');
+  insertAnnouncement.run(uuid(), '🚚 全场满 ¥99 免邮配送', '/help');
   insertAnnouncement.run(uuid(), '🎉 新用户首单享9折优惠——使用优惠码: WELCOME10', '/auth/login');
 
   // ========== Addresses ==========

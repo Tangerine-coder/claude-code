@@ -8,8 +8,13 @@ export function slugify(text: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
+/** 免邮门槛（元） */
+export const FREE_SHIPPING_THRESHOLD = 99;
+/** 未达门槛时的运费（元） */
+export const SHIPPING_FEE = 8;
+
 export function formatPrice(price: number): string {
-  return `$${price.toFixed(2)}`;
+  return `¥${price.toFixed(2)}`;
 }
 
 export function generateOrderNo(): string {

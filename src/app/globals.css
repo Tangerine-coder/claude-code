@@ -185,6 +185,10 @@
    Base Styles
    ══════════════════════════════════════════════ */
 
+html {
+  overflow-x: hidden;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -199,6 +203,8 @@ body {
   background-size: 40px 40px, 40px 40px, 100% 100%, 100% 100%, 100% 100%;
   min-height: 100vh;
   color: var(--color-text);
+  /* 轮播 / 光效元素偶尔会横向溢出，兜底裁掉，避免手机端能左右拖动 */
+  overflow-x: hidden;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

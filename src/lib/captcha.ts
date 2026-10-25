@@ -1,6 +1,8 @@
 import crypto from 'crypto';
 
-const CAPTCHA_SECRET = process.env.JWT_SECRET || 'nova-mart-captcha-secret';
+import { JWT_SECRET } from './auth';
+
+const CAPTCHA_SECRET = process.env.CAPTCHA_SECRET || JWT_SECRET;
 
 // Generate a random 4-digit code
 export function generateCode(): string {
