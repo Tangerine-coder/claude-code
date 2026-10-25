@@ -60,4 +60,7 @@ function getDb(): Database.Database {
   return globalForDb._db;
 }
 
+/** 当前使用的 SQLite 文件路径，备份接口会用到 */
+export const DB_FILE = DB_PATH;
+
 export default getDb;

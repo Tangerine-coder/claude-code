@@ -35,7 +35,7 @@ export default function SettingsPage() {
     setProfileError('');
     setProfileLoading(true);
     try {
-      const res = await fetch('/api/settings', {
+      const res = await fetch('/api/user/profile', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username }),
@@ -73,12 +73,12 @@ export default function SettingsPage() {
 
     setPasswordLoading(true);
     try {
-      const res = await fetch('/api/settings', {
+      const res = await fetch('/api/user/password', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          current_password: currentPassword,
-          new_password: newPassword,
+          currentPassword,
+          newPassword,
         }),
       });
       const data = await res.json();

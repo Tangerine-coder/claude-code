@@ -1,0 +1,33 @@
+# Render Blueprint —— 带持久磁盘的部署配置
+#
+# 注意：Render 的持久磁盘只对付费实例（Starter 及以上）开放。
+# 免费实例（Free）没有磁盘，SQLite 文件在每次重新部署 / 重启后都会丢失。
+#
+# 用法（二选一）：
+#   A. 用 Blueprint 新建服务：Render 控制台 → New → Blueprint，选中本仓库
+#   B. 手动在现有服务上加：Settings → Disks → Add Disk（Mount Path: /var/data），
+#      再到 Environment 里把 DB_PATH 设为 /var/data/ecommerce.db
+services:
+  - type: web
+    name: nova-mart
+    runtime: node
+    plan: starter
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # 自动生成一串随机密钥，避免使用仓库里的默认值
+      - key: JWT_SECRET
+        generateValue: true
+      # 管理员初始密码，首次部署后请在后台改掉
+      - key: ADMIN_PASSWORD
+        sync: false
+      # 指向挂载的磁盘，数据才会在重启后保留
+      - key: DB_PATH
+        value: /var/data/ecommerce.db
+    disk:
+      name: novamart-data
+      mountPath: /var/data
+      sizeGB: 1

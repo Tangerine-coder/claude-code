@@ -186,10 +186,42 @@ src/
 1. 创建 **Web Service**，连接 GitHub 仓库
 2. Build: `npm install && npm run build`
 3. Start: `npm start`
-4. 环境变量（可选）：`JWT_SECRET`、`NODE_ENV=production`
+4. 环境变量：`NODE_ENV=production`、`JWT_SECRET`（必填）、`ADMIN_PASSWORD`（首次种子密码）
+
+### 💾 数据持久化（重要）
+
+本项目用的是 **SQLite 单文件**，数据库路径由 `DB_PATH` 决定，默认 `./data/ecommerce.db`。
+
+**Render 免费实例的磁盘是临时的**：重新部署、重启、闲置回收之后，文件会回到镜像里的初始状态，
+也就是**用户、订单、你改过的商品价格都会丢**。所以正式演示前，务必二选一：
+
+**方案 A：付费实例 + 持久磁盘（最省事）**
+1. 服务升级到 **Starter**（约 $7/月），免费实例不支持磁盘
+2. Settings → **Disks** → Add Disk，Mount Path 填 `/var/data`，大小 1GB
+3. 环境变量加 `DB_PATH=/var/data/ecommerce.db`
+4. 重新部署
+
+仓库里的 `render.yaml` 就是这套配置，也可以用它一次建好服务。
+
+**方案 B：免费额度下用外部数据库**
+SQLite 换成 [Turso](https://turso.tech)（libSQL，有免费额度）。需要把 `src/lib/db.ts` 从
+`better-sqlite3`（同步 API）换成 `@libsql/client`（异步 API），所有 `db.prepare(...).get()` 调用
+都要改成 `await`，改动面较大，目前**尚未实现**。
+
+### 🗄️ 手动备份 / 恢复
+
+不管用哪种方案，都可以用管理员账号随时导出一份数据库：
+
+```bash
+# 登录后从浏览器直接访问，或带 cookie 用 curl
+curl -b 'auth_token=<你的token>' -o backup.db   https://<你的域名>/api/admin/backup
+```
+
+重启后数据被清空时，把备份文件放回 `DB_PATH` 指向的位置即可恢复
+（Render 上需要临时把这个文件放进磁盘，或用 `scp`/磁盘快照）。
 
 ### Vercel / 自托管
-标准 Next.js 应用，支持任何 Node.js 环境。
+标准 Next.js 应用，支持任何 Node.js 环境（注意 Vercel 的 Serverless 环境同样没有持久磁盘）。
 
 ---
 
