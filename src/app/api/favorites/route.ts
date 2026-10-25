@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     if (!auth) return Response.json({ success: false, message: 'Please login' }, { status: 401 });
 
     const db = getDb();
-    const favorites = db.prepare(
+    const favorites = await db.prepare(
       `SELECT f.*, p.name, p.slug, p.price, p.original_price, p.stock, p.sales_count,
               (SELECT json_extract(images, '$[0]') FROM products WHERE id = f.product_id) as image
        FROM favorites f JOIN products p ON f.product_id = p.id
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     const id = uuid();
 
     try {
-      db.prepare('INSERT INTO favorites (id, user_id, product_id) VALUES (?, ?, ?)').run(id, auth.userId, body.product_id);
+      await db.prepare('INSERT INTO favorites (id, user_id, product_id) VALUES (?, ?, ?)').run(id, auth.userId, body.product_id);
     } catch {
       return Response.json({ success: false, message: 'Already in favorites' }, { status: 409 });
     }
@@ -50,7 +50,7 @@ export async function DELETE(request: NextRequest) {
 
     const db = getDb();
     const productId = request.nextUrl.searchParams.get('product_id');
-    db.prepare('DELETE FROM favorites WHERE user_id = ? AND product_id = ?').run(auth.userId, productId);
+    await db.prepare('DELETE FROM favorites WHERE user_id = ? AND product_id = ?').run(auth.userId, productId);
     return Response.json({ success: true, message: 'Removed from favorites' });
   } catch (error) {
     return Response.json({ success: false, message: 'Internal server error' }, { status: 500 });

@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     }
 
     const db = getDb();
-    const addresses = db.prepare(
+    const addresses = await db.prepare(
       'SELECT * FROM addresses WHERE user_id = ? ORDER BY is_default DESC, created_at DESC'
     ).all(auth.userId);
 
@@ -35,15 +35,15 @@ export async function POST(request: NextRequest) {
 
     // If this is default, unset other defaults
     if (body.is_default) {
-      db.prepare('UPDATE addresses SET is_default = 0 WHERE user_id = ?').run(auth.userId);
+      await db.prepare('UPDATE addresses SET is_default = 0 WHERE user_id = ?').run(auth.userId);
     }
 
-    db.prepare(
+    await db.prepare(
       `INSERT INTO addresses (id, user_id, receiver_name, phone, province, city, district, detail, zip_code, is_default)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     ).run(id, auth.userId, body.receiver_name, body.phone, body.province, body.city, body.district, body.detail, body.zip_code || '', body.is_default ? 1 : 0);
 
-    const address = db.prepare('SELECT * FROM addresses WHERE id = ?').get(id);
+    const address = await db.prepare('SELECT * FROM addresses WHERE id = ?').get(id);
     return Response.json({ success: true, data: address }, { status: 201 });
   } catch (error) {
     console.error('Create address error:', error);

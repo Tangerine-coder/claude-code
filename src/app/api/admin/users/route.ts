@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   try {
     requireAdmin(request);
     const db = getDb();
-    const users = db.prepare('SELECT u.id, u.username, u.email, u.phone, u.avatar, u.role, u.status, u.last_login, u.created_at, COUNT(o.id) as order_count FROM users u LEFT JOIN orders o ON o.user_id = u.id GROUP BY u.id ORDER BY u.created_at DESC').all();
+    const users = await db.prepare('SELECT u.id, u.username, u.email, u.phone, u.avatar, u.role, u.status, u.last_login, u.created_at, COUNT(o.id) as order_count FROM users u LEFT JOIN orders o ON o.user_id = u.id GROUP BY u.id ORDER BY u.created_at DESC').all();
     return Response.json({ success: true, data: users });
   } catch (error: any) {
     if (error.status === 401 || error.status === 403) {
@@ -21,7 +21,7 @@ export async function PUT(request: NextRequest) {
     requireAdmin(request);
     const db = getDb();
     const body = await request.json();
-    db.prepare("UPDATE users SET status = ?, updated_at = datetime('now') WHERE id = ?").run(body.status, body.id);
+    await db.prepare("UPDATE users SET status = ?, updated_at = datetime('now') WHERE id = ?").run(body.status, body.id);
     return Response.json({ success: true, message: 'User updated' });
   } catch (error: any) {
     if (error.status === 401 || error.status === 403) {

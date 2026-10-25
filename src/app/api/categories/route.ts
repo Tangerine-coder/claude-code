@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     const db = getDb();
     const all = request.nextUrl.searchParams.get('all') === '1';
 
-    const categories = db.prepare(
+    const categories = await db.prepare(
       all
         ? 'SELECT * FROM categories ORDER BY sort_order ASC'
         : 'SELECT * FROM categories WHERE is_active = 1 ORDER BY sort_order ASC'
@@ -33,11 +33,11 @@ export async function POST(request: NextRequest) {
     const id = uuid();
     const slug = slugify(body.name);
 
-    db.prepare(
+    await db.prepare(
       `INSERT INTO categories (id, name, slug, parent_id, description, image, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?)`
     ).run(id, body.name, slug, body.parent_id || null, body.description || '', body.image || '', body.sort_order || 0);
 
-    const category = db.prepare('SELECT * FROM categories WHERE id = ?').get(id);
+    const category = await db.prepare('SELECT * FROM categories WHERE id = ?').get(id);
     return Response.json({ success: true, data: category }, { status: 201 });
   } catch (error: any) {
     if (error.status === 401 || error.status === 403) {

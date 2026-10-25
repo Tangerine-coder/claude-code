@@ -10,13 +10,13 @@ export async function GET(
   try {
     const { id } = await params;
     const db = getDb();
-    const category = db.prepare('SELECT * FROM categories WHERE id = ? OR slug = ?').get(id, id) as any;
+    const category = await db.prepare('SELECT * FROM categories WHERE id = ? OR slug = ?').get(id, id) as any;
     if (!category) {
       return Response.json({ success: false, message: 'Category not found' }, { status: 404 });
     }
 
     // Get children
-    const children = db.prepare('SELECT * FROM categories WHERE parent_id = ? AND is_active = 1 ORDER BY sort_order ASC').all(category.id);
+    const children = await db.prepare('SELECT * FROM categories WHERE parent_id = ? AND is_active = 1 ORDER BY sort_order ASC').all(category.id);
 
     return Response.json({ success: true, data: { ...category, children } });
   } catch (error) {
@@ -35,14 +35,14 @@ export async function PUT(
     const db = getDb();
     const body = await request.json();
 
-    const existing = db.prepare('SELECT * FROM categories WHERE id = ?').get(id) as any;
+    const existing = await db.prepare('SELECT * FROM categories WHERE id = ?').get(id) as any;
     if (!existing) {
       return Response.json({ success: false, message: 'Category not found' }, { status: 404 });
     }
 
     const newSlug = body.name ? slugify(body.name) : existing.slug;
 
-    db.prepare(
+    await db.prepare(
       `UPDATE categories SET name=?, slug=?, parent_id=?, description=?, image=?, sort_order=?, is_active=?, updated_at=datetime('now') WHERE id=?`
     ).run(
       body.name || existing.name, newSlug, body.parent_id !== undefined ? body.parent_id : existing.parent_id,
@@ -51,7 +51,7 @@ export async function PUT(
       body.is_active !== undefined ? (body.is_active ? 1 : 0) : existing.is_active, id
     );
 
-    const category = db.prepare('SELECT * FROM categories WHERE id = ?').get(id);
+    const category = await db.prepare('SELECT * FROM categories WHERE id = ?').get(id);
     return Response.json({ success: true, data: category });
   } catch (error: any) {
     if (error.status === 401 || error.status === 403) {
@@ -72,13 +72,13 @@ export async function DELETE(
     const db = getDb();
 
     // Move children to parent
-    const existing = db.prepare('SELECT * FROM categories WHERE id = ?').get(id) as any;
+    const existing = await db.prepare('SELECT * FROM categories WHERE id = ?').get(id) as any;
     if (!existing) {
       return Response.json({ success: false, message: 'Category not found' }, { status: 404 });
     }
 
-    db.prepare('UPDATE categories SET parent_id = ? WHERE parent_id = ?').run(existing.parent_id, id);
-    db.prepare('DELETE FROM categories WHERE id = ?').run(id);
+    await db.prepare('UPDATE categories SET parent_id = ? WHERE parent_id = ?').run(existing.parent_id, id);
+    await db.prepare('DELETE FROM categories WHERE id = ?').run(id);
 
     return Response.json({ success: true, message: 'Category deleted' });
   } catch (error: any) {

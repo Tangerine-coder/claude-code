@@ -38,8 +38,8 @@ export async function GET(request: NextRequest) {
       sql += ' ORDER BY o.created_at DESC LIMIT ? OFFSET ?';
       bindings.push(limit, offset);
 
-      const orders = db.prepare(sql).all(...bindings);
-      const { total } = db.prepare(countSql).get(...countBindings) as { total: number };
+      const orders = await db.prepare(sql).all(...bindings);
+      const { total } = await db.prepare(countSql).get(...countBindings) as { total: number };
 
       return Response.json({
         success: true,
@@ -53,15 +53,17 @@ export async function GET(request: NextRequest) {
       return Response.json({ success: false, message: 'Please login' }, { status: 401 });
     }
 
-    const orders = db.prepare(
+    const orders = await db.prepare(
       'SELECT * FROM orders WHERE user_id = ? ORDER BY created_at DESC'
     ).all(auth.userId);
 
     // Get items for each order
-    const ordersWithItems = orders.map((order: any) => {
-      const items = db.prepare('SELECT * FROM order_items WHERE order_id = ?').all(order.id);
-      return { ...order, items };
-    });
+    const ordersWithItems = await Promise.all(
+      orders.map(async (order: any) => {
+        const items = await db.prepare('SELECT * FROM order_items WHERE order_id = ?').all(order.id);
+        return { ...order, items };
+      })
+    );
 
     return Response.json({ success: true, data: ordersWithItems });
   } catch (error) {
@@ -83,7 +85,7 @@ export async function POST(request: NextRequest) {
     const { address_id, payment_method, remark, cart_items } = body;
 
     // Get address
-    const address = db.prepare('SELECT * FROM addresses WHERE id = ? AND user_id = ?').get(address_id, auth.userId) as any;
+    const address = await db.prepare('SELECT * FROM addresses WHERE id = ? AND user_id = ?').get(address_id, auth.userId) as any;
     if (!address) {
       return Response.json({ success: false, message: 'Invalid shipping address' }, { status: 400 });
     }
@@ -93,7 +95,7 @@ export async function POST(request: NextRequest) {
     if (cart_items && cart_items.length > 0) {
       items = cart_items;
     } else {
-      items = db.prepare(
+      items = await db.prepare(
         `SELECT ci.*, p.name, p.price, p.stock,
                 (SELECT json_extract(images, '$[0]') FROM products WHERE id = ci.product_id) as image
          FROM cart_items ci JOIN products p ON ci.product_id = p.id WHERE ci.user_id = ?`
@@ -125,7 +127,7 @@ export async function POST(request: NextRequest) {
       });
 
       // Update stock
-      db.prepare('UPDATE products SET stock = MAX(0, stock - ?), sales_count = sales_count + ? WHERE id = ?').run(qty, qty, item.product_id);
+      await db.prepare('UPDATE products SET stock = MAX(0, stock - ?), sales_count = sales_count + ? WHERE id = ?').run(qty, qty, item.product_id);
     }
 
     // Shipping fee
@@ -143,7 +145,7 @@ export async function POST(request: NextRequest) {
       zip_code: address.zip_code,
     });
 
-    db.prepare(
+    await db.prepare(
       `INSERT INTO orders (id, order_no, user_id, status, total_amount, shipping_fee, payment_method, shipping_address, remark)
        VALUES (?, ?, ?, 'paid', ?, ?, ?, ?, ?)`
     ).run(orderId, orderNo, auth.userId, totalAmount + shippingFee, shippingFee, payment_method || '', shippingAddress, remark || '');
@@ -159,9 +161,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Clear cart
-    db.prepare('DELETE FROM cart_items WHERE user_id = ?').run(auth.userId);
+    await db.prepare('DELETE FROM cart_items WHERE user_id = ?').run(auth.userId);
 
-    const order = db.prepare('SELECT * FROM orders WHERE id = ?').get(orderId);
+    const order = await db.prepare('SELECT * FROM orders WHERE id = ?').get(orderId);
 
     return Response.json({ success: true, data: order }, { status: 201 });
   } catch (error) {

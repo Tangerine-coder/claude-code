@@ -9,7 +9,8 @@ export async function register() {
     console.log('[Startup] Warming up database...');
     try {
       const { default: getDb } = await import('./lib/db');
-      getDb();
+      // 等建表 / 种子数据真正完成，再开始接收请求
+      await getDb().ready();
       console.log('[Startup] Database ready');
     } catch (err) {
       console.error('[Startup] Database warmup failed:', err);

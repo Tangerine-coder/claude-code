@@ -11,19 +11,19 @@ export async function GET(
     const db = getDb();
 
     // Try by ID first, then by slug
-    let product = db.prepare('SELECT * FROM products WHERE id = ?').get(id) as any;
+    let product = await db.prepare('SELECT * FROM products WHERE id = ?').get(id) as any;
     if (!product) {
-      product = db.prepare('SELECT * FROM products WHERE slug = ?').get(id) as any;
+      product = await db.prepare('SELECT * FROM products WHERE slug = ?').get(id) as any;
     }
     if (!product) {
       return Response.json({ success: false, message: 'Product not found' }, { status: 404 });
     }
 
     // Get SKUs
-    const skus = db.prepare('SELECT * FROM product_skus WHERE product_id = ?').all(product.id);
+    const skus = await db.prepare('SELECT * FROM product_skus WHERE product_id = ?').all(product.id);
 
     // Get reviews
-    const reviews = db.prepare(
+    const reviews = await db.prepare(
       `SELECT r.*, u.username, u.avatar FROM reviews r
        LEFT JOIN users u ON r.user_id = u.id
        WHERE r.product_id = ? AND r.is_approved = 1
@@ -31,14 +31,14 @@ export async function GET(
     ).all(product.id);
 
     // Get review stats
-    const stats = db.prepare(
+    const stats = await db.prepare(
       'SELECT COUNT(*) as count, AVG(rating) as avg_rating FROM reviews WHERE product_id = ? AND is_approved = 1'
     ).get(product.id) as any;
 
     // Get related products (same category)
     let related: any[] = [];
     if (product.category_id) {
-      related = db.prepare(
+      related = await db.prepare(
         'SELECT * FROM products WHERE category_id = ? AND id != ? AND status = ? LIMIT 4'
       ).all(product.category_id, product.id, 'active');
     }
@@ -70,12 +70,12 @@ export async function PUT(
     const db = getDb();
     const body = await request.json();
 
-    const existing = db.prepare('SELECT * FROM products WHERE id = ?').get(id) as any;
+    const existing = await db.prepare('SELECT * FROM products WHERE id = ?').get(id) as any;
     if (!existing) {
       return Response.json({ success: false, message: 'Product not found' }, { status: 404 });
     }
 
-    db.prepare(
+    await db.prepare(
       `UPDATE products SET name=?, description=?, price=?, original_price=?, stock=?, category_id=?,
        brand=?, images=?, specs=?, tags=?, is_featured=?, is_new=?, is_recommended=?, status=?, updated_at=datetime('now')
        WHERE id=?`
@@ -91,7 +91,7 @@ export async function PUT(
       body.status || existing.status, id
     );
 
-    const product = db.prepare('SELECT * FROM products WHERE id = ?').get(id);
+    const product = await db.prepare('SELECT * FROM products WHERE id = ?').get(id);
     return Response.json({ success: true, data: product });
   } catch (error: any) {
     if (error.status === 401 || error.status === 403) {
@@ -111,12 +111,12 @@ export async function DELETE(
     const { id } = await params;
     const db = getDb();
 
-    const existing = db.prepare('SELECT * FROM products WHERE id = ?').get(id) as any;
+    const existing = await db.prepare('SELECT * FROM products WHERE id = ?').get(id) as any;
     if (!existing) {
       return Response.json({ success: false, message: 'Product not found' }, { status: 404 });
     }
 
-    db.prepare('DELETE FROM products WHERE id = ?').run(id);
+    await db.prepare('DELETE FROM products WHERE id = ?').run(id);
     return Response.json({ success: true, message: 'Product deleted' });
   } catch (error: any) {
     if (error.status === 401 || error.status === 403) {

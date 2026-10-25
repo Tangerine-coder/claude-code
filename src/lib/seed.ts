@@ -1,9 +1,9 @@
-import type Database from 'better-sqlite3';
+import type { Db } from './db';
 import { v4 as uuid } from 'uuid';
 import bcrypt from 'bcryptjs';
 import { generateOrderNo } from './utils';
 
-export function seedDatabase(db: Database.Database) {
+export async function seedDatabase(db: Db) {
   const salt = bcrypt.genSaltSync(10);
 
   // ========== Users ==========
@@ -15,8 +15,8 @@ export function seedDatabase(db: Database.Database) {
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`
   );
 
-  insertUser.run(adminId, 'admin', 'admin@novamart.com', bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'xiao123', salt), '13800000000', '', 'admin', 'active');
-  insertUser.run(userId, '张三', 'user@example.com', bcrypt.hashSync('user123', salt), '13800138001', '', 'customer', 'active');
+  await insertUser.run(adminId, 'admin', 'admin@novamart.com', bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'xiao123', salt), '13800000000', '', 'admin', 'active');
+  await insertUser.run(userId, '张三', 'user@example.com', bcrypt.hashSync('user123', salt), '13800138001', '', 'customer', 'active');
 
   // ========== Categories ==========
   const catClothing = uuid();
@@ -37,20 +37,20 @@ export function seedDatabase(db: Database.Database) {
      VALUES (?, ?, ?, ?, ?, ?, ?, 1)`
   );
 
-  insertCat.run(catClothing, '服装', 'clothing', null, '四季时尚服饰', 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=400&h=400&fit=crop', 1);
-  insertCat.run(catMens, '男装', 'mens-clothing', catClothing, '时尚男装系列', 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=400&h=400&fit=crop', 1);
-  insertCat.run(catWomens, '女装', 'womens-clothing', catClothing, '优雅女装系列', 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=400&h=400&fit=crop', 2);
-  insertCat.run(catKids, '童装', 'kids-clothing', catClothing, '舒适童装系列', 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=400&h=400&fit=crop', 3);
+  await insertCat.run(catClothing, '服装', 'clothing', null, '四季时尚服饰', 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=400&h=400&fit=crop', 1);
+  await insertCat.run(catMens, '男装', 'mens-clothing', catClothing, '时尚男装系列', 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=400&h=400&fit=crop', 1);
+  await insertCat.run(catWomens, '女装', 'womens-clothing', catClothing, '优雅女装系列', 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=400&h=400&fit=crop', 2);
+  await insertCat.run(catKids, '童装', 'kids-clothing', catClothing, '舒适童装系列', 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=400&h=400&fit=crop', 3);
 
-  insertCat.run(catElectronics, '电子产品', 'electronics', null, '前沿科技数码产品', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=400&fit=crop', 2);
-  insertCat.run(catPhones, '智能手机', 'smartphones', catElectronics, '最新款智能手机', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=400&fit=crop', 1);
-  insertCat.run(catLaptops, '笔记本电脑', 'laptops', catElectronics, '高性能笔记本设备', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=400&fit=crop', 2);
-  insertCat.run(catAudio, '音频设备', 'audio', catElectronics, '高端音响设备', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=400&fit=crop', 3);
+  await insertCat.run(catElectronics, '电子产品', 'electronics', null, '前沿科技数码产品', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=400&fit=crop', 2);
+  await insertCat.run(catPhones, '智能手机', 'smartphones', catElectronics, '最新款智能手机', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=400&fit=crop', 1);
+  await insertCat.run(catLaptops, '笔记本电脑', 'laptops', catElectronics, '高性能笔记本设备', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=400&fit=crop', 2);
+  await insertCat.run(catAudio, '音频设备', 'audio', catElectronics, '高端音响设备', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=400&fit=crop', 3);
 
-  insertCat.run(catHome, '家居生活', 'home-living', null, '精美家居好物', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=400&fit=crop', 3);
-  insertCat.run(catFurniture, '家具', 'furniture', catHome, '现代家具设计', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=400&fit=crop', 1);
-  insertCat.run(catDecor, '装饰', 'decor', catHome, '艺术家居装饰品', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=400&fit=crop', 2);
-  insertCat.run(catKitchen, '厨房用品', 'kitchen', catHome, '厨房必备与创意小家电', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=400&fit=crop', 3);
+  await insertCat.run(catHome, '家居生活', 'home-living', null, '精美家居好物', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=400&fit=crop', 3);
+  await insertCat.run(catFurniture, '家具', 'furniture', catHome, '现代家具设计', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=400&fit=crop', 1);
+  await insertCat.run(catDecor, '装饰', 'decor', catHome, '艺术家居装饰品', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=400&fit=crop', 2);
+  await insertCat.run(catKitchen, '厨房用品', 'kitchen', catHome, '厨房必备与创意小家电', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=400&fit=crop', 3);
 
   // ========== Products ==========
   const insertProduct = db.prepare(
@@ -286,7 +286,7 @@ export function seedDatabase(db: Database.Database) {
 ];
 
   for (const p of products) {
-    insertProduct.run(p.id, p.name, p.slug, p.desc, p.price, p.originalPrice, p.stock, p.catId, p.brand, p.images, p.specs, p.tags, p.featured, p.isNew, p.recommended, p.sales);
+    await insertProduct.run(p.id, p.name, p.slug, p.desc, p.price, p.originalPrice, p.stock, p.catId, p.brand, p.images, p.specs, p.tags, p.featured, p.isNew, p.recommended, p.sales);
   }
 
   // ========== Product SKUs ==========
@@ -296,45 +296,45 @@ export function seedDatabase(db: Database.Database) {
 
   // SKUs for Classic Fit Oxford Shirt (product index 0)
   const shirtId = products[0].id;
-  insertSku.run(uuid(), shirtId, JSON.stringify({ '颜色': '白色', '尺码': 'S' }), null, 30, 'OXF-WHT-S');
-  insertSku.run(uuid(), shirtId, JSON.stringify({ '颜色': '白色', '尺码': 'M' }), null, 50, 'OXF-WHT-M');
-  insertSku.run(uuid(), shirtId, JSON.stringify({ '颜色': '白色', '尺码': 'L' }), null, 45, 'OXF-WHT-L');
-  insertSku.run(uuid(), shirtId, JSON.stringify({ '颜色': '白色', '尺码': 'XL' }), null, 25, 'OXF-WHT-XL');
-  insertSku.run(uuid(), shirtId, JSON.stringify({ '颜色': '浅蓝色', '尺码': 'S' }), null, 20, 'OXF-BLU-S');
-  insertSku.run(uuid(), shirtId, JSON.stringify({ '颜色': '浅蓝色', '尺码': 'M' }), null, 40, 'OXF-BLU-M');
-  insertSku.run(uuid(), shirtId, JSON.stringify({ '颜色': '浅蓝色', '尺码': 'L' }), null, 35, 'OXF-BLU-L');
+  await insertSku.run(uuid(), shirtId, JSON.stringify({ '颜色': '白色', '尺码': 'S' }), null, 30, 'OXF-WHT-S');
+  await insertSku.run(uuid(), shirtId, JSON.stringify({ '颜色': '白色', '尺码': 'M' }), null, 50, 'OXF-WHT-M');
+  await insertSku.run(uuid(), shirtId, JSON.stringify({ '颜色': '白色', '尺码': 'L' }), null, 45, 'OXF-WHT-L');
+  await insertSku.run(uuid(), shirtId, JSON.stringify({ '颜色': '白色', '尺码': 'XL' }), null, 25, 'OXF-WHT-XL');
+  await insertSku.run(uuid(), shirtId, JSON.stringify({ '颜色': '浅蓝色', '尺码': 'S' }), null, 20, 'OXF-BLU-S');
+  await insertSku.run(uuid(), shirtId, JSON.stringify({ '颜色': '浅蓝色', '尺码': 'M' }), null, 40, 'OXF-BLU-M');
+  await insertSku.run(uuid(), shirtId, JSON.stringify({ '颜色': '浅蓝色', '尺码': 'L' }), null, 35, 'OXF-BLU-L');
 
   // SKUs for Floral Print Midi Dress (product index 3)
   const dressId = products[3].id;
-  insertSku.run(uuid(), dressId, JSON.stringify({ '尺码': 'XS' }), null, 20, 'DRS-FLR-XS');
-  insertSku.run(uuid(), dressId, JSON.stringify({ '尺码': 'S' }), null, 35, 'DRS-FLR-S');
-  insertSku.run(uuid(), dressId, JSON.stringify({ '尺码': 'M' }), null, 40, 'DRS-FLR-M');
-  insertSku.run(uuid(), dressId, JSON.stringify({ '尺码': 'L' }), null, 25, 'DRS-FLR-L');
+  await insertSku.run(uuid(), dressId, JSON.stringify({ '尺码': 'XS' }), null, 20, 'DRS-FLR-XS');
+  await insertSku.run(uuid(), dressId, JSON.stringify({ '尺码': 'S' }), null, 35, 'DRS-FLR-S');
+  await insertSku.run(uuid(), dressId, JSON.stringify({ '尺码': 'M' }), null, 40, 'DRS-FLR-M');
+  await insertSku.run(uuid(), dressId, JSON.stringify({ '尺码': 'L' }), null, 25, 'DRS-FLR-L');
 
   // SKUs for NovaPhone 15 Pro (product index 8)
   const phoneId = products[8].id;
-  insertSku.run(uuid(), phoneId, JSON.stringify({ '颜色': '原色钛金属' }), null, 15, 'NP15P-NAT');
-  insertSku.run(uuid(), phoneId, JSON.stringify({ '颜色': '蓝色钛金属' }), null, 20, 'NP15P-BLU');
-  insertSku.run(uuid(), phoneId, JSON.stringify({ '颜色': '黑色钛金属' }), null, 10, 'NP15P-BLK');
-  insertSku.run(uuid(), phoneId, JSON.stringify({ '颜色': '白色钛金属' }), null, 5, 'NP15P-WHT');
+  await insertSku.run(uuid(), phoneId, JSON.stringify({ '颜色': '原色钛金属' }), null, 15, 'NP15P-NAT');
+  await insertSku.run(uuid(), phoneId, JSON.stringify({ '颜色': '蓝色钛金属' }), null, 20, 'NP15P-BLU');
+  await insertSku.run(uuid(), phoneId, JSON.stringify({ '颜色': '黑色钛金属' }), null, 10, 'NP15P-BLK');
+  await insertSku.run(uuid(), phoneId, JSON.stringify({ '颜色': '白色钛金属' }), null, 5, 'NP15P-WHT');
 
   // ========== Banners ==========
   const insertBanner = db.prepare(
     `INSERT INTO banners (id, title, subtitle, image_url, link_url, sort_order, is_active) VALUES (?, ?, ?, ?, ?, ?, 1)`
   );
 
-  insertBanner.run(uuid(), '夏日大促火热进行中', '精选商品低至5折，限时抢购，手慢无！', 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1200&h=500&fit=crop', '/categories/clothing', 1);
-  insertBanner.run(uuid(), '数码新品驾到', '探索诺瓦科技最新力作，享独家首发特惠。', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=500&fit=crop', '/categories/electronics', 2);
-  insertBanner.run(uuid(), '家居焕新季', '精选家居好物，打造理想生活空间。30%起让利。', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&h=500&fit=crop', '/categories/home-living', 3);
-  insertBanner.run(uuid(), '周末免邮狂欢', '全场满 ¥99 免邮，马上开抢！', 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=500&fit=crop', '/categories/electronics', 4);
+  await insertBanner.run(uuid(), '夏日大促火热进行中', '精选商品低至5折，限时抢购，手慢无！', 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1200&h=500&fit=crop', '/categories/clothing', 1);
+  await insertBanner.run(uuid(), '数码新品驾到', '探索诺瓦科技最新力作，享独家首发特惠。', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=500&fit=crop', '/categories/electronics', 2);
+  await insertBanner.run(uuid(), '家居焕新季', '精选家居好物，打造理想生活空间。30%起让利。', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&h=500&fit=crop', '/categories/home-living', 3);
+  await insertBanner.run(uuid(), '周末免邮狂欢', '全场满 ¥99 免邮，马上开抢！', 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=500&fit=crop', '/categories/electronics', 4);
 
   // ========== Announcements ==========
   const insertAnnouncement = db.prepare(
     `INSERT INTO announcements (id, content, link_url, is_active) VALUES (?, ?, ?, 1)`
   );
 
-  insertAnnouncement.run(uuid(), '🚚 全场满 ¥99 免邮配送', '/help');
-  insertAnnouncement.run(uuid(), '🎉 新用户首单享9折优惠——使用优惠码: WELCOME10', '/auth/login');
+  await insertAnnouncement.run(uuid(), '🚚 全场满 ¥99 免邮配送', '/help');
+  await insertAnnouncement.run(uuid(), '🎉 新用户首单享9折优惠——使用优惠码: WELCOME10', '/auth/login');
 
   // ========== Addresses ==========
   const insertAddress = db.prepare(
@@ -343,8 +343,8 @@ export function seedDatabase(db: Database.Database) {
 
   const addr1Id = uuid();
   const addr2Id = uuid();
-  insertAddress.run(addr1Id, userId, '张三', '13800138001', 'sichuan', 'guangan', 'guanganqu', '商业街123号1栋3单元502室', '638000', 1);
-  insertAddress.run(addr2Id, userId, '张三', '13800138001', 'sichuan', 'guangan', 'guanganqu', '滨江路88号2栋1204室', '638000', 0);
+  await insertAddress.run(addr1Id, userId, '张三', '13800138001', 'sichuan', 'guangan', 'guanganqu', '商业街123号1栋3单元502室', '638000', 1);
+  await insertAddress.run(addr2Id, userId, '张三', '13800138001', 'sichuan', 'guangan', 'guanganqu', '滨江路88号2栋1204室', '638000', 0);
 
   // ========== Orders ==========
   const insertOrder = db.prepare(
@@ -374,18 +374,18 @@ export function seedDatabase(db: Database.Database) {
   const orderNo2 = generateOrderNo();
   const orderNo3 = generateOrderNo();
 
-  insertOrder.run(order1Id, orderNo1, userId, 'delivered', 0, 0, 0, 'credit_card', addressSnapshot, '请放在门口', new Date(Date.now() - 86400000 * 14).toISOString(), new Date(Date.now() - 86400000 * 13).toISOString(), new Date(Date.now() - 86400000 * 7).toISOString());
-  insertOrderItem.run(uuid(), order1Id, products[8].id, products[8].name, JSON.parse(products[8].images)[0], JSON.stringify({ '颜色': '蓝色钛金属' }), 0, 1, 0);
+  await insertOrder.run(order1Id, orderNo1, userId, 'delivered', 0, 0, 0, 'credit_card', addressSnapshot, '请放在门口', new Date(Date.now() - 86400000 * 14).toISOString(), new Date(Date.now() - 86400000 * 13).toISOString(), new Date(Date.now() - 86400000 * 7).toISOString());
+  await insertOrderItem.run(uuid(), order1Id, products[8].id, products[8].name, JSON.parse(products[8].images)[0], JSON.stringify({ '颜色': '蓝色钛金属' }), 0, 1, 0);
   // Add discount to simulate coupon
   db.prepare('UPDATE orders SET discount_amount = 0 WHERE id = ?').run(order1Id);
   db.prepare('UPDATE orders SET total_amount = 0 WHERE id = ?').run(order1Id);
 
-  insertOrder.run(order2Id, orderNo2, userId, 'shipped', 0, 0, 0, 'paypal', addressSnapshot, '', new Date(Date.now() - 86400000 * 3).toISOString(), new Date(Date.now() - 86400000 * 2).toISOString(), null);
-  insertOrderItem.run(uuid(), order2Id, products[6].id, products[6].name, JSON.parse(products[6].images)[0], JSON.stringify({ '尺码': 'M' }), 0, 1, 0);
-  insertOrderItem.run(uuid(), order2Id, products[0].id, products[0].name, JSON.parse(products[0].images)[0], JSON.stringify({ '颜色': '白色', '尺码': 'M' }), 0, 1, 0);
+  await insertOrder.run(order2Id, orderNo2, userId, 'shipped', 0, 0, 0, 'paypal', addressSnapshot, '', new Date(Date.now() - 86400000 * 3).toISOString(), new Date(Date.now() - 86400000 * 2).toISOString(), null);
+  await insertOrderItem.run(uuid(), order2Id, products[6].id, products[6].name, JSON.parse(products[6].images)[0], JSON.stringify({ '尺码': 'M' }), 0, 1, 0);
+  await insertOrderItem.run(uuid(), order2Id, products[0].id, products[0].name, JSON.parse(products[0].images)[0], JSON.stringify({ '颜色': '白色', '尺码': 'M' }), 0, 1, 0);
 
-  insertOrder.run(order3Id, orderNo3, userId, 'pending_payment', 0, 0, 0, '', addressSnapshot, '', null, null, null);
-  insertOrderItem.run(uuid(), order3Id, products[19].id, products[19].name, JSON.parse(products[19].images)[0], '{}', 0, 1, 0);
+  await insertOrder.run(order3Id, orderNo3, userId, 'pending_payment', 0, 0, 0, '', addressSnapshot, '', null, null, null);
+  await insertOrderItem.run(uuid(), order3Id, products[19].id, products[19].name, JSON.parse(products[19].images)[0], '{}', 0, 1, 0);
 
   // ========== Reviews ==========
   const insertReview = db.prepare(
@@ -410,7 +410,7 @@ export function seedDatabase(db: Database.Database) {
 
   for (let i = 0; i < reviewData.length; i++) {
     const prod = reviewProducts[i % reviewProducts.length];
-    insertReview.run(uuid(), prod.id, userId, order1Id, reviewData[i].rating, reviewData[i].content, reviewData[i].images);
+    await insertReview.run(uuid(), prod.id, userId, order1Id, reviewData[i].rating, reviewData[i].content, reviewData[i].images);
   }
 
   // ========== Favorites ==========
@@ -420,7 +420,7 @@ export function seedDatabase(db: Database.Database) {
 
   const favProductIds = [products[8].id, products[12].id, products[18].id, products[0].id, products[19].id];
   for (const pid of favProductIds) {
-    insertFavorite.run(uuid(), userId, pid);
+    await insertFavorite.run(uuid(), userId, pid);
   }
 
   // ========== Site Settings ==========
@@ -428,51 +428,53 @@ export function seedDatabase(db: Database.Database) {
     `INSERT INTO site_settings (id, key, value) VALUES (?, ?, ?)`
   );
 
-  insertSetting.run(uuid(), 'site_name', '海南等下雪');
-  insertSetting.run(uuid(), 'site_description', '您的高品质在线购物平台');
-  insertSetting.run(uuid(), 'contact_email', 'support@novamart.com');
-  insertSetting.run(uuid(), 'contact_phone', '+1 (555) 123-4567');
-  insertSetting.run(uuid(), 'free_shipping_threshold', '50');
-  insertSetting.run(uuid(), 'default_shipping_fee', '5.99');
-  insertSetting.run(uuid(), 'tax_rate', '0.08');
+  await insertSetting.run(uuid(), 'site_name', '海南等下雪');
+  await insertSetting.run(uuid(), 'site_description', '您的高品质在线购物平台');
+  await insertSetting.run(uuid(), 'contact_email', 'support@novamart.com');
+  await insertSetting.run(uuid(), 'contact_phone', '+1 (555) 123-4567');
+  await insertSetting.run(uuid(), 'free_shipping_threshold', '50');
+  await insertSetting.run(uuid(), 'default_shipping_fee', '5.99');
+  await insertSetting.run(uuid(), 'tax_rate', '0.08');
 }
 
 // Allow running standalone: npx tsx src/lib/seed.ts
-// Use process.argv check instead of require.main (Next.js production compatible)
 if (process.argv[1]?.includes('seed')) {
-  import('better-sqlite3').then(({ default: Database }) => {
-    const path = require('path');
-    const fs = require('fs');
+  const { createClient } = await import('@libsql/client');
+  const path = await import('path');
+  const fs = await import('fs');
 
-    const DB_PATH = path.join(process.cwd(), 'data', 'ecommerce.db');
-    if (!fs.existsSync(path.dirname(DB_PATH))) {
-      fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
-    }
+  const DB_PATH = process.env.DB_PATH || path.join(process.cwd(), 'data', 'ecommerce.db');
+  fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
 
-    const db = new Database(DB_PATH);
-    db.pragma('journal_mode = WAL');
-    db.pragma('foreign_keys = ON');
+  const url = process.env.TURSO_DATABASE_URL || `file:${DB_PATH}`;
+  const client = createClient({ url, authToken: process.env.TURSO_AUTH_TOKEN });
+  console.log('[seed] target:', url);
 
-    const schemaPath = path.join(process.cwd(), 'db', 'schema.sql');
-    const schema = fs.readFileSync(schemaPath, 'utf-8');
-    db.exec('DROP TABLE IF EXISTS cart_items');
-    db.exec('DROP TABLE IF EXISTS browse_history');
-    db.exec('DROP TABLE IF EXISTS favorites');
-    db.exec('DROP TABLE IF EXISTS reviews');
-    db.exec('DROP TABLE IF EXISTS order_items');
-    db.exec('DROP TABLE IF EXISTS orders');
-    db.exec('DROP TABLE IF EXISTS product_skus');
-    db.exec('DROP TABLE IF EXISTS products');
-    db.exec('DROP TABLE IF EXISTS addresses');
-    db.exec('DROP TABLE IF EXISTS announcements');
-    db.exec('DROP TABLE IF EXISTS banners');
-    db.exec('DROP TABLE IF EXISTS site_settings');
-    db.exec('DROP TABLE IF EXISTS categories');
-    db.exec('DROP TABLE IF EXISTS users');
-    db.exec(schema);
+  const schema = fs.readFileSync(path.join(process.cwd(), 'db', 'schema.sql'), 'utf-8');
+  for (const table of [
+    'cart_items', 'browse_history', 'favorites', 'reviews', 'order_items', 'orders',
+    'product_skus', 'products', 'addresses', 'announcements', 'banners', 'site_settings',
+    'categories', 'users',
+  ]) {
+    await client.execute(`DROP TABLE IF EXISTS ${table}`);
+  }
+  await client.executeMultiple(schema);
 
-    seedDatabase(db);
-    console.log('Database seeded successfully!');
-    db.close();
-  });
+  // 复用同一套门面（这里不需要自动初始化，schema 已经建好）
+  const facade = {
+    prepare(sql: string) {
+      return {
+        async get(...args: unknown[]) { const r = await client.execute({ sql, args: args as any[] }); return r.rows[0] as never; },
+        async all(...args: unknown[]) { const r = await client.execute({ sql, args: args as any[] }); return r.rows as never; },
+        async run(...args: unknown[]) { const r = await client.execute({ sql, args: args as any[] }); return { changes: Number(r.rowsAffected ?? 0), lastInsertRowid: r.lastInsertRowid }; },
+      };
+    },
+    async exec(sql: string) { await client.executeMultiple(sql); },
+    async pragma() { return []; },
+    async ready() {},
+    client,
+  };
+
+  await seedDatabase(facade as any);
+  console.log('Database seeded successfully!');
 }

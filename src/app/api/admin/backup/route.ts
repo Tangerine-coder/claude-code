@@ -1,22 +1,77 @@
 import fs from 'fs';
 import { NextRequest } from 'next/server';
-import getDb, { DB_FILE } from '@/lib/db';
+import getDb, { DB_FILE, IS_REMOTE } from '@/lib/db';
 import { requireAdmin } from '@/lib/auth';
 
+function sqlValue(v: unknown): string {
+  if (v === null || v === undefined) return 'NULL';
+  if (typeof v === 'number' || typeof v === 'bigint') return String(v);
+  if (typeof v === 'boolean') return v ? '1' : '0';
+  if (v instanceof Uint8Array) return `X'${Buffer.from(v).toString('hex')}'`;
+  return `'${String(v).replace(/'/g, "''")}'`;
+}
+
 /**
- * 导出当前数据库文件（仅管理员）。
- * 免费实例没有持久磁盘时，可以定期下载一份留底，重启后数据丢了还能手动恢复。
+ * 导出数据库（仅管理员）。
+ * - 本地 SQLite：直接下发 .db 文件
+ * - Turso 远端：生成一份等价的 .sql 文本（可重新导入）
  */
 export async function GET(request: NextRequest) {
   try {
     requireAdmin(request);
-
     const db = getDb();
-    // 把 WAL 里的改动写回主文件，避免备份少数据
+    const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
+
+    if (IS_REMOTE) {
+      const tables = await db
+        .prepare(
+          "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name"
+        )
+        .all<{ name: string }>();
+
+      const out: string[] = [
+        `-- Nova Mart 数据导出 ${new Date().toISOString()}`,
+        'PRAGMA foreign_keys=OFF;',
+        'BEGIN TRANSACTION;',
+      ];
+
+      for (const { name } of tables) {
+        const schema = await db
+          .prepare("SELECT sql FROM sqlite_master WHERE type='table' AND name = ?")
+          .get<{ sql: string }>(name);
+
+        out.push(`\n-- ---------- ${name} ----------`);
+        out.push(`DROP TABLE IF EXISTS ${name};`);
+        if (schema?.sql) out.push(`${schema.sql};`);
+
+        const rows = await db.prepare(`SELECT * FROM ${name}`).all<Record<string, unknown>>();
+        for (const row of rows) {
+          const cols = Object.keys(row);
+          out.push(
+            `INSERT INTO ${name} (${cols.join(', ')}) VALUES (${cols
+              .map((c) => sqlValue(row[c]))
+              .join(', ')});`
+          );
+        }
+      }
+
+      out.push('COMMIT;');
+      const text = out.join('\n');
+
+      return new Response(text, {
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Content-Disposition': `attachment; filename="novamart-${stamp}.sql"`,
+          'Cache-Control': 'no-store',
+        },
+      });
+    }
+
+    // 本地 SQLite：把 WAL 写回主文件后直接下发
     try {
-      db.pragma('wal_checkpoint(TRUNCATE)');
+      await db.pragma('wal_checkpoint(TRUNCATE)');
     } catch {
-      /* 忽略 checkpoint 失败，继续导出 */
+      /* 忽略 */
     }
 
     if (!fs.existsSync(DB_FILE)) {
@@ -24,8 +79,6 @@ export async function GET(request: NextRequest) {
     }
 
     const file = fs.readFileSync(DB_FILE);
-    const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
-
     return new Response(file, {
       headers: {
         'Content-Type': 'application/octet-stream',

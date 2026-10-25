@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
 
     const db = getDb();
 
-    const existing = db.prepare('SELECT id FROM users WHERE email = ? OR username = ?').get(email, username);
+    const existing = await db.prepare('SELECT id FROM users WHERE email = ? OR username = ?').get(email, username);
     if (existing) {
       return Response.json({ success: false, message: 'Email or username already exists' }, { status: 409 });
     }
@@ -31,11 +31,11 @@ export async function POST(request: NextRequest) {
     const id = uuid();
     const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
-    db.prepare(
+    await db.prepare(
       `INSERT INTO users (id, username, email, password_hash, role, status) VALUES (?, ?, ?, ?, 'customer', 'active')`
     ).run(id, username, email, passwordHash);
 
-    const user = db.prepare('SELECT * FROM users WHERE id = ?').get(id) as any;
+    const user = await db.prepare('SELECT * FROM users WHERE id = ?').get(id) as any;
     const token = signToken({ userId: id, role: 'customer' });
     const { password_hash, ...userPublic } = user;
 

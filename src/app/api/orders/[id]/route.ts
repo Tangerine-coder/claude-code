@@ -11,7 +11,7 @@ export async function GET(
     const db = getDb();
     const auth = getAuthUser(request);
 
-    const order = db.prepare(
+    const order = await db.prepare(
       `SELECT o.*, u.username as customer_name, u.email as customer_email, u.phone as customer_phone
        FROM orders o
        LEFT JOIN users u ON o.user_id = u.id
@@ -26,7 +26,7 @@ export async function GET(
       return Response.json({ success: false, message: 'Forbidden' }, { status: 403 });
     }
 
-    const items = db.prepare('SELECT * FROM order_items WHERE order_id = ?').all(order.id);
+    const items = await db.prepare('SELECT * FROM order_items WHERE order_id = ?').all(order.id);
 
     return Response.json({ success: true, data: { ...order, items } });
   } catch (error) {
@@ -45,7 +45,7 @@ export async function PUT(
     const db = getDb();
     const body = await request.json();
 
-    const existing = db.prepare('SELECT * FROM orders WHERE id = ?').get(id) as any;
+    const existing = await db.prepare('SELECT * FROM orders WHERE id = ?').get(id) as any;
     if (!existing) {
       return Response.json({ success: false, message: 'Order not found' }, { status: 404 });
     }
@@ -76,9 +76,9 @@ export async function PUT(
     }
 
     bindings.push(id);
-    db.prepare(`UPDATE orders SET ${updates.join(', ')} WHERE id = ?`).run(...bindings);
+    await db.prepare(`UPDATE orders SET ${updates.join(', ')} WHERE id = ?`).run(...bindings);
 
-    const order = db.prepare('SELECT * FROM orders WHERE id = ?').get(id);
+    const order = await db.prepare('SELECT * FROM orders WHERE id = ?').get(id);
     return Response.json({ success: true, data: order });
   } catch (error: any) {
     if (error.status === 401 || error.status === 403) {

@@ -12,12 +12,12 @@ export async function PUT(
     const db = getDb();
     const body = await request.json();
 
-    const existing = db.prepare('SELECT * FROM announcements WHERE id = ?').get(id) as any;
+    const existing = await db.prepare('SELECT * FROM announcements WHERE id = ?').get(id) as any;
     if (!existing) {
       return Response.json({ success: false, message: 'Announcement not found' }, { status: 404 });
     }
 
-    db.prepare(
+    await db.prepare(
       `UPDATE announcements SET content = ?, link_url = ?, is_active = ?, created_at = datetime('now') WHERE id = ?`
     ).run(
       body.content ?? existing.content,
@@ -26,7 +26,7 @@ export async function PUT(
       id
     );
 
-    const announcement = db.prepare('SELECT * FROM announcements WHERE id = ?').get(id);
+    const announcement = await db.prepare('SELECT * FROM announcements WHERE id = ?').get(id);
     return Response.json({ success: true, data: announcement });
   } catch (error: any) {
     if (error.status === 401 || error.status === 403) {
@@ -45,7 +45,7 @@ export async function DELETE(
     requireAdmin(request);
     const { id } = await params;
     const db = getDb();
-    db.prepare('DELETE FROM announcements WHERE id = ?').run(id);
+    await db.prepare('DELETE FROM announcements WHERE id = ?').run(id);
     return Response.json({ success: true, message: 'Announcement deleted' });
   } catch (error: any) {
     if (error.status === 401 || error.status === 403) {

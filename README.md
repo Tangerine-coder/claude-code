@@ -190,35 +190,50 @@ src/
 
 ### 💾 数据持久化（重要）
 
-本项目用的是 **SQLite 单文件**，数据库路径由 `DB_PATH` 决定，默认 `./data/ecommerce.db`。
-
-**Render 免费实例的磁盘是临时的**：重新部署、重启、闲置回收之后，文件会回到镜像里的初始状态，
-也就是**用户、订单、你改过的商品价格都会丢**。所以正式演示前，务必二选一：
-
-**方案 A：付费实例 + 持久磁盘（最省事）**
-1. 服务升级到 **Starter**（约 $7/月），免费实例不支持磁盘
-2. Settings → **Disks** → Add Disk，Mount Path 填 `/var/data`，大小 1GB
-3. 环境变量加 `DB_PATH=/var/data/ecommerce.db`
-4. 重新部署
-
-仓库里的 `render.yaml` 就是这套配置，也可以用它一次建好服务。
-
-**方案 B：免费额度下用外部数据库**
-SQLite 换成 [Turso](https://turso.tech)（libSQL，有免费额度）。需要把 `src/lib/db.ts` 从
-`better-sqlite3`（同步 API）换成 `@libsql/client`（异步 API），所有 `db.prepare(...).get()` 调用
-都要改成 `await`，改动面较大，目前**尚未实现**。
-
-### 🗄️ 手动备份 / 恢复
-
-不管用哪种方案，都可以用管理员账号随时导出一份数据库：
+数据层是 **libSQL（Turso）**，配置两个环境变量即可让数据落在云端，
+**免费实例重启 / 重新部署都不会丢数据**：
 
 ```bash
-# 登录后从浏览器直接访问，或带 cookie 用 curl
+TURSO_DATABASE_URL=libsql://<你的库名>-<org>.turso.io
+TURSO_AUTH_TOKEN=<token>
+```
+
+#### 三步接上 Turso
+
+1. 注册 <https://turso.tech>（免费额度足够个人项目），安装 CLI 后建库：
+
+   ```bash
+   turso db create nova-mart
+   turso db show nova-mart --url        # libsql://nova-mart-xxx.turso.io
+   turso db tokens create nova-mart     # 得到 TURSO_AUTH_TOKEN
+   ```
+
+2. Render → 你的服务 → **Environment**，把上面两个变量填进去，重新部署。
+
+3. 首次访问时应用会自动建表并写入种子数据（25 件商品 / 3 个一级分类 / 管理员账号），
+   日志里会看到 `[DB] Turso: libsql://...` 和 `[DB] Database seeded successfully!`。
+
+> 没配 `TURSO_DATABASE_URL` 时会退回本地 SQLite 文件（`DB_PATH`，默认 `./data/ecommerce.db`），
+> 本地开发不需要联网，行为和以前一致。
+
+#### 为什么不是"挂磁盘"
+
+Render 的持久磁盘只对付费实例开放（Starter 起）。改用 Turso 后免费实例也能持久化，
+代价是所有数据库调用从同步变成异步（`await db.prepare(...).get()`），已完成改造。
+
+### 🗄️ 手动备份
+
+管理员登录后可随时导出数据：
+
+```bash
+# Turso 模式导出 .sql 文本（可直接重新导入）
+curl -b 'auth_token=<你的token>' -o backup.sql   https://<你的域名>/api/admin/backup
+
+# 本地文件模式导出 .db
 curl -b 'auth_token=<你的token>' -o backup.db   https://<你的域名>/api/admin/backup
 ```
 
-重启后数据被清空时，把备份文件放回 `DB_PATH` 指向的位置即可恢复
-（Render 上需要临时把这个文件放进磁盘，或用 `scp`/磁盘快照）。
+后台「系统设置」页也有「下载备份」按钮。
 
 ### Vercel / 自托管
 标准 Next.js 应用，支持任何 Node.js 环境（注意 Vercel 的 Serverless 环境同样没有持久磁盘）。

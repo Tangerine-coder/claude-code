@@ -22,9 +22,9 @@ export async function PUT(request: NextRequest) {
     }
 
     const db = getDb();
-    const user = db
+    const user = (await db
       .prepare('SELECT id, password_hash FROM users WHERE id = ?')
-      .get(auth.userId) as { id: string; password_hash: string } | undefined;
+      .get(auth.userId)) as { id: string; password_hash: string } | undefined;
 
     if (!user) {
       return Response.json({ success: false, message: '用户不存在' }, { status: 404 });
@@ -34,7 +34,7 @@ export async function PUT(request: NextRequest) {
       return Response.json({ success: false, message: '当前密码不正确' }, { status: 400 });
     }
 
-    db.prepare("UPDATE users SET password_hash = ?, updated_at = datetime('now') WHERE id = ?")
+    await db.prepare("UPDATE users SET password_hash = ?, updated_at = datetime('now') WHERE id = ?")
       .run(bcrypt.hashSync(newPassword, 10), user.id);
 
     return Response.json({ success: true, message: '密码已更新' });

@@ -13,14 +13,14 @@ export async function GET(
     const limit = Math.min(parseInt(searchParams.get('limit') || '10'), 50);
     const offset = (page - 1) * limit;
 
-    const reviews = db.prepare(
+    const reviews = await db.prepare(
       `SELECT r.*, u.username, u.avatar FROM reviews r
        LEFT JOIN users u ON r.user_id = u.id
        WHERE r.product_id = ? AND r.is_approved = 1
        ORDER BY r.created_at DESC LIMIT ? OFFSET ?`
     ).all(productId, limit, offset);
 
-    const { total } = db.prepare(
+    const { total } = await db.prepare(
       'SELECT COUNT(*) as total FROM reviews WHERE product_id = ? AND is_approved = 1'
     ).get(productId) as { total: number };
 

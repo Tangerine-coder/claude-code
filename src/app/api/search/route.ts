@@ -21,12 +21,12 @@ export async function GET(request: NextRequest) {
     const searchTerm = `%${q.trim()}%`;
 
     // Count
-    const { total } = db.prepare(
+    const { total } = await db.prepare(
       `SELECT COUNT(*) as total FROM products WHERE status = 'active' AND (name LIKE ? OR description LIKE ? OR brand LIKE ? OR tags LIKE ?)`
     ).get(searchTerm, searchTerm, searchTerm, searchTerm) as { total: number };
 
     // Search
-    const products = db.prepare(
+    const products = await db.prepare(
       `SELECT * FROM products WHERE status = 'active' AND (name LIKE ? OR description LIKE ? OR brand LIKE ? OR tags LIKE ?)
        ORDER BY sales_count DESC LIMIT ? OFFSET ?`
     ).all(searchTerm, searchTerm, searchTerm, searchTerm, limit, offset);

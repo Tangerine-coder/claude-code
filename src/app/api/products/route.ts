@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
 
     // Count
     const countSql = sql.replace('SELECT *', 'SELECT COUNT(*) as total');
-    const { total } = db.prepare(countSql).get(...bindings) as { total: number };
+    const { total } = await db.prepare(countSql).get(...bindings) as { total: number };
 
     // Sort
     const sortMap: Record<string, string> = {
@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
     sql += ' LIMIT ? OFFSET ?';
     bindings.push(limit, offset);
 
-    const products = db.prepare(sql).all(...bindings);
+    const products = await db.prepare(sql).all(...bindings);
 
     return Response.json({
       success: true,
@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
     const id = uuid();
     const slug = slugify(body.name) + '-' + id.substring(0, 6);
 
-    db.prepare(
+    await db.prepare(
       `INSERT INTO products (id, name, slug, description, price, original_price, stock, category_id, brand, images, specs, tags, is_featured, is_new, is_recommended)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     ).run(
@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
       body.tags || '', body.is_featured ? 1 : 0, body.is_new ? 1 : 0, body.is_recommended ? 1 : 0
     );
 
-    const product = db.prepare('SELECT * FROM products WHERE id = ?').get(id);
+    const product = await db.prepare('SELECT * FROM products WHERE id = ?').get(id);
     return Response.json({ success: true, data: product }, { status: 201 });
   } catch (error: any) {
     if (error.status === 401 || error.status === 403) {

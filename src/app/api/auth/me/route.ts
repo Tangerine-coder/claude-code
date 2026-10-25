@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     }
 
     const db = getDb();
-    const user = db.prepare('SELECT id, username, email, phone, avatar, role, status, last_login, created_at, updated_at FROM users WHERE id = ?').get(auth.userId) as any;
+    const user = await db.prepare('SELECT id, username, email, phone, avatar, role, status, last_login, created_at, updated_at FROM users WHERE id = ?').get(auth.userId) as any;
     if (!user) {
       return Response.json({ success: true, data: null });
     }

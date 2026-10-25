@@ -18,11 +18,11 @@ export async function POST(request: NextRequest) {
     }
 
     const id = uuid();
-    db.prepare(
+    await db.prepare(
       `INSERT INTO reviews (id, product_id, user_id, rating, content, images) VALUES (?, ?, ?, ?, ?, ?)`
     ).run(id, body.product_id, auth.userId, body.rating, body.content || '', JSON.stringify(body.images || []));
 
-    const review = db.prepare(
+    const review = await db.prepare(
       'SELECT r.*, u.username FROM reviews r LEFT JOIN users u ON r.user_id = u.id WHERE r.id = ?'
     ).get(id);
 

@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid';
 export async function GET() {
   try {
     const db = getDb();
-    const settings = db.prepare('SELECT * FROM site_settings').all();
+    const settings = await db.prepare('SELECT * FROM site_settings').all();
     const map: Record<string, string> = {};
     (settings as any[]).forEach((s) => { map[s.key] = s.value; });
     return Response.json({ success: true, data: map });

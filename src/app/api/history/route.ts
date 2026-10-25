@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     }
 
     const db = getDb();
-    const history = db.prepare(
+    const history = await db.prepare(
       `SELECT bh.*, p.name, p.slug, p.price, p.original_price, p.stock, p.sales_count,
               (SELECT json_extract(images, '$[0]') FROM products WHERE id = bh.product_id) as image
        FROM browse_history bh JOIN products p ON bh.product_id = p.id
@@ -32,7 +32,7 @@ export async function DELETE(request: NextRequest) {
     }
 
     const db = getDb();
-    db.prepare('DELETE FROM browse_history WHERE user_id = ?').run(auth.userId);
+    await db.prepare('DELETE FROM browse_history WHERE user_id = ?').run(auth.userId);
     return Response.json({ success: true, message: 'History cleared' });
   } catch (error) {
     return Response.json({ success: false, message: 'Internal server error' }, { status: 500 });

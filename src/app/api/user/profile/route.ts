@@ -20,9 +20,9 @@ export async function PUT(request: NextRequest) {
     const db = getDb();
 
     if (username !== undefined) {
-      const taken = db
+      const taken = (await db
         .prepare('SELECT id FROM users WHERE username = ? AND id <> ?')
-        .get(username, auth.userId) as { id: string } | undefined;
+        .get(username, auth.userId)) as { id: string } | undefined;
       if (taken) {
         return Response.json({ success: false, message: '该用户名已被占用' }, { status: 409 });
       }
@@ -39,9 +39,9 @@ export async function PUT(request: NextRequest) {
 
     sets.push("updated_at = datetime('now')");
     params.push(auth.userId);
-    db.prepare(`UPDATE users SET ${sets.join(', ')} WHERE id = ?`).run(...params);
+    await db.prepare(`UPDATE users SET ${sets.join(', ')} WHERE id = ?`).run(...params);
 
-    const user = db
+    const user = await db
       .prepare('SELECT id, username, email, phone, avatar, role, status FROM users WHERE id = ?')
       .get(auth.userId);
 

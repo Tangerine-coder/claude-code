@@ -10,18 +10,18 @@ export async function GET(request: NextRequest) {
     const today = new Date().toISOString().split('T')[0];
 
     // Today's stats
-    const todayOrders = db.prepare(
+    const todayOrders = await db.prepare(
       "SELECT COUNT(*) as count, COALESCE(SUM(total_amount), 0) as revenue FROM orders WHERE date(created_at) = ?"
     ).get(today) as any;
 
     // Total stats
-    const totalProducts = db.prepare("SELECT COUNT(*) as count FROM products WHERE status = 'active'").get() as any;
-    const totalUsers = db.prepare("SELECT COUNT(*) as count FROM users WHERE role = 'customer'").get() as any;
-    const totalOrders = db.prepare("SELECT COUNT(*) as count FROM orders").get() as any;
-    const totalRevenue = db.prepare("SELECT COALESCE(SUM(total_amount), 0) as total FROM orders WHERE status NOT IN ('cancelled', 'refunded')").get() as any;
+    const totalProducts = await db.prepare("SELECT COUNT(*) as count FROM products WHERE status = 'active'").get() as any;
+    const totalUsers = await db.prepare("SELECT COUNT(*) as count FROM users WHERE role = 'customer'").get() as any;
+    const totalOrders = await db.prepare("SELECT COUNT(*) as count FROM orders").get() as any;
+    const totalRevenue = await db.prepare("SELECT COALESCE(SUM(total_amount), 0) as total FROM orders WHERE status NOT IN ('cancelled', 'refunded')").get() as any;
 
     // Recent orders
-    const recentOrders = db.prepare(
+    const recentOrders = await db.prepare(
       `SELECT o.*, u.username as customer_name, u.email as customer_email
        FROM orders o
        LEFT JOIN users u ON o.user_id = u.id
@@ -29,12 +29,12 @@ export async function GET(request: NextRequest) {
     ).all();
 
     // Top products
-    const topProducts = db.prepare(
+    const topProducts = await db.prepare(
       "SELECT name, sales_count, price FROM products WHERE status = 'active' ORDER BY sales_count DESC LIMIT 5"
     ).all();
 
     // Low stock
-    const lowStock = db.prepare(
+    const lowStock = await db.prepare(
       "SELECT name, stock FROM products WHERE status = 'active' AND stock <= 10 ORDER BY stock ASC LIMIT 5"
     ).all();
 

@@ -1,33 +1,30 @@
-# Render Blueprint —— 带持久磁盘的部署配置
+# Render Blueprint
 #
-# 注意：Render 的持久磁盘只对付费实例（Starter 及以上）开放。
-# 免费实例（Free）没有磁盘，SQLite 文件在每次重新部署 / 重启后都会丢失。
+# 数据默认存在 Turso（libSQL）云端库，所以**免费实例也能持久化**，
+# 不再依赖 Render 的持久磁盘。
 #
-# 用法（二选一）：
-#   A. 用 Blueprint 新建服务：Render 控制台 → New → Blueprint，选中本仓库
-#   B. 手动在现有服务上加：Settings → Disks → Add Disk（Mount Path: /var/data），
-#      再到 Environment 里把 DB_PATH 设为 /var/data/ecommerce.db
+# 使用前在 Render 控制台填好下面两个 sync: false 的变量：
+#   TURSO_DATABASE_URL = libsql://<你的库名>-<org>.turso.io
+#   TURSO_AUTH_TOKEN   = turso db tokens create <库名>
 services:
   - type: web
     name: nova-mart
     runtime: node
-    plan: starter
+    plan: free
     buildCommand: npm install && npm run build
     startCommand: npm start
     healthCheckPath: /
     envVars:
       - key: NODE_ENV
         value: production
-      # 自动生成一串随机密钥，避免使用仓库里的默认值
+      # 自动生成随机密钥，避免使用仓库里的默认值
       - key: JWT_SECRET
         generateValue: true
-      # 管理员初始密码，首次部署后请在后台改掉
+      # 管理员初始密码，首次部署后请在后台「账户安全」改掉
       - key: ADMIN_PASSWORD
         sync: false
-      # 指向挂载的磁盘，数据才会在重启后保留
-      - key: DB_PATH
-        value: /var/data/ecommerce.db
-    disk:
-      name: novamart-data
-      mountPath: /var/data
-      sizeGB: 1
+      # Turso 云端数据库（不填则退回本地 SQLite 文件）
+      - key: TURSO_DATABASE_URL
+        sync: false
+      - key: TURSO_AUTH_TOKEN
+        sync: false

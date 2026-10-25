@@ -11,12 +11,12 @@ export async function PUT(
     const { id } = await params;
     const db = getDb();
     const body = await request.json();
-    const existing = db.prepare('SELECT * FROM banners WHERE id = ?').get(id) as any;
+    const existing = await db.prepare('SELECT * FROM banners WHERE id = ?').get(id) as any;
     if (!existing) {
       return Response.json({ success: false, message: 'Banner not found' }, { status: 404 });
     }
 
-    db.prepare(
+    await db.prepare(
       `UPDATE banners SET title=?, subtitle=?, image_url=?, link_url=?, sort_order=?, is_active=?, updated_at=datetime('now') WHERE id=?`
     ).run(
       body.title || existing.title, body.subtitle ?? existing.subtitle,
@@ -25,7 +25,7 @@ export async function PUT(
       body.is_active !== undefined ? (body.is_active ? 1 : 0) : existing.is_active, id
     );
 
-    const banner = db.prepare('SELECT * FROM banners WHERE id = ?').get(id);
+    const banner = await db.prepare('SELECT * FROM banners WHERE id = ?').get(id);
     return Response.json({ success: true, data: banner });
   } catch (error: any) {
     if (error.status === 401 || error.status === 403) {
@@ -43,7 +43,7 @@ export async function DELETE(
     requireAdmin(request);
     const { id } = await params;
     const db = getDb();
-    db.prepare('DELETE FROM banners WHERE id = ?').run(id);
+    await db.prepare('DELETE FROM banners WHERE id = ?').run(id);
     return Response.json({ success: true, message: 'Banner deleted' });
   } catch (error: any) {
     if (error.status === 401 || error.status === 403) {

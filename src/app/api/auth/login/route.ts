@@ -18,9 +18,9 @@ export async function POST(request: NextRequest) {
     }
 
     const db = getDb();
-    let user = db.prepare('SELECT * FROM users WHERE email = ?').get(email) as any;
+    let user = await db.prepare('SELECT * FROM users WHERE email = ?').get(email) as any;
     if (!user) {
-      user = db.prepare('SELECT * FROM users WHERE username = ?').get(email) as any;
+      user = await db.prepare('SELECT * FROM users WHERE username = ?').get(email) as any;
     }
 
     if (!user) {
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
 
     const token = signToken({ userId: user.id, role: user.role });
 
-    db.prepare("UPDATE users SET last_login = datetime('now') WHERE id = ?").run(user.id);
+    await db.prepare("UPDATE users SET last_login = datetime('now') WHERE id = ?").run(user.id);
 
     const { password_hash, ...userPublic } = user;
 
