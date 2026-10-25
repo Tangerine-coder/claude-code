@@ -215,6 +215,20 @@ TURSO_AUTH_TOKEN=<token>
 
 > 没配 `TURSO_DATABASE_URL` 时会退回本地 SQLite 文件（`DB_PATH`，默认 `./data/ecommerce.db`），
 > 本地开发不需要联网，行为和以前一致。
+>
+> 两种模式用的是两套驱动：Turso 走 `@libsql/client`（纯 JS 的 HTTP 协议），
+> 本地文件走 `better-sqlite3`。这样做是因为 `@libsql/client` 的 file: 模式依赖
+> `libsql` 的平台二进制包（可选依赖），构建/运行环境装不到时会导致所有接口 500。
+
+#### 自检接口
+
+部署后直接打开 `/api/health`，会返回当前驱动与商品数量：
+
+```json
+{ "ok": true, "mode": "turso", "products": 25, "ms": 12 }
+```
+
+如果 `ok: false`，`error` 字段会给出具体原因（连不上 Turso / token 无效等）。
 
 #### 为什么不是"挂磁盘"
 
