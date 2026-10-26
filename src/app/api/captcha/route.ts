@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateCode, signCaptcha, generateCaptchaSvg } from '@/lib/captcha';
+import { clientIp, rateLimit, tooManyRequests } from '@/lib/ratelimit';
 
 export async function GET(request: NextRequest) {
+  const limited = rateLimit(`captcha:${clientIp(request)}`, 40, 5 * 60 * 1000);
+  if (!limited.ok) return tooManyRequests(limited.retryAfter, '请求过于频繁');
+
   const code = generateCode();
   const token = signCaptcha(code);
   const svg = generateCaptchaSvg(code);

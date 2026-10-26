@@ -2,10 +2,14 @@ import { NextRequest } from 'next/server';
 import bcrypt from 'bcryptjs';
 import getDb from '@/lib/db';
 import { requireAuth } from '@/lib/auth';
+import { clientIp, rateLimit, tooManyRequests } from '@/lib/ratelimit';
 
 /** 修改当前登录用户的密码 */
 export async function PUT(request: NextRequest) {
   try {
+    const limited = rateLimit(`password:${clientIp(request)}`, 6, 10 * 60 * 1000);
+    if (!limited.ok) return tooManyRequests(limited.retryAfter, '尝试过于频繁，请稍后再试');
+
     const auth = requireAuth(request);
     const body = await request.json();
     const currentPassword = String(body.currentPassword ?? body.current_password ?? '');

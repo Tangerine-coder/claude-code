@@ -5,9 +5,15 @@ import { v4 as uuid } from 'uuid';
 import getDb from '@/lib/db';
 import { signToken } from '@/lib/auth';
 import { verifyCaptcha } from '@/lib/captcha';
+import { clientIp, rateLimit, tooManyRequests } from '@/lib/ratelimit';
 
 export async function POST(request: NextRequest) {
   try {
+    // 防止脚本批量注册 / 批量探测邮箱是否已注册
+    const ip = clientIp(request);
+    const limited = rateLimit(`register:${ip}`, 5, 10 * 60 * 1000);
+    if (!limited.ok) return tooManyRequests(limited.retryAfter, '注册过于频繁，请稍后再试');
+
     const { username, email, password, captcha } = await request.json();
     // Verify captcha
     const captchaToken = request.cookies.get('captcha_token')?.value;

@@ -4,9 +4,15 @@ import bcrypt from 'bcryptjs';
 import getDb from '@/lib/db';
 import { signToken } from '@/lib/auth';
 import { verifyCaptcha } from '@/lib/captcha';
+import { clientIp, rateLimit, tooManyRequests } from '@/lib/ratelimit';
 
 export async function POST(request: NextRequest) {
   try {
+    // 防止暴力破解 / 批量试密码
+    const ip = clientIp(request);
+    const limited = rateLimit(`login:${ip}`, 10, 5 * 60 * 1000);
+    if (!limited.ok) return tooManyRequests(limited.retryAfter, '登录尝试过于频繁，请稍后再试');
+
     const { email, password, captcha } = await request.json();
     // Verify captcha
     const captchaToken = request.cookies.get('captcha_token')?.value;
