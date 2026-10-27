@@ -1,5 +1,6 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import FloatingTools from '@/components/layout/FloatingTools';
 
 export default function ShopLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -7,6 +8,7 @@ export default function ShopLayout({ children }: { children: React.ReactNode }) 
       <Header />
       <main className="min-h-screen">{children}</main>
       <Footer />
+      <FloatingTools />
     </>
   );
 }

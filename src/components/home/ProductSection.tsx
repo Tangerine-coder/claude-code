@@ -23,11 +23,20 @@ interface ProductSectionProps {
   title: string;
   subtitle?: string;
   viewAllHref?: string;
+  /** 「查看全部」按钮文案，各栏目可自定义 */
+  ctaLabel?: string;
   apiParams: string;
   badge?: 'new' | 'hot' | 'sale' | 'bestseller' | null;
 }
 
-export default function ProductSection({ title, subtitle, viewAllHref, apiParams, badge }: ProductSectionProps) {
+export default function ProductSection({
+  title,
+  subtitle,
+  viewAllHref,
+  ctaLabel = '查看全部',
+  apiParams,
+  badge,
+}: ProductSectionProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -51,29 +60,38 @@ export default function ProductSection({ title, subtitle, viewAllHref, apiParams
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-8 md:py-12">
-      {/* Header */}
-      <div className="flex items-end justify-between mb-6 md:mb-8">
-        <div>
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-1 h-5 bg-[var(--color-accent)] rounded-full" />
-            <h2 className="text-xl md:text-2xl font-bold text-[var(--color-text)] tracking-tight">{title}</h2>
+      {/* 标题区：h2 + 小字说明 + 唯一的一个跳转按钮 */}
+      <div className="flex items-end justify-between gap-3 mb-6 md:mb-8">
+        <div className="min-w-0">
+          <div className="flex items-center gap-3 mb-1.5">
+            <div className="w-1 h-5 bg-[var(--color-accent)] rounded-full shrink-0" />
+            <h2 className="text-xl md:text-2xl font-bold text-[var(--color-text)] tracking-tight truncate">
+              {title}
+            </h2>
           </div>
-          {subtitle && <p className="text-sm text-[var(--color-text-light)] ml-4">{subtitle}</p>}
+          {subtitle && (
+            <p className="text-xs md:text-sm text-[var(--color-text-light)] ml-4 truncate">{subtitle}</p>
+          )}
         </div>
+
         {viewAllHref && (
           <Link
             href={viewAllHref}
-            className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-[var(--color-accent)] hover:text-[var(--color-accent-dark)] transition-colors group"
+            className="shrink-0 inline-flex items-center gap-1 text-xs md:text-sm font-semibold text-[var(--color-accent)] hover:text-[var(--color-accent-dark)] transition-colors group whitespace-nowrap"
           >
-            查看全部
-            <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {ctaLabel}
+            <svg
+              className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </Link>
         )}
       </div>
 
-      {/* Grid */}
       {loading ? (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
           {Array.from({ length: 4 }, (_, i) => (
@@ -105,15 +123,6 @@ export default function ProductSection({ title, subtitle, viewAllHref, apiParams
               <ProductCard product={product} badge={badge} />
             </ScrollReveal>
           ))}
-        </div>
-      )}
-
-      {/* Mobile View All */}
-      {viewAllHref && (
-        <div className="sm:hidden mt-6 text-center">
-          <Link href={viewAllHref} className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--color-accent)]">
-            查看全部 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-          </Link>
         </div>
       )}
     </section>

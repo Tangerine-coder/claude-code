@@ -323,7 +323,7 @@ export async function seedDatabase(db: Db) {
     `INSERT INTO banners (id, title, subtitle, image_url, link_url, sort_order, is_active) VALUES (?, ?, ?, ?, ?, ?, 1)`
   );
 
-  await insertBanner.run(uuid(), '夏日大促火热进行中', '精选商品低至5折，限时抢购，手慢无！', 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1200&h=500&fit=crop', '/categories/clothing', 1);
+  await insertBanner.run(uuid(), '全场大促火热进行中', '精选商品低至5折，限时抢购，手慢无！', 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1200&h=500&fit=crop', '/categories/clothing', 1);
   await insertBanner.run(uuid(), '数码新品驾到', '探索诺瓦科技最新力作，享独家首发特惠。', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=500&fit=crop', '/categories/electronics', 2);
   await insertBanner.run(uuid(), '家居焕新季', '精选家居好物，打造理想生活空间。30%起让利。', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&h=500&fit=crop', '/categories/home-living', 3);
   await insertBanner.run(uuid(), '周末免邮狂欢', '全场满 ¥99 免邮，马上开抢！', 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=500&fit=crop', '/categories/electronics', 4);
