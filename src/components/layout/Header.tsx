@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import CartDrawer from '@/components/cart/CartDrawer';
@@ -22,6 +22,7 @@ export default function Header() {
   const { itemCount } = useCart();
   const { user, logout } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -91,9 +92,33 @@ export default function Header() {
 
             {/* Category nav - desktop */}
             <nav className="hidden lg:flex items-center gap-1 ml-8" onMouseLeave={handleMegaLeave}>
-              <Link href="/" className="px-3 py-2 text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-accent)] rounded-lg hover:bg-gray-50 transition-colors">
+              <Link
+                href="/"
+                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  pathname === '/'
+                    ? 'text-[var(--color-accent)] bg-[var(--color-accent)]/10'
+                    : 'text-[var(--color-text)] hover:text-[var(--color-accent)] hover:bg-gray-50'
+                }`}
+              >
                 首页
               </Link>
+              {[
+                { label: '全部商品', href: '/search' },
+                { label: '新品', href: '/search?sort=newest' },
+                { label: '特惠', href: '/search?sort=price_asc' },
+              ].map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                    pathname === item.href
+                      ? 'text-[var(--color-accent)] bg-[var(--color-accent)]/10'
+                      : 'text-[var(--color-text)] hover:text-[var(--color-accent)] hover:bg-gray-50'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
               {categories.filter((c) => !c.parent_id).map((cat) => (
                 <div key={cat.id} className="relative" onMouseEnter={() => handleMegaEnter(cat.slug)} onMouseLeave={handleMegaLeave}>
                   <Link

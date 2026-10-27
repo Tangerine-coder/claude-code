@@ -9,6 +9,10 @@ export default function Loading() {
       {/* Hero skeleton */}
       <div className="h-[300px] md:h-[420px] bg-gray-200 animate-pulse" />
 
+      <p className="max-w-7xl mx-auto px-4 pt-4 text-center text-xs text-[var(--color-text-light)]">
+        首次打开可能需要几十秒（免费实例闲置后会休眠），请稍候；若长时间无响应，刷新一次即可。
+      </p>
+
       {/* Content skeleton */}
       <div className="max-w-7xl mx-auto px-4 py-10 space-y-10">
         {/* Section title skeleton */}

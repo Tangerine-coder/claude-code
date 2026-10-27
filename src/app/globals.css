@@ -189,6 +189,25 @@ html {
   overflow-x: hidden;
 }
 
+html {
+  /* 锚点、回到顶部等跳转统一平滑 */
+  scroll-behavior: smooth;
+}
+
+/* Tailwind v4 的 preflight 把按钮光标改成了 default，这里改回来 */
+button:not(:disabled),
+[role='button']:not(:disabled),
+a[href],
+label[for],
+summary {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled='true'] {
+  cursor: not-allowed;
+}
+
 * {
   box-sizing: border-box;
 }

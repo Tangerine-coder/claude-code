@@ -19,7 +19,10 @@ export default function ShopHome() {
             Nova Mart 线上商城
           </h1>
           <p className="text-sm md:text-base text-[var(--color-text-light)]">
-            日用家居｜潮流好物｜限时折扣购物平台
+            海南等下雪 ｜ Nova Mart 小众好物商城
+          </p>
+          <p className="text-xs md:text-sm text-[var(--color-text-light)]/80 mt-1">
+            日用家居 · 潮流好物 · 限时折扣
           </p>
         </div>
       </section>
