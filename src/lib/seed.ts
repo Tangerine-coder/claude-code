@@ -283,6 +283,312 @@ export async function seedDatabase(db: Db) {
       specs: JSON.stringify([{ name: '材质', value: '金属+亚麻灯罩' }, { name: '高度', value: '150cm' }, { name: '光源', value: 'E27 三档调光' }, { name: '颜色', value: '哑光黑' }]),
       tags: '新品', featured: 0, isNew: 1, recommended: 0, sales: 430
     },
+
+    // ================= 扩展商品（本地生成插画） =================
+    {
+      id: uuid(), name: '宽松连帽卫衣', slug: 'relaxed-fit-hoodie',
+      desc: '<p>320g 加厚棉质抓绒，宽松落肩版型，前袋与抽绳细节，秋冬单穿或叠穿都合适。</p>',
+      price: 59.99, originalPrice: 89.99, stock: 180, catId: catMens, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/relaxed-fit-hoodie.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "80% 棉 / 20% 聚酯纤维"}, {"name": "克重", "value": "320g"}, {"name": "版型", "value": "宽松落肩"}]),
+      tags: '新品,热销', featured: 1, isNew: 1, recommended: 1, sales: 1820
+    },
+    {
+      id: uuid(), name: '休闲飞行员夹克', slug: 'casual-bomber-jacket',
+      desc: '<p>防泼水面料配罗纹收口，双向拉链，通勤与周末都能穿。</p>',
+      price: 129.99, originalPrice: 189.99, stock: 90, catId: catMens, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/casual-bomber-jacket.svg']),
+      specs: JSON.stringify([{"name": "面料", "value": "防泼水尼龙"}, {"name": "内衬", "value": "网眼透气"}, {"name": "口袋", "value": "按扣侧袋"}]),
+      tags: '高端,新品', featured: 0, isNew: 1, recommended: 1, sales: 640
+    },
+    {
+      id: uuid(), name: '重磅纯棉短袖T恤', slug: 'heavyweight-cotton-tee',
+      desc: '<p>240g 精梳棉，领口双层加固，不易变形。</p>',
+      price: 29.99, originalPrice: 39.99, stock: 300, catId: catMens, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/heavyweight-cotton-tee.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "100% 精梳棉"}, {"name": "克重", "value": "240g"}, {"name": "洗涤", "value": "可机洗"}]),
+      tags: '畅销', featured: 0, isNew: 0, recommended: 1, sales: 3120
+    },
+    {
+      id: uuid(), name: '水洗牛仔工装衬衫', slug: 'denim-work-shirt',
+      desc: '<p>水洗做旧工艺，双胸袋设计，可外穿也可当薄外套。</p>',
+      price: 69.99, originalPrice: 99.99, stock: 120, catId: catMens, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/denim-work-shirt.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "100% 棉牛仔"}, {"name": "工艺", "value": "水洗做旧"}, {"name": "版型", "value": "直筒"}]),
+      tags: '新品', featured: 1, isNew: 1, recommended: 0, sales: 410
+    },
+    {
+      id: uuid(), name: '束脚工装裤', slug: 'cargo-jogger-pants',
+      desc: '<p>弹力斜纹面料，六个口袋，束脚收口利落不拖沓。</p>',
+      price: 79.99, originalPrice: 109.99, stock: 150, catId: catMens, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/cargo-jogger-pants.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "97% 棉 / 3% 氨纶"}, {"name": "口袋", "value": "6 个"}, {"name": "版型", "value": "束脚"}]),
+      tags: '热销', featured: 0, isNew: 0, recommended: 1, sales: 980
+    },
+    {
+      id: uuid(), name: '亚麻短袖衬衫', slug: 'linen-short-sleeve-shirt',
+      desc: '<p>亚麻混纺透气不闷，适合夏季通勤与度假。</p>',
+      price: 49.99, originalPrice: 69.99, stock: 160, catId: catMens, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/linen-short-sleeve-shirt.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "55% 亚麻 / 45% 棉"}, {"name": "版型", "value": "常规"}, {"name": "洗涤", "value": "建议手洗"}]),
+      tags: '新品,清爽', featured: 0, isNew: 1, recommended: 0, sales: 520
+    },
+    {
+      id: uuid(), name: '针织开衫外套', slug: 'knit-cardigan',
+      desc: '<p>细腻针织手感，微弹不扎人，可当薄外套或叠穿打底。</p>',
+      price: 69.99, originalPrice: 99.99, stock: 140, catId: catWomens, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/knit-cardigan.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "50% 粘纤 / 30% 锦纶 / 20% 羊毛"}, {"name": "版型", "value": "宽松"}, {"name": "季节", "value": "春秋"}]),
+      tags: '新品,热销', featured: 1, isNew: 1, recommended: 1, sales: 1460
+    },
+    {
+      id: uuid(), name: 'A字中长半身裙', slug: 'a-line-midi-skirt',
+      desc: '<p>高腰 A 字剪裁显腿长，垂坠感面料不易起皱。</p>',
+      price: 59.99, originalPrice: 89.99, stock: 120, catId: catWomens, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/a-line-midi-skirt.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "聚酯纤维混纺"}, {"name": "长度", "value": "中长"}, {"name": "腰型", "value": "高腰"}]),
+      tags: '热销', featured: 0, isNew: 0, recommended: 1, sales: 870
+    },
+    {
+      id: uuid(), name: '雪纺衬衫上衣', slug: 'chiffon-blouse',
+      desc: '<p>轻薄雪纺，微透需内搭，通勤与约会都适配。</p>',
+      price: 45.99, originalPrice: 65.99, stock: 170, catId: catWomens, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/chiffon-blouse.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "100% 聚酯纤维"}, {"name": "版型", "value": "常规"}, {"name": "洗涤", "value": "手洗"}]),
+      tags: '新品', featured: 0, isNew: 1, recommended: 0, sales: 630
+    },
+    {
+      id: uuid(), name: '西装阔腿长裤', slug: 'wide-leg-tailored-pants',
+      desc: '<p>垂坠西装料，高腰直筒阔腿，遮肉显高。</p>',
+      price: 89.99, originalPrice: 129.99, stock: 110, catId: catWomens, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/wide-leg-tailored-pants.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "西装混纺"}, {"name": "腰型", "value": "高腰"}, {"name": "版型", "value": "阔腿"}]),
+      tags: '高端,热销', featured: 1, isNew: 0, recommended: 1, sales: 1120
+    },
+    {
+      id: uuid(), name: '经典双排扣风衣', slug: 'trench-coat',
+      desc: '<p>中长款风衣，双排扣配腰带，防风挺括。</p>',
+      price: 199.99, originalPrice: 299.99, stock: 60, catId: catWomens, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/trench-coat.svg']),
+      specs: JSON.stringify([{"name": "面料", "value": "防泼水涤棉"}, {"name": "长度", "value": "中长"}, {"name": "细节", "value": "可拆腰带"}]),
+      tags: '高端', featured: 1, isNew: 0, recommended: 0, sales: 280
+    },
+    {
+      id: uuid(), name: '百褶半身短裙', slug: 'pleated-skirt',
+      desc: '<p>定型百褶不易散，配短靴或运动鞋都好看。</p>',
+      price: 49.99, originalPrice: 69.99, stock: 130, catId: catWomens, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/pleated-skirt.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "聚酯纤维"}, {"name": "长度", "value": "短款"}, {"name": "腰型", "value": "中高腰"}]),
+      tags: '新品', featured: 0, isNew: 1, recommended: 1, sales: 540
+    },
+    {
+      id: uuid(), name: '儿童加绒卫衣', slug: 'kids-hoodie',
+      desc: '<p>内里抓绒保暖，袖口罗纹不勒手，水洗不易掉色。</p>',
+      price: 39.99, originalPrice: 59.99, stock: 200, catId: catKids, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/kids-hoodie.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "棉混纺"}, {"name": "内里", "value": "抓绒"}, {"name": "洗涤", "value": "可机洗"}]),
+      tags: '热销', featured: 0, isNew: 1, recommended: 1, sales: 760
+    },
+    {
+      id: uuid(), name: '儿童牛仔背带裤', slug: 'kids-overalls',
+      desc: '<p>可调节肩带，宽松版型好活动，耐脏耐磨。</p>',
+      price: 55.99, originalPrice: 79.99, stock: 140, catId: catKids, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/kids-overalls.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "棉牛仔"}, {"name": "肩带", "value": "可调节"}, {"name": "口袋", "value": "前袋 + 侧袋"}]),
+      tags: '新品', featured: 1, isNew: 1, recommended: 0, sales: 320
+    },
+    {
+      id: uuid(), name: '儿童纯棉家居服套装', slug: 'kids-cotton-pajamas',
+      desc: '<p>A 类婴幼儿标准面料，柔软亲肤，两件套好穿脱。</p>',
+      price: 45.99, originalPrice: 65.99, stock: 180, catId: catKids, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/kids-cotton-pajamas.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "100% 棉"}, {"name": "标准", "value": "A 类"}, {"name": "套装", "value": "上衣 + 长裤"}]),
+      tags: '热销', featured: 0, isNew: 0, recommended: 1, sales: 690
+    },
+    {
+      id: uuid(), name: '磁吸手机壳', slug: 'magnetic-phone-case',
+      desc: '<p>磨砂肤感背板，支持磁吸配件，四角气囊防摔。</p>',
+      price: 39.99, originalPrice: 59.99, stock: 260, catId: catPhones, brand: '诺瓦科技',
+      images: JSON.stringify(['/images/products/magnetic-phone-case.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "TPU + 磨砂 PC"}, {"name": "磁吸", "value": "支持 MagSafe"}, {"name": "防护", "value": "四角气囊"}]),
+      tags: '热销,新品', featured: 1, isNew: 1, recommended: 1, sales: 1980
+    },
+    {
+      id: uuid(), name: '20000mAh 快充充电宝', slug: 'power-bank-20000',
+      desc: '<p>22.5W 双向快充，双口输出，可同时给手机与耳机充电。</p>',
+      price: 129.99, originalPrice: 169.99, stock: 150, catId: catPhones, brand: '诺瓦科技',
+      images: JSON.stringify(['/images/products/power-bank-20000.svg']),
+      specs: JSON.stringify([{"name": "容量", "value": "20000mAh"}, {"name": "功率", "value": "22.5W"}, {"name": "接口", "value": "USB-C + USB-A"}]),
+      tags: '热销', featured: 0, isNew: 0, recommended: 1, sales: 1340
+    },
+    {
+      id: uuid(), name: '编织快充数据线 1.5m', slug: 'braided-usb-c-cable',
+      desc: '<p>尼龙编织抗折断，支持 60W PD 快充与数据传输。</p>',
+      price: 19.99, originalPrice: 29.99, stock: 400, catId: catPhones, brand: '诺瓦科技',
+      images: JSON.stringify(['/images/products/braided-usb-c-cable.svg']),
+      specs: JSON.stringify([{"name": "长度", "value": "1.5m"}, {"name": "功率", "value": "60W"}, {"name": "接口", "value": "USB-C to USB-C"}]),
+      tags: '畅销', featured: 0, isNew: 0, recommended: 1, sales: 4210
+    },
+    {
+      id: uuid(), name: '静音无线鼠标', slug: 'wireless-mouse',
+      desc: '<p>2.4G + 蓝牙双模，静音微动，一节电池用半年。</p>',
+      price: 79.99, originalPrice: 109.99, stock: 180, catId: catLaptops, brand: '诺瓦科技',
+      images: JSON.stringify(['/images/products/wireless-mouse.svg']),
+      specs: JSON.stringify([{"name": "连接", "value": "2.4G / 蓝牙"}, {"name": "DPI", "value": "800-1600"}, {"name": "电池", "value": "AA"}]),
+      tags: '热销', featured: 0, isNew: 0, recommended: 1, sales: 1520
+    },
+    {
+      id: uuid(), name: '87 键机械键盘', slug: 'mechanical-keyboard-87',
+      desc: '<p>热插拔轴体，三模连接，PBT 键帽耐磨不打油。</p>',
+      price: 299.99, originalPrice: 399.99, stock: 70, catId: catLaptops, brand: '诺瓦科技',
+      images: JSON.stringify(['/images/products/mechanical-keyboard-87.svg']),
+      specs: JSON.stringify([{"name": "配列", "value": "87 键"}, {"name": "轴体", "value": "热插拔"}, {"name": "连接", "value": "有线 / 2.4G / 蓝牙"}]),
+      tags: '高端,新品', featured: 1, isNew: 1, recommended: 1, sales: 430
+    },
+    {
+      id: uuid(), name: '14 英寸笔记本内胆包', slug: 'laptop-sleeve-14',
+      desc: '<p>防泼水外层 + 加厚珍珠棉，独立配件袋。</p>',
+      price: 59.99, originalPrice: 89.99, stock: 160, catId: catLaptops, brand: '诺瓦精选',
+      images: JSON.stringify(['/images/products/laptop-sleeve-14.svg']),
+      specs: JSON.stringify([{"name": "适配", "value": "13-14 英寸"}, {"name": "材质", "value": "防泼水尼龙"}, {"name": "内衬", "value": "珍珠棉"}]),
+      tags: '', featured: 0, isNew: 0, recommended: 0, sales: 760
+    },
+    {
+      id: uuid(), name: '便携蓝牙音箱', slug: 'bluetooth-speaker-pro',
+      desc: '<p>360° 环绕声场，IPX7 防水，续航 16 小时。</p>',
+      price: 249.99, originalPrice: 329.99, stock: 95, catId: catAudio, brand: '诺瓦科技',
+      images: JSON.stringify(['/images/products/bluetooth-speaker-pro.svg']),
+      specs: JSON.stringify([{"name": "功率", "value": "20W"}, {"name": "防水", "value": "IPX7"}, {"name": "续航", "value": "16 小时"}]),
+      tags: '热销,新品', featured: 1, isNew: 1, recommended: 1, sales: 880
+    },
+    {
+      id: uuid(), name: '头戴式降噪耳机', slug: 'over-ear-headphones',
+      desc: '<p>主动降噪 42dB，40mm 动圈单元，续航 40 小时。</p>',
+      price: 899.99, originalPrice: 1099.0, stock: 45, catId: catAudio, brand: '诺瓦科技',
+      images: JSON.stringify(['/images/products/over-ear-headphones.svg']),
+      specs: JSON.stringify([{"name": "降噪", "value": "42dB"}, {"name": "单元", "value": "40mm 动圈"}, {"name": "续航", "value": "40 小时"}]),
+      tags: '高端,热销', featured: 1, isNew: 0, recommended: 1, sales: 520
+    },
+    {
+      id: uuid(), name: '入耳式有线耳机', slug: 'wired-earphones',
+      desc: '<p>10mm 动圈，线控麦克风，Type-C 接口即插即用。</p>',
+      price: 49.99, originalPrice: 79.99, stock: 220, catId: catAudio, brand: '诺瓦科技',
+      images: JSON.stringify(['/images/products/wired-earphones.svg']),
+      specs: JSON.stringify([{"name": "单元", "value": "10mm"}, {"name": "接口", "value": "Type-C"}, {"name": "线控", "value": "支持"}]),
+      tags: '畅销', featured: 0, isNew: 0, recommended: 1, sales: 2140
+    },
+    {
+      id: uuid(), name: '桌面迷你回音壁', slug: 'mini-soundbar',
+      desc: '<p>双全频单元 + 被动振膜，蓝牙 5.3 低延迟。</p>',
+      price: 399.99, originalPrice: 499.99, stock: 50, catId: catAudio, brand: '诺瓦科技',
+      images: JSON.stringify(['/images/products/mini-soundbar.svg']),
+      specs: JSON.stringify([{"name": "单元", "value": "双全频 + 被动振膜"}, {"name": "蓝牙", "value": "5.3"}, {"name": "接口", "value": "AUX / USB"}]),
+      tags: '新品', featured: 0, isNew: 1, recommended: 0, sales: 210
+    },
+    {
+      id: uuid(), name: '人体工学办公椅', slug: 'ergonomic-office-chair',
+      desc: '<p>4D 扶手 + 腰托，网布透气，可后仰锁定。</p>',
+      price: 899.99, originalPrice: 1299.0, stock: 40, catId: catFurniture, brand: '诺瓦家居',
+      images: JSON.stringify(['/images/products/ergonomic-office-chair.svg']),
+      specs: JSON.stringify([{"name": "靠背", "value": "网布"}, {"name": "扶手", "value": "4D 可调"}, {"name": "承重", "value": "120kg"}]),
+      tags: '高端,热销', featured: 1, isNew: 0, recommended: 1, sales: 340
+    },
+    {
+      id: uuid(), name: '弧形落地灯', slug: 'floor-lamp-arc',
+      desc: '<p>三档色温，弧形灯臂覆盖沙发区，底座稳重。</p>',
+      price: 399.99, originalPrice: 549.99, stock: 65, catId: catFurniture, brand: '诺瓦家居',
+      images: JSON.stringify(['/images/products/floor-lamp-arc.svg']),
+      specs: JSON.stringify([{"name": "色温", "value": "3000K/4000K/6000K"}, {"name": "功率", "value": "12W"}, {"name": "高度", "value": "165cm"}]),
+      tags: '新品', featured: 1, isNew: 1, recommended: 1, sales: 260
+    },
+    {
+      id: uuid(), name: '橡木开放书架', slug: 'oak-bookshelf',
+      desc: '<p>实木框架 + 五层置物，可当书架也可做隔断。</p>',
+      price: 699.99, originalPrice: 899.99, stock: 35, catId: catFurniture, brand: '诺瓦家居',
+      images: JSON.stringify(['/images/products/oak-bookshelf.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "橡木 + 环保板"}, {"name": "层数", "value": "5 层"}, {"name": "尺寸", "value": "80×30×180cm"}]),
+      tags: '', featured: 0, isNew: 0, recommended: 0, sales: 120
+    },
+    {
+      id: uuid(), name: '圆形边几', slug: 'side-table-round',
+      desc: '<p>小户型友好，圆角设计不磕碰，可放沙发边或床头。</p>',
+      price: 259.99, originalPrice: 359.99, stock: 80, catId: catFurniture, brand: '诺瓦家居',
+      images: JSON.stringify(['/images/products/side-table-round.svg']),
+      specs: JSON.stringify([{"name": "直径", "value": "45cm"}, {"name": "高度", "value": "50cm"}, {"name": "材质", "value": "实木贴皮"}]),
+      tags: '', featured: 0, isNew: 0, recommended: 1, sales: 310
+    },
+    {
+      id: uuid(), name: '香薰大豆蜡烛套装', slug: 'scented-candle-set',
+      desc: '<p>天然大豆蜡，三款香型（雪松 / 白茶 / 鼠尾草），燃烧约 30 小时。</p>',
+      price: 49.99, originalPrice: 69.99, stock: 170, catId: catDecor, brand: '诺瓦家居',
+      images: JSON.stringify(['/images/products/scented-candle-set.svg']),
+      specs: JSON.stringify([{"name": "蜡质", "value": "天然大豆蜡"}, {"name": "香型", "value": "3 款"}, {"name": "燃烧时长", "value": "约 30h"}]),
+      tags: '热销,新品', featured: 1, isNew: 1, recommended: 1, sales: 1580
+    },
+    {
+      id: uuid(), name: '哑光陶瓷花瓶', slug: 'ceramic-vase',
+      desc: '<p>手工拉坯哑光釉面，插干花或单独摆放都好看。</p>',
+      price: 89.99, originalPrice: 129.99, stock: 110, catId: catDecor, brand: '诺瓦家居',
+      images: JSON.stringify(['/images/products/ceramic-vase.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "陶瓷"}, {"name": "工艺", "value": "哑光釉"}, {"name": "高度", "value": "26cm"}]),
+      tags: '新品', featured: 0, isNew: 1, recommended: 0, sales: 430
+    },
+    {
+      id: uuid(), name: '简约相框三件套', slug: 'photo-frame-set',
+      desc: '<p>原木边框 + 亚克力面板，三种尺寸组合墙面。</p>',
+      price: 69.99, originalPrice: 99.99, stock: 140, catId: catDecor, brand: '诺瓦家居',
+      images: JSON.stringify(['/images/products/photo-frame-set.svg']),
+      specs: JSON.stringify([{"name": "尺寸", "value": "6/7/8 寸"}, {"name": "材质", "value": "原木 + 亚克力"}, {"name": "摆放", "value": "可挂可立"}]),
+      tags: '', featured: 0, isNew: 0, recommended: 0, sales: 280
+    },
+    {
+      id: uuid(), name: '手工簇绒地毯', slug: 'hand-tufted-rug',
+      desc: '<p>短绒不易积灰，防滑底背，客厅与卧室都合适。</p>',
+      price: 399.99, originalPrice: 559.99, stock: 45, catId: catDecor, brand: '诺瓦家居',
+      images: JSON.stringify(['/images/products/hand-tufted-rug.svg']),
+      specs: JSON.stringify([{"name": "尺寸", "value": "120×180cm"}, {"name": "材质", "value": "涤纶短绒"}, {"name": "底背", "value": "防滑"}]),
+      tags: '', featured: 1, isNew: 0, recommended: 0, sales: 190
+    },
+    {
+      id: uuid(), name: '手冲咖啡壶套装', slug: 'pour-over-kettle',
+      desc: '<p>细口控流壶 + 滤杯 + 分享壶，手冲入门一套齐。</p>',
+      price: 229.99, originalPrice: 299.99, stock: 85, catId: catKitchen, brand: '诺瓦家居',
+      images: JSON.stringify(['/images/products/pour-over-kettle.svg']),
+      specs: JSON.stringify([{"name": "容量", "value": "600ml"}, {"name": "材质", "value": "304 不锈钢"}, {"name": "套装", "value": "壶 + 滤杯 + 分享壶"}]),
+      tags: '热销,新品', featured: 1, isNew: 1, recommended: 1, sales: 640
+    },
+    {
+      id: uuid(), name: '陶瓷马克杯 350ml', slug: 'ceramic-mug-350',
+      desc: '<p>厚胎保温，杯口圆润，可微波可洗碗机。</p>',
+      price: 39.99, originalPrice: 59.99, stock: 260, catId: catKitchen, brand: '诺瓦家居',
+      images: JSON.stringify(['/images/products/ceramic-mug-350.svg']),
+      specs: JSON.stringify([{"name": "容量", "value": "350ml"}, {"name": "材质", "value": "陶瓷"}, {"name": "适用", "value": "微波炉 / 洗碗机"}]),
+      tags: '畅销', featured: 0, isNew: 0, recommended: 1, sales: 2260
+    },
+    {
+      id: uuid(), name: '316 不锈钢保温杯', slug: 'insulated-bottle-500',
+      desc: '<p>6 小时保温 / 12 小时保冷，一键弹盖单手可开。</p>',
+      price: 99.99, originalPrice: 139.99, stock: 200, catId: catKitchen, brand: '诺瓦家居',
+      images: JSON.stringify(['/images/products/insulated-bottle-500.svg']),
+      specs: JSON.stringify([{"name": "容量", "value": "500ml"}, {"name": "材质", "value": "316 不锈钢"}, {"name": "保温", "value": "6 小时"}]),
+      tags: '热销', featured: 0, isNew: 0, recommended: 1, sales: 1730
+    },
+    {
+      id: uuid(), name: '分格便当盒套装', slug: 'bento-box-set',
+      desc: '<p>三分格 + 独立汤盒，可微波，密封圈防漏。</p>',
+      price: 79.99, originalPrice: 109.99, stock: 150, catId: catKitchen, brand: '诺瓦家居',
+      images: JSON.stringify(['/images/products/bento-box-set.svg']),
+      specs: JSON.stringify([{"name": "容量", "value": "900ml"}, {"name": "格数", "value": "3 格 + 汤盒"}, {"name": "适用", "value": "微波炉"}]),
+      tags: '新品', featured: 0, isNew: 1, recommended: 0, sales: 520
+    },
+    {
+      id: uuid(), name: '相思木砧板', slug: 'acacia-cutting-board',
+      desc: '<p>整木拼接不易开裂，双面可用，带导流槽。</p>',
+      price: 69.99, originalPrice: 99.99, stock: 120, catId: catKitchen, brand: '诺瓦家居',
+      images: JSON.stringify(['/images/products/acacia-cutting-board.svg']),
+      specs: JSON.stringify([{"name": "材质", "value": "相思木"}, {"name": "尺寸", "value": "38×25cm"}, {"name": "细节", "value": "导流槽"}]),
+      tags: '', featured: 0, isNew: 0, recommended: 0, sales: 380
+    },
 ];
 
   for (const p of products) {
