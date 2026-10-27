@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -96,10 +97,13 @@ export default function HeroBanner() {
           <SwiperSlide key={banner.id}>
             <Link href={banner.link_url || '#'} className="block w-full h-full">
               <div className="relative w-full h-full">
-                <img
+                <Image
                   src={banner.image_url}
                   alt={banner.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  priority
+                  sizes="100vw"
+                  className="object-cover"
                 />
                 {/* Premium gradient overlay using brand colors */}
                 <div className="absolute inset-0 gradient-hero-overlay" />

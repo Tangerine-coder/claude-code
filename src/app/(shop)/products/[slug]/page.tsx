@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, use } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import StarRating from '@/components/ui/StarRating';
@@ -269,10 +270,13 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 className="relative aspect-square rounded-2xl overflow-hidden bg-gray-100 shadow-sm cursor-zoom-in group"
                 onClick={() => setLightboxOpen(true)}
               >
-                <img
+                <Image
                   src={currentImage}
                   alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-150 transition-transform duration-700 ease-[var(--ease-out-expo)]"
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover group-hover:scale-150 transition-transform duration-700 ease-[var(--ease-out-expo)]"
                 />
                 {badgeVariant && (
                   <div className="absolute top-4 left-4">
@@ -301,7 +305,15 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                           : 'ring-1 ring-[var(--color-border)]/50 hover:ring-gray-400 hover:shadow-sm'
                       }`}
                     >
-                      <img src={img} alt={`${product.name} ${i + 1}`} className="w-full h-full object-cover" />
+                      <span className="relative block w-full h-full">
+                        <Image
+                          src={img}
+                          alt={`${product.name} ${i + 1}`}
+                          fill
+                          sizes="80px"
+                          className="object-cover"
+                        />
+                      </span>
                     </button>
                   ))}
                 </div>

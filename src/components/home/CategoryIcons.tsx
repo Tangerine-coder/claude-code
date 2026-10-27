@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import BorderGlow from '@/components/ui/BorderGlow';
@@ -48,7 +50,15 @@ export default function CategoryIcons() {
               className="group flex flex-col items-center p-4 md:p-6"
             >
               <div className="w-14 h-14 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-[var(--color-bg)] to-white overflow-hidden mb-3 group-hover:ring-4 ring-[var(--color-accent)]/20 transition-all duration-500">
-                <img src={cat.image} alt={cat.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <span className="relative block w-full h-full">
+                  <Image
+                    src={cat.image}
+                    alt={cat.name}
+                    fill
+                    sizes="80px"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </span>
               </div>
               <span className="text-sm md:text-base font-semibold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
                 {cat.name}
